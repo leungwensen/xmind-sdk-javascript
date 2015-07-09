@@ -1,0 +1,46 @@
+{
+    "name": "xmind-sdk-node",
+    "title": "xmind-sdk-node",
+    "description": "XMind SDK for Node.",
+    "homepage": "https://github.com/leungwensen/xmind-sdk-node",
+    "version": "0.0.20150709",
+    "main": "index.js",
+    "author": {
+        "description": "team of xmind-sdk-node",
+        "url": "https://github.com/leungwensen/xmind-sdk-node/graphs/contributors"
+    },
+    "bugs": {
+        "url": "https://github.com/leungwensen/xmind-sdk-node/issues"
+    },
+    "files": [
+        "bin",
+        "index.js",
+        "lib"
+    ],
+    "dependencies": {
+        "archiver": "*",
+        "optimist": "*",
+        "pastry": "*",
+        "xmldom": "*"
+    },
+    "devDependencies": {
+    },
+    "engines": {
+        "node": ">=0.8.0"
+    },
+    "keywords": [
+        "XMind",
+        "SDK"
+    ],
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/leungwensen/xmind-sdk-node/blob/master/LICENSE.md"
+    }],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/leungwensen/xmind-sdk-node.git"
+    },
+    "scripts": {
+        "start": "node bin/client.js"
+    }
+}
