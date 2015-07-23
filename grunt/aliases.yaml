@@ -1,0 +1,4 @@
+dev:
+    - watch
+default:
+    - dev

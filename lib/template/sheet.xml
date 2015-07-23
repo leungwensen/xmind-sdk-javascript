@@ -1,0 +1,3 @@
+<sheet id="{%= id %}" timestamp="{%= timestamp %}" {% if(theme) { %}theme="{%= theme %}"{% } %}>
+    <title>{%= title %}</title>
+</sheet>
