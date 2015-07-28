@@ -27,6 +27,7 @@
     "devDependencies": {
         "grunt": "*",
         "grunt-contrib-watch": "*",
+        "grunt-mocha-test": "*",
         "load-grunt-config": "*"
     },
     "engines": {
