@@ -1,0 +1,3 @@
+<topic id="{%= id %}" {% if(styleId) { %}style-id="{%= styleId %}"{% } %} timestamp="{%= timestamp %}">
+    <title>{%= title %}</title>
+</topic>
