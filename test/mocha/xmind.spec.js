@@ -20,7 +20,10 @@ describe('xmind', function () {
     it('xmind.save', function () {
         assert.doesNotThrow(function() {
             xmind.save(
-                new Workbook('test sheet', 'test topic'),
+                new Workbook({
+                    firstSheetName: 'test sheet',
+                    rootTopicName: 'test topic'
+                }),
                 resolve(__dirname, './assets/save-test.xmind')
             );
         }, 'failed to save xmind file');
