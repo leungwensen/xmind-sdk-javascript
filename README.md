@@ -20,14 +20,12 @@ var xmind = require('xmind'),
         rootTopicName: 'topic name'
     });
 // }
-
 // sheets {
     workbook.addSheet(/*sheetName, rootTopicName, theme*/);
     workbook.moveSheet(/*fromIndex, toIndex*/);
     workbook.removeSheet(/*index|id|instance of Sheet*/);
     var sheet = workbook.getPrimarySheet();
 // }
-
 // topics {
     sheet.addRootTopic(/*topicName*/);
     sheet.removeRootTopic(/*index|id|instance of Topic*/);
@@ -42,7 +40,6 @@ var xmind = require('xmind'),
      *   - etc.
      */
 // }
-
 // methods shared by Workbook, Sheet, Topic, Relation, etc. {
     // attributes
     // childNodes
@@ -50,17 +47,17 @@ var xmind = require('xmind'),
     // title
     // position
 // }
-
 // saving Workbook instance into a file {
-    workbook2.save('path/to/new-xmind-file.xmind');
+    workbook.save('path/to/new-xmind-file.xmind');
 // }
 ```
 ## Thanks to
 
+xmind-sdk-node is built on top of all these fantastic projects:
+
 * [Stuk/jszip](https://github.com/Stuk/jszip)
 * [bruce/node-temp](https://github.com/bruce/node-temp)
 * [jindw/xmldom](https://github.com/jindw/xmldom)
-* [substack/node-optimist](https://github.com/substack/node-optimist)
 
 ## History
 
