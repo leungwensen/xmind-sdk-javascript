@@ -19,7 +19,6 @@
     ],
     "dependencies": {
         "jszip": "*",
-        "optimist": "*",
         "pastry": "*",
         "temp": "*",
         "xmldom": "*"
