@@ -13,5 +13,3 @@ var template = [
 var doc = new DOMParser().parseFromString(template);
 var docStr = new XMLSerializer().serializeToString(doc);
 
-console.log(doc);
-
