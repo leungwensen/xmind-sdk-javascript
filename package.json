@@ -1,9 +1,9 @@
 {
-    "name": "xmind-sdk-node",
+    "name": "xmind",
     "title": "xmind-sdk-node",
     "description": "XMind SDK for Node.",
     "homepage": "https://github.com/leungwensen/xmind-sdk-node",
-    "version": "0.0.20150709",
+    "version": "0.0.20150728",
     "main": "index.js",
     "author": {
         "description": "team of xmind-sdk-node",
@@ -47,6 +47,5 @@
         "url": "https://github.com/leungwensen/xmind-sdk-node.git"
     },
     "scripts": {
-        "start": "node bin/client.js"
     }
 }
