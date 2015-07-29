@@ -10,14 +10,14 @@ var xmind = require('../../index'),
     Workbook = xmind.Workbook;
 
 describe('xmind', function () {
-    it('xmind.open', function () {
+    it('xmind.open(filename)', function () {
         assert.doesNotThrow(function() {
             xmind.open(
                 resolve(__dirname, './assets/simple.xmind')
             );
         }, 'failed to open xmind file');
     });
-    it('xmind.save', function () {
+    it('xmind.save(workbook, filename)', function () {
         assert.doesNotThrow(function() {
             xmind.save(
                 new Workbook({
