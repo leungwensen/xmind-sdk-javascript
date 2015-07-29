@@ -12,52 +12,37 @@ npm install xmind
 var xmind = require('xmind'),
     Workbook = xmind.Workbook;
 
-// creating Workbook instance {
-    var workbookFromFile = xmind.open('path/to/xmind-file.xmind');
+// open xmind file
+var workbookFromFile = xmind.open('path/to/xmind-file.xmind');
 
-    var workbook = new Workbook({
-        firstSheetName: 'sheet name',
-        rootTopicName: 'topic name'
-    });
-// }
-// sheets {
-    workbook.addSheet(/*sheetName, rootTopicName, theme*/);
-    workbook.moveSheet(/*fromIndex, toIndex*/);
-    workbook.removeSheet(/*index|id|instance of Sheet*/);
-    var sheet = workbook.getPrimarySheet();
-// }
-// topics {
-    sheet.addRootTopic(/*topicName*/);
-    sheet.removeRootTopic(/*index|id|instance of Topic*/);
-    war rootTopic = sheet.getPrimaryRootTopic();
-    /*
-     * TODO
-     *   - sub topics
-     *   - notes
-     *   - markers
-     *   - labels
-     *   - hyperlinks
-     *   - etc.
-     */
-// }
-// methods shared by Workbook, Sheet, Topic, Relation, etc. {
-    // attributes
-    // childNodes
-    // updated time
-    // title
-    // position
-// }
-// saving Workbook instance into a file {
+// creating a new xmind file
+var workbook = new Workbook({
+    firstSheetName: 'primary sheet',
+    rootTopicName: 'root topic'
+});
+
+// saving an xmind file {
     workbook.save('path/to/new-xmind-file.xmind');
+    // or
+    xmind.save(workbook, 'path/to/new-xmind-file.xmind');
 // }
 ```
+
+## [API reference](doc/api.md)
+
 ## Thanks to
 
 xmind-sdk-node is built on top of all these fantastic projects:
 
-* [Stuk/jszip](https://github.com/Stuk/jszip)
-* [bruce/node-temp](https://github.com/bruce/node-temp)
-* [jindw/xmldom](https://github.com/jindw/xmldom)
+* [Stuk/jszip](https://github.com/Stuk/jszip.git)
+* [bruce/node-temp](https://github.com/bruce/node-temp.git)
+* [jindw/xmldom](https://github.com/jindw/xmldom.git)
+
+and these projects helps a lot, too:
+
+* [xmindltd/xmind-sdk-python](https://github.com/xmindltd/xmind-sdk-python.git)
+* [xmindltd/xmind](https://github.com/xmindltd/xmind.git)
+* [Mekk/mekk.xmind](https://bitbucket.org/Mekk/mekk.xmind)
 
 ## History
 
