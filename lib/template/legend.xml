@@ -1,0 +1,8 @@
+<legend visibility="{%= visibility %}">
+    <marker-descriptions>
+    {% helper.each(markderDescriptions, function(md){ %}
+        <marker-description description="{%= md.description %}" marker-id="{%= md.id %}"/>
+    {% }); %}
+    </marker-descriptions>
+    <position svg:x="{%= position.x %}" svg:y="{%= position.y %}"/>
+</legend>

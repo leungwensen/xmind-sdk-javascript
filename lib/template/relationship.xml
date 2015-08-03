@@ -1,0 +1,1 @@
+<relationship end1="{%= sourceId %}" end2="{%= targetId %}" id="{%= id %}" timestamp="{%= timestamp %}"/>
