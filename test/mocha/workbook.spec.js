@@ -12,10 +12,10 @@ var xmind = require('../../index'),
 describe('Workbook', function () {
     it('creating with first sheet name and root topic name', function () {
         assert.doesNotThrow(function() {
-            new Workbook({
+            console.log(new Workbook({
                 firstSheetName: 'hello',
                 rootTopicName: 'world',
-            });
+            }).toJSON());
         }, 'failed to create a Workbook instance');
     });
     it('creating with doc, stylesDoc and attachments', function () {
