@@ -35,7 +35,6 @@ var workbook = new Workbook({
 xmind-sdk-node is built on top of all these fantastic projects:
 
 * [Stuk/jszip](https://github.com/Stuk/jszip.git)
-* [bruce/node-temp](https://github.com/bruce/node-temp.git)
 * [jindw/xmldom](https://github.com/jindw/xmldom.git)
 
 and these projects helps a lot, too:
