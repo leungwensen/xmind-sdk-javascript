@@ -1,0 +1,3 @@
+{% helper.each(markers, function(marker){ %}
+    <marker-ref marker-id="{%= marker %}"/>
+{% }); %}

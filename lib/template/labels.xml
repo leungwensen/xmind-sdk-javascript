@@ -1,0 +1,3 @@
+{% helper.each(labels, function(label){ %}
+    <label>{%= label %}</label>
+{% }); %}
