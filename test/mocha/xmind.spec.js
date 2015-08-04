@@ -6,6 +6,8 @@ var assert = require('assert');
 var path = require('path'),
     resolve = path.resolve;
 
+var spawn = require( "child_process" ).spawn;
+
 var xmind = require('../../index'),
     Workbook = xmind.Workbook;
 
@@ -18,14 +20,20 @@ describe('xmind', function () {
         }, 'failed to open xmind file');
     });
     it('xmind.save(workbook, filename)', function () {
+        var saveToPath = resolve(__dirname, './assets/save-test.xmind');
         assert.doesNotThrow(function() {
             xmind.save(
                 new Workbook({
                     firstSheetName: 'test sheet',
                     rootTopicName: 'test topic'
                 }),
-                resolve(__dirname, './assets/save-test.xmind')
+                saveToPath
             );
+            spawn('rm', [
+                saveToPath
+            ], {
+                stdio: "inherit"
+            });
         }, 'failed to save xmind file');
     });
 });

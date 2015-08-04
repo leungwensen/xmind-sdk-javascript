@@ -60,7 +60,7 @@ describe('Workbook', function () {
         rootTopicId: 'rootTopic',
         rootTopicName: 'root topic',
     };
-    it('workbook.addSheet()', function () {
+    it('workbook.addSheet(options)', function () {
         assert.throws(function() {
             workbook.addSheet({
                 id: options.firstSheetId, // duplicated id
@@ -80,7 +80,7 @@ describe('Workbook', function () {
         assert.equal(
             workbook.doc.firstChild.getAttribute('id'),
             workbook.sheets[0].doc.getAttribute('id'),
-            'workbook.moveSheet(fromIndex, toIndex) not working: xml structure is unchanged'
+            'workbook.moveSheet(fromIndex, toIndex) not working: xml structure did not changed'
         );
         assert.notEqual(
             workbook.getPrimarySheet(),
@@ -88,27 +88,39 @@ describe('Workbook', function () {
             'workbook.moveSheet(fromIndex, toIndex) not working'
         );
     });
-    it('workbook.removeSheet(/* id or index or Sheet instance */)', function () {
-        // remove by id {
+    it('workbook.destroy()', function () {
+        workbook.destroy();
+        assert.ok(
+            workbook,
+            'workbook should not be destroyed'
+        );
+    });
+    it('workbook.toJSON()', function () {
+        assert.doesNotThrow(function() {
+            workbook.toJSON();
+        });
+    });
+    describe('workbook.removeSheet(/* id or index or Sheet instance */)', function () {
+        it('remove by id', function() {
             assert.doesNotThrow(function() {
                 workbook.removeSheet(secondSheetOptions.id); // secondSheet
             }, 'failed to execute workbook.removeSheet(id)');
             assert.equal(
                 workbook.doc.childNodes.length,
                 1,
-                'workbook.removeSheet(id) not working: xml structure is unchanged'
+                'workbook.removeSheet(id) not working: xml structure did not changed'
             );
             assert.equal(
                 workbook.sheets.length,
                 1,
-                'workbook.removeSheet(id) not working: workbook.sheets is unchanged'
+                'workbook.removeSheet(id) not working: workbook.sheets did not changed'
             );
             assert.ok(
                 !workbook.sheetById[secondSheetOptions.id],
-                'workbook.removeSheet(id) not working: workbook.sheetById is unchanged'
+                'workbook.removeSheet(id) not working: workbook.sheetById did not changed'
             );
-        // }
-        // remove by index {
+        });
+        it('remove by index', function() {
             workbook.addSheet(secondSheetOptions); // reverse
             assert.doesNotThrow(function() {
                 workbook.removeSheet(1); // secondSheet
@@ -116,19 +128,19 @@ describe('Workbook', function () {
             assert.equal(
                 workbook.doc.childNodes.length,
                 1,
-                'workbook.removeSheet(index) not working: xml structure is unchanged'
+                'workbook.removeSheet(index) not working: xml structure did not changed'
             );
             assert.equal(
                 workbook.sheets.length,
                 1,
-                'workbook.removeSheet(index) not working: workbook.sheets is unchanged'
+                'workbook.removeSheet(index) not working: workbook.sheets did not changed'
             );
             assert.ok(
                 !workbook.sheetById[secondSheetOptions.id],
-                'workbook.removeSheet(index) not working: workbook.sheetById is unchanged'
+                'workbook.removeSheet(index) not working: workbook.sheetById did not changed'
             );
-        // }
-        // remove by instance {
+        });
+        it('remove by instance', function() {
             var secondSheet = workbook.addSheet(secondSheetOptions); // reverse
             assert.doesNotThrow(function() {
                 workbook.removeSheet(secondSheet); // secondSheet
@@ -136,25 +148,18 @@ describe('Workbook', function () {
             assert.equal(
                 workbook.doc.childNodes.length,
                 1,
-                'workbook.removeSheet(index) not working: xml structure is unchanged'
+                'workbook.removeSheet(index) not working: xml structure did not changed'
             );
             assert.equal(
                 workbook.sheets.length,
                 1,
-                'workbook.removeSheet(index) not working: workbook.sheets is unchanged'
+                'workbook.removeSheet(index) not working: workbook.sheets did not changed'
             );
             assert.ok(
                 !workbook.sheetById[secondSheetOptions.id],
-                'workbook.removeSheet(index) not working: workbook.sheetById is unchanged'
+                'workbook.removeSheet(index) not working: workbook.sheetById did not changed'
             );
-        // }
-    });
-    it('workbook.destroy()', function () {
-        workbook.destroy();
-        assert.ok(
-            workbook,
-            'workbook should not be destroyed'
-        );
+        });
     });
 });
 
