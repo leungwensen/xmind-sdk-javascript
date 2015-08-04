@@ -1,5 +1,9 @@
 # history
 
+## 0.1.20150804
+
+* complete almost all of the APIs(mostly untested)
+
 ## 0.0.20150728
 
 * xmind.save
