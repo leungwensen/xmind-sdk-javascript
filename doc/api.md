@@ -149,11 +149,21 @@ var workbook = new xmind.Workbook({
 
 - [x] `workbook.getPrimarySheet()`
 
-- [x] `workbook.addSheet(sheetName, rootTopicName, theme)`
+- [x] `workbook.addSheet(options)`
+
+```javascript
+options: {
+    id: sheetId,
+    title: sheetName,
+    rootTopicId: rootTopicId,
+    rootTopicName: rootTopicName,
+    theme: theme,
+}
+```
 
 - [x] `workbook.moveSheet(fromIndex, toIndex)`
 
-- [x] `workbook.removeSheet(/* id or index 0r Sheet instance */)`
+- [x] `workbook.removeSheet(/* id or index or Sheet instance */)`
 
 - [x] `workbook.save(filename)`
 
