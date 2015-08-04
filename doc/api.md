@@ -19,14 +19,16 @@ var xmind = require('xmind');
 
 // `xmind` here is an object:
 // {
+//     open: Workbook.open,
+//     save: Workbook.save,
+//     CONST: CONST,
+//     utils: utils,
 //     DomMixin: DomMixin,
-//     Legend: Legend,
-//     Relationship: Relationship,
+//     Workbook: Workbook,
 //     Sheet: Sheet,
 //     Topic: Topic,
-//     Workbook: Workbook,
-//     open: Workbook.open,
-//     save: Workbook.save
+//     Relationship: Relationship,
+//     Legend: Legend
 // }
 ```
 
@@ -42,6 +44,27 @@ var workbook = xmind.open(filename);
 
 save workbook(xmind document) to a file.
 
+## CONST
+
+all kinds of CONSTs, attribute names, tag names, other values, etc.
+
+## utils
+
+all kinds of helper methods
+
+### methods
+
+- [x] utils.getCurrentTimestamp()
+
+- [x] utils.getDefaultSheetName(index)
+- [x] utils.getDefaultTopicName(structureClass)
+
+- [x] utils.findChildNode(doc, tagName, attrs)
+- [x] utils.findChildNodes(doc, tagName, attrs)
+- [x] utils.eachChildNode(doc, tagName, attrs, callback)
+- [x] utils.findOrCreateChildNode(doc, tagName, attrs)
+- [x] utils.removeChildNode(doc, tagName, attrs)
+
 ## DomMixin
 
 all the constructors below is inherited from DomMixin. it provides some helper methods on Dom.
@@ -55,14 +78,19 @@ it requires all the sub-constructors instances to have a `doc` attribute. and th
 - [x] instance.getAttribute(name)
 - [x] instance.setAttribute(name, value)
 - [x] instance.removeAttribute(name)
-- [x] instance.eachChildNode(callback)
+
+- [x] instance.eachChildNode(tagName, attrs, callback)
 - [x] instance.findOrCreateChildNode(tagName, attrs)
+
 - [x] instance.getModifiedTime()
 - [x] instance.setModifiedTime(timestamp)
+
 - [x] instance.getTitle()
 - [x] instance.setTitle(title)
+
 - [x] instance.getPosition()
 - [x] instance.setPosition(position)
+
 - [x] instance.destroy()
 - [x] instance.toPlainObject()
 - [x] instance.toJSON()
@@ -74,6 +102,7 @@ it requires all the sub-constructors instances to have a `doc` attribute. and th
 * Topic instance
 * Relationship instance
 * Legend instance
+* any other constructors with a `doc` property which is an xmldom Node instance.
 
 ## Workbook
 
@@ -104,11 +133,11 @@ var workbook = new xmind.Workbook({
 
 ### instance methods
 
-- [x] `workbook.save(filename)`
 - [x] `workbook.getPrimarySheet()`
 - [x] `workbook.addSheet(sheetName, rootTopicName, theme)`
 - [x] `workbook.moveSheet(fromIndex, toIndex)`
 - [x] `workbook.removeSheet(/* id or index 0r Sheet instance */)`
+
 - [x] `workbook.save(filename)`
 
 ## Sheet
@@ -137,15 +166,20 @@ var sheet = new Sheet({
 
 ### instance methods
 
+- [x] `sheet.getTheme()`
+- [x] `sheet.setTheme(theme)`
+
 - [x] `sheet.getRootTopic()`
 - [x] `sheet.addRootTopic(topicName)`
-- [x] `sheet.removeRootTopic(/*id or Topic instance */)`
+- [x] `sheet.removeopic(topic/*id or Topic instance */)`
+
 - [x] `sheet.addLegend()`
 - [x] `sheet.removeLegend()`
 - [x] `sheet.addMarkerDescription(markerId, description)`
 - [x] `sheet.removeMarkerDescription(markerId)`
+
 - [x] `sheet.addRelationship(sourceId, targetId, title)`
-- [x] `sheet.removeRelationship(/*index, id, instance or sourceId, targetId*/)`
+- [x] `sheet.removeRelationship(relationship/*index, id, instance or sourceId, targetId*/)`
 
 ## Topic
 
@@ -178,19 +212,26 @@ var topic = new Topic({
 
 - [x] `topic.getBranch()`
 - [x] `topic.setBranch(value)`
+- [x] `topic.setFolded()`
+
 - [x] `topic.addChild(/*instance or options*/)`
 - [x] `topic.removeChild(child/*id or instance*/, dryrun)`
 - [x] `topic.moveTo(targetTopic)`
-- [ ] `topic.getNotes()`
-- [ ] `topic.setNotes()`
-- [ ] `topic.getLabels()`
-- [ ] `topic.setLabels()`
-- [ ] `topic.getHyperlink()`
-- [ ] `topic.setHyperlink()`
-- [ ] `topic.removeHyperlink()`
-- [ ] `topic.getMarkers()`
-- [ ] `topic.addMarker()`
-- [ ] `topic.removeMarker()`
+
+- [x] `topic.getNotes()`
+- [x] `topic.setNotes(notes)`
+
+- [x] `topic.getLabels()`
+- [x] `topic.setLabels(labels)`
+
+- [x] `topic.getHyperlink()`
+- [x] `topic.setHyperlink(hyperlink)`
+- [x] `topic.removeHyperlink()`
+
+- [x] `topic.getMarkers()`
+- [x] `topic.setMarkers(markers)`
+- [x] `topic.addMarker(id)`
+- [x] `topic.removeMarker(id)`
 
 ## Relationship
 
@@ -246,7 +287,9 @@ var legend = new Legend({
 
 - [x] `legend.addMarkerDescription(markerId, description)`
 - [x] `legend.removeMarkerDescription(markerId)`
+
 - [x] `legend.getVisibility()`
 - [x] `legend.setVisibility(value)`
 
 [home](../README.md)
+
