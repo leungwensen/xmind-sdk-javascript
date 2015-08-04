@@ -6,7 +6,7 @@ var assert = require('assert');
 var path = require('path'),
     resolve = path.resolve;
 
-var spawn = require( "child_process" ).spawn;
+var spawn = require( 'child_process' ).spawn;
 
 var xmind = require('../../index'),
     Workbook = xmind.Workbook;
@@ -32,7 +32,7 @@ describe('xmind', function () {
             spawn('rm', [
                 saveToPath
             ], {
-                stdio: "inherit"
+                stdio: 'inherit'
             });
         }, 'failed to save xmind file');
     });
