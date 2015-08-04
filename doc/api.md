@@ -57,12 +57,17 @@ all kinds of helper methods
 - [x] utils.getCurrentTimestamp()
 
 - [x] utils.getDefaultSheetName(index)
+
 - [x] utils.getDefaultTopicName(structureClass)
 
 - [x] utils.findChildNode(doc, tagName, attrs)
+
 - [x] utils.findChildNodes(doc, tagName, attrs)
+
 - [x] utils.eachChildNode(doc, tagName, attrs, callback)
+
 - [x] utils.findOrCreateChildNode(doc, tagName, attrs)
+
 - [x] utils.removeChildNode(doc, tagName, attrs)
 
 ## DomMixin
@@ -76,23 +81,31 @@ it requires all the sub-constructors instances to have a `doc` attribute. and th
 ### instance methods
 
 - [x] instance.getAttribute(name)
+
 - [x] instance.setAttribute(name, value)
+
 - [x] instance.removeAttribute(name)
 
 - [x] instance.eachChildNode(tagName, attrs, callback)
+
 - [x] instance.findOrCreateChildNode(tagName, attrs)
 
 - [x] instance.getModifiedTime()
+
 - [x] instance.setModifiedTime(timestamp)
 
 - [x] instance.getTitle()
+
 - [x] instance.setTitle(title)
 
 - [x] instance.getPosition()
+
 - [x] instance.setPosition(position)
 
 - [x] instance.destroy()
+
 - [x] instance.toPlainObject()
+
 - [x] instance.toJSON()
 
 `instance` can be:
@@ -129,13 +142,17 @@ var workbook = new xmind.Workbook({
 ### constructor methods
 
 - [x] `Workbook.open(filename)`
+
 - [x] `Workbook.save(workbook, filename)`
 
 ### instance methods
 
 - [x] `workbook.getPrimarySheet()`
+
 - [x] `workbook.addSheet(sheetName, rootTopicName, theme)`
+
 - [x] `workbook.moveSheet(fromIndex, toIndex)`
+
 - [x] `workbook.removeSheet(/* id or index 0r Sheet instance */)`
 
 - [x] `workbook.save(filename)`
@@ -167,18 +184,25 @@ var sheet = new Sheet({
 ### instance methods
 
 - [x] `sheet.getTheme()`
+
 - [x] `sheet.setTheme(theme)`
 
 - [x] `sheet.getRootTopic()`
+
 - [x] `sheet.addRootTopic(topicName)`
+
 - [x] `sheet.removeopic(topic/*id or Topic instance */)`
 
 - [x] `sheet.addLegend()`
+
 - [x] `sheet.removeLegend()`
+
 - [x] `sheet.addMarkerDescription(markerId, description)`
+
 - [x] `sheet.removeMarkerDescription(markerId)`
 
 - [x] `sheet.addRelationship(sourceId, targetId, title)`
+
 - [x] `sheet.removeRelationship(relationship/*index, id, instance or sourceId, targetId*/)`
 
 ## Topic
@@ -211,26 +235,37 @@ var topic = new Topic({
 ### instance methods
 
 - [x] `topic.getBranch()`
+
 - [x] `topic.setBranch(value)`
+
 - [x] `topic.setFolded()`
 
 - [x] `topic.addChild(/*instance or options*/)`
+
 - [x] `topic.removeChild(child/*id or instance*/, dryrun)`
+
 - [x] `topic.moveTo(targetTopic)`
 
 - [x] `topic.getNotes()`
+
 - [x] `topic.setNotes(notes)`
 
 - [x] `topic.getLabels()`
+
 - [x] `topic.setLabels(labels)`
 
 - [x] `topic.getHyperlink()`
+
 - [x] `topic.setHyperlink(hyperlink)`
+
 - [x] `topic.removeHyperlink()`
 
 - [x] `topic.getMarkers()`
+
 - [x] `topic.setMarkers(markers)`
+
 - [x] `topic.addMarker(id)`
+
 - [x] `topic.removeMarker(id)`
 
 ## Relationship
@@ -257,8 +292,11 @@ var relationship = new Relationship({
 ### instance methods
 
 - [x] `topic.getSource()`
+
 - [x] `topic.setSource(value)`
+
 - [x] `topic.getTarget()`
+
 - [x] `topic.setTarget(value)`
 
 ## Legend
@@ -286,9 +324,11 @@ var legend = new Legend({
 ### instance methods
 
 - [x] `legend.addMarkerDescription(markerId, description)`
+
 - [x] `legend.removeMarkerDescription(markerId)`
 
 - [x] `legend.getVisibility()`
+
 - [x] `legend.setVisibility(value)`
 
 [home](../README.md)
