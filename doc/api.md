@@ -331,5 +331,10 @@ var legend = new Legend({
 
 - [x] `legend.setVisibility(value)`
 
+## notes
+
+* `instance.addXXXX()` and `instance.getXXXX()` usually returns the `XXXXX` added
+* `instance.removeXXXX()`, `instance.setXXXX()`, etc. usually returns instance itself
+
 [home](../README.md)
 
