@@ -301,13 +301,13 @@ var relationship = new Relationship({
 
 ### instance methods
 
-- [x] `topic.getSource()`
+- [x] `relationship.getSource()`
 
-- [x] `topic.setSource(value)`
+- [x] `relationship.setSource(value)`
 
-- [x] `topic.getTarget()`
+- [x] `relationship.getTarget()`
 
-- [x] `topic.setTarget(value)`
+- [x] `relationship.setTarget(value)`
 
 ## Legend
 

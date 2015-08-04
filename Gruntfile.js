@@ -3,15 +3,15 @@ module.exports = function (grunt) {
 
     var pkg = grunt.file.readJSON('package.json');
 
-    var spawn = require( "child_process" ).spawn;
+    var spawn = require( 'child_process' ).spawn;
 
     grunt.registerTask('compileTemplates', function () {
         var done = this.async();
         spawn('node', [
             './bin/compileTemplate.js',
         ], {
-            stdio: "inherit"
-        }).on("close", function(code) {
+            stdio: 'inherit'
+        }).on('close', function(code) {
             done(code === 0);
         });
     }); // compile templates
