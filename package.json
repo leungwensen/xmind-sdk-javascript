@@ -3,7 +3,7 @@
     "title": "xmind-sdk-node",
     "description": "XMind SDK for Node.",
     "homepage": "https://github.com/leungwensen/xmind-sdk-node",
-    "version": "0.0.20150729",
+    "version": "0.1.20150804",
     "main": "index.js",
     "author": {
         "description": "team of xmind-sdk-node",
