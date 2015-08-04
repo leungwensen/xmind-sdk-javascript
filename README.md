@@ -17,7 +17,9 @@ var workbookFromFile = xmind.open('path/to/xmind-file.xmind');
 
 // creating a new xmind file
 var workbook = new Workbook({
+    firstSheetId: 'sheet-1',
     firstSheetName: 'primary sheet',
+    rootTopicId: 'topic-1',
     rootTopicName: 'root topic'
 });
 
