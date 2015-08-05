@@ -1,11 +1,13 @@
-<html>
-    {% helper.each(lines, function(line){ %}
-        <xhtml:p>{%= line %}</xhtml:p>
-    {% }); %}
-    <!--styles are not supported yet {-->
-        <!--<xhtml:p>-->
-          <!--<xhtml:span style-id="67gllifq4r1g91gks0tdif9dou">what</xhtml:span>-->
-        <!--</xhtml:p>-->
-    <!--}-->
-</html>
-<plain>{%= plainNotes %}</plain>
+<notes>
+    <html>
+        {% helper.each(lines, function(line){ %}
+            <xhtml:p>{%= line %}</xhtml:p>
+        {% }); %}
+        <!--styles are not supported yet {-->
+            <!--<xhtml:p>-->
+              <!--<xhtml:span style-id="67gllifq4r1g91gks0tdif9dou">what</xhtml:span>-->
+            <!--</xhtml:p>-->
+        <!--}-->
+    </html>
+    <plain>{%= plainNotes %}</plain>
+</notes>

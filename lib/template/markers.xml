@@ -1,3 +1,6 @@
-{% helper.each(markers, function(marker){ %}
-    <marker-ref marker-id="{%= marker %}"/>
-{% }); %}
+<marker-refs>
+    {% helper.each(markers, function(marker){ %}
+        <marker-ref marker-id="{%= marker %}"/>
+    {% }); %}
+</marker-refs>
+
