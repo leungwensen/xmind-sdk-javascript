@@ -92,7 +92,7 @@ it requires all the sub-constructors instances to have a `doc` attribute. and th
 
 - [x] instance.getModifiedTime()
 
-- [x] instance.setModifiedTime(timestamp)
+- [x] instance.setModifiedTime(timestamp/*Date instance or number(timestamp)*/)
 
 - [x] instance.getTitle()
 
@@ -199,10 +199,6 @@ var sheet = new Sheet({
 
 - [x] `sheet.getRootTopic()`
 
-- [x] `sheet.addRootTopic(topicName)`
-
-- [x] `sheet.removeopic(topic/*id or Topic instance */)`
-
 - [x] `sheet.addLegend()`
 
 - [x] `sheet.removeLegend()`
@@ -211,7 +207,16 @@ var sheet = new Sheet({
 
 - [x] `sheet.removeMarkerDescription(markerId)`
 
-- [x] `sheet.addRelationship(sourceId, targetId, title)`
+- [x] `sheet.addRelationship(options)`
+
+```javascript
+options: {
+    id: id,
+    sourceId: sourceId,
+    targetId: targetId,
+    title: title
+}
+```
 
 - [x] `sheet.removeRelationship(relationship/*index, id, instance or sourceId, targetId*/)`
 
@@ -248,13 +253,15 @@ var topic = new Topic({
 
 - [x] `topic.setBranch(value)`
 
-- [x] `topic.setFolded()`
+- [x] `topic.setBranchFolded()`
 
 - [x] `topic.addChild(/*instance or options*/)`
 
 - [x] `topic.removeChild(child/*id or instance*/, dryrun)`
 
 - [x] `topic.moveTo(targetTopic)`
+
+- [ ] `topic.moveChild(fromIndex, toIndex)`
 
 - [x] `topic.getNotes()`
 
