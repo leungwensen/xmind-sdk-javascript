@@ -7,6 +7,20 @@ var xmind = require('../../index'),
     Workbook = xmind.Workbook;
 
 describe('Sheet', function () {
+    it('sheet.topics', function() {
+    });
+    it('sheet.topicById', function() {
+    });
+    it('sheet.rootTopic', function() {
+    });
+    it('sheet.getTitle()', function() {
+    });
+    it('sheet.setTitle()', function() {
+    });
+    it('sheet.getModifiedTime()', function() {
+    });
+    it('sheet.setModifiedTime()', function() {
+    });
     it('sheet.getTheme()', function() {
     });
     it('sheet.setTheme(theme)', function() {
