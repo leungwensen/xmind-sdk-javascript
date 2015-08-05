@@ -2,7 +2,7 @@
 
 XMind SDK for Node.js
 
-## Usage
+## Usage (see [API reference](doc/api.md) for more information)
 
 ```shell
 npm install xmind
@@ -23,11 +23,24 @@ var workbook = new Workbook({
     rootTopicName: 'root topic'
 });
 
-// saving an xmind file {
-    workbook.save('path/to/new-xmind-file.xmind');
-    // or
-    xmind.save(workbook, 'path/to/new-xmind-file.xmind');
-// }
+// saving an xmind file
+workbook.save('path/to/new-xmind-file.xmind');
+// or
+xmind.save(workbook, 'path/to/new-xmind-file.xmind');
+
+// output as JSON String
+workbook.toJSON();
+
+// get the primary sheet
+var sheet = workbook.getPrimarySheet();
+// add a new sheet
+var newSheet = workbook.addSheet(/*options*/);
+
+// get the root topic
+var rootTopic = sheet.rootTopic;
+
+// add a subtopic
+var subTopic = rootTopic.addChild(/*options*/);
 ```
 
 ## [API reference](doc/api.md)

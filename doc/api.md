@@ -245,7 +245,7 @@ var topic = new Topic({
 
 ### constructor properties
 
-- [x] `Topic.getTopic(topic/*index, id or instance*/, sheet)`
+- [x] `Topic.getTopic(topic/*id or instance*/, sheet)`
 
 ### instance properties
 
@@ -259,9 +259,11 @@ var topic = new Topic({
 
 - [x] `topic.removeChild(child/*id or instance*/, dryrun)`
 
+- [x] `topic.isAncestorOf(targetTopic)`
+
 - [x] `topic.moveTo(targetTopic)`
 
-- [ ] `topic.moveChild(fromIndex, toIndex)`
+<!--- [ ] `topic.moveChild(fromIndex, toIndex)`-->
 
 - [x] `topic.getNotes()`
 
