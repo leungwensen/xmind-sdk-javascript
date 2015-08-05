@@ -50,9 +50,9 @@ all kinds of CONSTs, attribute names, tag names, other values, etc.
 
 ## utils
 
-all kinds of helper methods
+all kinds of helper functions
 
-### methods
+### properties
 
 - [x] utils.getCurrentTimestamp()
 
@@ -72,13 +72,13 @@ all kinds of helper methods
 
 ## DomMixin
 
-all the constructors below is inherited from DomMixin. it provides some helper methods on Dom.
+all the constructors below is inherited from DomMixin. it provides some helper functions on Dom.
 
 it requires all the sub-constructors instances to have a `doc` attribute. and the `doc` attribute must be an instance of [xmldom](https://github.com/jindw/xmldom) DocumentElement or Element.
 
-### constructor methods
+### constructor properties
 
-### instance methods
+### instance properties
 
 - [x] instance.getAttribute(name)
 
@@ -139,13 +139,13 @@ var workbook = new xmind.Workbook({
 });
 ```
 
-### constructor methods
+### constructor properties
 
 - [x] `Workbook.open(filename)`
 
 - [x] `Workbook.save(workbook, filename)`
 
-### instance methods
+### instance properties
 
 - [x] `workbook.getPrimarySheet()`
 
@@ -189,9 +189,9 @@ var sheet = new Sheet({
 });
 ```
 
-### constructor methods
+### constructor properties
 
-### instance methods
+### instance properties
 
 - [x] `sheet.getTheme()`
 
@@ -238,11 +238,11 @@ var topic = new Topic({
 });
 ```
 
-### constructor methods
+### constructor properties
 
 - [x] `Topic.getTopic(topic/*index, id or instance*/, sheet)`
 
-### instance methods
+### instance properties
 
 - [x] `topic.getBranch()`
 
@@ -297,9 +297,9 @@ var relationship = new Relationship({
 });
 ```
 
-### constructor methods
+### constructor properties
 
-### instance methods
+### instance properties
 
 - [x] `relationship.getSource()`
 
@@ -329,9 +329,12 @@ var legend = new Legend({
 });
 ```
 
-### constructor methods
+### constructor properties
 
-### instance methods
+- [x] `Legend.DEFAULT_VISIBILITY`
+- [x] `Legend.DEFAULT_POSITION`
+
+### instance properties
 
 - [x] `legend.addMarkerDescription(markerId, description)`
 
