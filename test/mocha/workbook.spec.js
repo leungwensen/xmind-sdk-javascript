@@ -41,6 +41,13 @@ describe('Workbook', function () {
             'workbook.sheets is not working'
         );
     });
+
+    it('workbook.getModifiedTime()', function() {
+        assert.doesNotThrow(function() {
+            new Date(workbook.getModifiedTime());
+        }, 'failed to execute workbook.getModifiedTime()');
+    });
+
     it('workbook.getPrimarySheet()', function () {
         assert.equal(
             options.firstSheetName,
@@ -98,6 +105,29 @@ describe('Workbook', function () {
     it('workbook.toJSON()', function () {
         assert.doesNotThrow(function() {
             workbook.toJSON();
+        });
+    });
+    describe('workbook.setModifiedTime()', function() {
+        var newModifiedTime = 1;
+        it('set by timestamp(number)', function() {
+            assert.doesNotThrow(function() {
+                workbook.setModifiedTime(newModifiedTime);
+            }, 'failed to execute workbook.setModifiedTime(timestamp)');
+            assert.equal(
+                workbook.getModifiedTime(),
+                newModifiedTime,
+                'workbook.setModifiedTime(timestamp) not working: timestamp is not correct'
+            );
+        });
+        it('set by instance of Date', function() {
+            assert.doesNotThrow(function() {
+                workbook.setModifiedTime(new Date(newModifiedTime));
+            }, 'failed to execute workbook.setModifiedTime(date)');
+            assert.equal(
+                workbook.getModifiedTime(),
+                newModifiedTime,
+                'workbook.setModifiedTime(timestamp) not working: timestamp is not correct'
+            );
         });
     });
     describe('workbook.removeSheet(/* id or index or Sheet instance */)', function () {

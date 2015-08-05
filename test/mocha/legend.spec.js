@@ -16,6 +16,7 @@ var options = {
     rootTopicName: 'root topic',
 };
 var workbook = new Workbook(options); // first sheet added
+console.log(workbook.toJSON());
 var sheet = workbook.getPrimarySheet();
 var legend = sheet.addLegend();
 var markerId = CONST.MAKERIDS[0];

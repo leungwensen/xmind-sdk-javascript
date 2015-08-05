@@ -4,9 +4,7 @@
 var assert = require('assert');
 
 var xmind = require('../../index'),
-    Workbook = xmind.Workbook,
-    CONST = xmind.CONST,
-    utils = xmind.utils;
+    Workbook = xmind.Workbook;
 
 var options = {
     firstSheetId: 'firstSheet',
@@ -30,7 +28,10 @@ var thirdTopicOptions = {
 };
 rootTopic.addChild(thirdTopicOptions);
 
-var relationship = sheet.addRelationship(options.rootTopicId, secondTopicOptions.id);
+var relationship = sheet.addRelationship({
+    sourceId: options.rootTopicId,
+    targetId: secondTopicOptions.id
+});
 
 describe('Relationship', function () {
     it('relationship.getSource()', function() {
