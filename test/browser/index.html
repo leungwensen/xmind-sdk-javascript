@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xmind</title>
+    <style>
+textarea {
+    width: 100%;
+    height: 200px;
+}
+    </style>
+</head>
+<body>
+    <textarea id="code-to-run">
+var workbook = new xmind.Workbook();
+xmind.save(workbook, 'test.xmind');
+    </textarea>
+    <button onclick="runCode();">Run!</button>
+    <script src="../../dist/xmind-browser.js"></script>
+    <script>
+function runCode() {
+    var codeElem = document.getElementById('code-to-run');
+    eval(codeElem.value);
+}
+    </script>
+</body>
+</html>
