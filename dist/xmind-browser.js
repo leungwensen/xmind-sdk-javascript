@@ -3625,6 +3625,7 @@ extend(Workbook, {
             attachments: attachments
         });
         workbook.zip = zip;
+        return workbook;
     },
     save: function(workbook, filename) {
         // TODO support embed markers
