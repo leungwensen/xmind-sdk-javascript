@@ -1,6 +1,6 @@
 # xmind-sdk-javascript
 
-XMind SDK for Node.js
+XMind SDK for javascript (IN BOTH NODE.JS & BROWSERS)
 
 ## Usage (see [API reference](doc/api.md) for more information)
 
