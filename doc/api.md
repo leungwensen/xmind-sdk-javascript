@@ -1,4 +1,4 @@
-# `xmind-sdk-node` manual & documentation
+# `xmind-sdk-javascript` manual & documentation
 
 ## NOTICE
 

@@ -1,4 +1,4 @@
-# xmind-sdk-node
+# xmind-sdk-javascript
 
 XMind SDK for Node.js
 
@@ -47,7 +47,7 @@ var subTopic = rootTopic.addChild(/*options*/);
 
 ## Thanks to
 
-xmind-sdk-node is built on top of all these fantastic projects:
+xmind-sdk-javascript is built on top of all these fantastic projects:
 
 * [Stuk/jszip](https://github.com/Stuk/jszip.git)
 * [jindw/xmldom](https://github.com/jindw/xmldom.git)
