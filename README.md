@@ -50,6 +50,7 @@ var subTopic = rootTopic.addChild(/*options*/);
 xmind-sdk-javascript is built on top of all these fantastic projects:
 
 * [Stuk/jszip](https://github.com/Stuk/jszip.git)
+* [eligrey/FileSaver.js](https://github.com/eligrey/FileSaver.js.git)
 * [jindw/xmldom](https://github.com/jindw/xmldom.git)
 
 and these projects helps a lot, too:
