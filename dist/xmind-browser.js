@@ -3577,7 +3577,7 @@ var xmldom = require('xmldom'),
 
 var JSZip = require('jszip');
 
-var saveAs = require('./FileSaver.js/FileSaver').saveAs;
+var saveAs = require('./FileSaver/FileSaver').saveAs;
 
 var CONST = require('./CONST');
 var DomMixin = require('./DomMixin');
@@ -3662,12 +3662,11 @@ module.exports = {
     Workbook: Workbook,
     open: Workbook.open,
     save: Workbook.save,
-    saveAs: saveAs,
     utils: utils
 };
 
 
-},{"./CONST":7,"./DomMixin":8,"./FileSaver.js/FileSaver":9,"./Legend":10,"./Relationship":11,"./Sheet":12,"./Topic":13,"./Workbook":14,"./template/manifest":18,"./template/meta":21,"./utils":27,"jszip":37,"pastry":68,"xmldom":69}],29:[function(require,module,exports){
+},{"./CONST":7,"./DomMixin":8,"./FileSaver/FileSaver":9,"./Legend":10,"./Relationship":11,"./Sheet":12,"./Topic":13,"./Workbook":14,"./template/manifest":18,"./template/meta":21,"./utils":27,"jszip":37,"pastry":68,"xmldom":69}],29:[function(require,module,exports){
 'use strict';
 // private property
 var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
