@@ -2375,39 +2375,41 @@ var Legend = declare('Legend', DomMixin, {
          *      - doc
          *   // }
          */
+        var me = this;
         var sheet = options.sheet;
 
-        extend(this, {
+        extend(me, {
             sheet: sheet
         });
         if (options.doc) {
-            this.doc = options.doc;
+            me.doc = options.doc;
         } else {
             var position = options.position || DEFAULT_POSITION;
             var markerDescriptions = options.markerDescriptions || [];
             var visibility = options.visibility || DEFAULT_VISIBILITY;
-            this.doc = domParser.parseFromString(tmplLegend({
+            me.doc = domParser.parseFromString(tmplLegend({
                 visibility: visibility,
                 markerDescriptions: markerDescriptions,
                 position: position
             })).documentElement;
             // xml structure {
-                sheet.doc.appendChild(this.doc);
+                sheet.doc.appendChild(me.doc);
             // }
         }
         var markerDescriptionsNode = utils.findOrCreateChildNode(
-            this.doc,
+            me.doc,
             CONST.TAG_MARKER_DESCRIPTIONS
         );
-        extend(this, {
+        extend(me, {
             markerDescriptionsNode: markerDescriptionsNode
         });
-        sheet.legend = this;
+        sheet.legend = me;
     },
     toPlainObject: function() {
+        var me = this;
         // marker descriptions {
             var markerDescriptions = map(
-                this.markerDescriptionsNode.childNodes,
+                me.markerDescriptionsNode.childNodes,
                 function(childNode) {
                     return {
                         markderId: childNode.getAttribute(CONST.ATTR_MARKERID),
@@ -2417,10 +2419,10 @@ var Legend = declare('Legend', DomMixin, {
             );
         // }
         return {
-            sheetId: this.sheet.id,
+            sheetId: me.sheet.id,
             markerDescriptions: markerDescriptions,
-            position: this.getPosition() || DEFAULT_POSITION,
-            visibility: this.getVisibility() || DEFAULT_VISIBILITY
+            position: me.getPosition() || DEFAULT_POSITION,
+            visibility: me.getVisibility() || DEFAULT_VISIBILITY
         };
     },
     addMarkerDescription: function(markerId, description) {
@@ -2428,26 +2430,28 @@ var Legend = declare('Legend', DomMixin, {
         // an exception of `instance.addXXXX()`-formatted function
         // because there is not a constructor named `MarkerDescription`,
         // this function returns Legend instance instead
+        var me = this;
         var attrs = {};
         attrs[CONST.ATTR_MARKERID] = markerId;
         attrs[CONST.ATTR_DESCRIPTION] = description;
         utils.findOrCreateChildNode(
-            this.markerDescriptionsNode,
+            me.markerDescriptionsNode,
             CONST.TAG_MARKER_DESCRIPTION,
             attrs
         );
-        return this;
+        return me;
     },
     removeMarkerDescription: function(markerId) {
+        var me = this;
         // markerId should not be duplicated
         var attrs = {};
         attrs[CONST.ATTR_MARKERID] = markerId;
         utils.removeChildNode(
-            this.markerDescriptionsNode,
+            me.markerDescriptionsNode,
             CONST.TAG_MARKER_DESCRIPTION,
             attrs
         );
-        return this;
+        return me;
     },
     getVisibility: function() {
         return this.getAttribute(CONST.ATTR_VISIBILITY);
@@ -2503,9 +2507,10 @@ var Relationship = declare('Relationship', DomMixin, {
          *      - doc
          *   // }
          */
+        var me = this;
         var sheet = options.sheet;
 
-        extend(this, {
+        extend(me, {
             sheet: sheet
         });
         var relationshipsNode = utils.findOrCreateChildNode(
@@ -2513,7 +2518,7 @@ var Relationship = declare('Relationship', DomMixin, {
         );
         sheet.relationshipsNode = relationshipsNode;
         if (options.doc) {
-            this.doc = options.doc;
+            me.doc = options.doc;
         } else {
             // id, sourceId and targetId cannot be the same with the existing ones {
                 var attrs = {};
@@ -2525,62 +2530,65 @@ var Relationship = declare('Relationship', DomMixin, {
                     throw 'the same relationship already exists';
                 }
             // }
-            this.doc = domParser.parseFromString(tmplRelationship({
+            me.doc = domParser.parseFromString(tmplRelationship({
                 id: id,
                 sourceId: options.sourceId,
                 targetId: options.targetId
             })).documentElement;
             // xml structure {
-                relationshipsNode.appendChild(this.doc);
+                relationshipsNode.appendChild(me.doc);
             // }
-            this.setModifiedTime();
+            me.setModifiedTime();
         }
-        this.id = this.getAttribute(CONST.ATTR_ID);
-        extend(this, {
-            id: this.getAttribute(CONST.ATTR_ID),
-            sourceId: this.getAttribute(CONST.ATTR_END1),
-            targetId: this.getAttribute(CONST.ATTR_END2)
+        me.id = me.getAttribute(CONST.ATTR_ID);
+        extend(me, {
+            id: me.getAttribute(CONST.ATTR_ID),
+            sourceId: me.getAttribute(CONST.ATTR_END1),
+            targetId: me.getAttribute(CONST.ATTR_END2)
         });
         if (options.title) {
-            this.setTitle(options.title);
+            me.setTitle(options.title);
         }
-        sheet.relationships = union(sheet.relationships, [this]);
-        sheet.relationshipById[this.id] = this;
+        sheet.relationships = union(sheet.relationships, [me]);
+        sheet.relationshipById[me.id] = me;
     },
     toPlainObject: function() {
+        var me = this;
         return {
-            id: this.id,
-            sheetId: this.sheet.id,
-            sourceId: this.getSource(),
-            targetId: this.getTarget(),
-            modifiedTime: this.getModifiedTime(),
-            title: this.getTitle()
+            id: me.id,
+            sheetId: me.sheet.id,
+            sourceId: me.getSource(),
+            targetId: me.getTarget(),
+            modifiedTime: me.getModifiedTime(),
+            title: me.getTitle()
         };
     },
     getSource: function() {
         return this.getAttribute(CONST.ATTR_END1);
     },
     setSource: function(value) {
-        var targetId = this.getTarget();
+        var me = this;
+        var targetId = me.getTarget();
         if (targetId === value) {
             throw 'source & target should not be the same';
         } else if (value) {
-            this.setAttribute(CONST.ATTR_END1, value);
-            //this.sourceId = value;
-            return this.setModifiedTime();
+            me.setAttribute(CONST.ATTR_END1, value);
+            //me.sourceId = value;
+            return me.setModifiedTime();
         }
     },
     getTarget: function() {
         return this.getAttribute(CONST.ATTR_END2);
     },
     setTarget: function(value) {
-        var sourceId = this.getSource();
+        var me = this;
+        var sourceId = me.getSource();
         if (sourceId === value) {
             throw 'source & target should not be the same';
         } else if (value) {
-            this.setAttribute(CONST.ATTR_END2, value);
-            //this.targetId = value;
-            return this.setModifiedTime();
+            me.setAttribute(CONST.ATTR_END2, value);
+            //me.targetId = value;
+            return me.setModifiedTime();
         }
     }
 });
@@ -2634,9 +2642,10 @@ var Sheet = declare('Sheet', DomMixin, {
          *      - doc
          *   // }
          */
+        var me = this;
         var workbook = options.workbook;
 
-        extend(this, {
+        extend(me, {
             legend: null,
             relationshipById: {},
             relationships: [],
@@ -2646,101 +2655,106 @@ var Sheet = declare('Sheet', DomMixin, {
             workbook: workbook,
         });
         if (options.doc) {
-            this.doc = options.doc;
-            this._loadLegend()
+            me.doc = options.doc;
+            me._loadLegend()
                 ._loadRootTopic()
                 ._loadRelationships();
         } else {
             if (options.id && workbook.sheetById[options.id]) {
                 throw sprintf('sheet id `%s` already exists!', options.id);
             }
-            this.doc = domParser.parseFromString(tmplSheet({
+            me.doc = domParser.parseFromString(tmplSheet({
                 id: options.id || uuid(NS),
                 title: options.title,
                 theme: options.theme,
             })).documentElement;
             // xml structure {
-                workbook.doc.appendChild(this.doc);
+                workbook.doc.appendChild(me.doc);
             // }
-            this._addRootTopic({
+            me._addRootTopic({
                 id: options.rootTopicId || utils.getDefaultTopicName('Root'),
                 title: options.rootTopicName,
                 styleId: options.rootTopicStyleId
             });
-            this.setModifiedTime();
+            me.setModifiedTime();
         }
-        extend(this, {
-            id: this.getAttribute(CONST.ATTR_ID)
+        extend(me, {
+            id: me.getAttribute(CONST.ATTR_ID)
         });
-        workbook.sheets = union(workbook.sheets, [this]);
-        workbook.sheetById[this.id] = this;
+        workbook.sheets = union(workbook.sheets, [me]);
+        workbook.sheetById[me.id] = me;
     },
     destroy: function() {
         // TODO
         // NOTE: the last sheet cannot be deleted
-        var workbook = this.workbook;
+        var me = this;
+        var workbook = me.workbook;
         if (workbook.sheets.length <= 1) {
             throw 'cannot destroy the last sheet!';
         } else {
-            each(this.topics, function(topic) {
+            each(me.topics, function(topic) {
                 topic.destroy(true);
             });
-            each(this.relationships, function(relationship) {
+            each(me.relationships, function(relationship) {
                 relationship.destroy();
             });
-            if (this.legend) {
-                this.legend.destroy();
+            if (me.legend) {
+                me.legend.destroy();
             }
-            DomMixin.prototype.destroy.apply(this);
+            DomMixin.prototype.destroy.apply(me);
         }
     },
     toPlainObject: function() {
+        var me = this;
         return {
-            id: this.id,
-            theme: this.getTheme(),
-            title: this.getTitle(),
-            modifiedTime: this.getModifiedTime(), // timestamp
-            topics: map(this.topics, function(topic) {
+            id: me.id,
+            theme: me.getTheme(),
+            title: me.getTitle(),
+            modifiedTime: me.getModifiedTime(), // timestamp
+            topics: map(me.topics, function(topic) {
                 return topic.toPlainObject();
             }),
-            relationships: map(this.relationships, function(relationship) {
+            relationships: map(me.relationships, function(relationship) {
                 return relationship.toPlainObject();
             }),
-            legend: this.legend ? this.legend.toPlainObject() : null
+            legend: me.legend ? me.legend.toPlainObject() : null
         };
     },
     _loadLegend: function() {
-        var legenNode = this.doc.getElementsByTagName(CONST.TAG_LEGEND)[0];
+        var me = this;
+        var legenNode = me.doc.getElementsByTagName(CONST.TAG_LEGEND)[0];
         if (legenNode) {
             new Legend({
-                sheet: this,
+                sheet: me,
                 doc: legenNode
             });
         }
-        return this;
+        return me;
     },
     _loadRootTopic: function() {
+        var me = this;
         var rootTopicNode = utils.findChildNode(
-            this.doc,
+            me.doc,
             CONST.TAG_TOPIC
         );
         if (rootTopicNode) {
             new Topic({
-                sheet: this,
+                sheet: me,
                 doc: rootTopicNode,
             });
         } else {
-            this._addRootTopic(); // fix xmind file
+            me._addRootTopic(); // fix xmind file
         }
-        return this;
+        return me;
     },
     _loadRelationships: function() {
-        var relationshipsNode = this.doc.getElementsByTagName(CONST.TAG_RELATIONSHIPS)[0];
+        var me = this;
+        var relationshipsNode = me.doc.getElementsByTagName(CONST.TAG_RELATIONSHIPS)[0];
         if (relationshipsNode) {
-            this.relationshipsNode = relationshipsNode;
+            me.relationshipsNode = relationshipsNode;
             each(relationshipsNode.childNodes, function(childNode) {
                 new Relationship({
-                    sheet: this,
+                    sheet: me,
                     doc: childNode
                 });
             });
@@ -2761,106 +2775,86 @@ var Sheet = declare('Sheet', DomMixin, {
             return this.rootTopic;
         },
         _addRootTopic: function(options) {
-            if (this.rootTopic) {
+            var me = this;
+            if (me.rootTopic) {
                 //throw 'root topic already exists';
-                return this.rootTopic;
+                return me.rootTopic;
             } else {
                 options = options || {};
                 extend(options, {
-                    sheet: this,
+                    sheet: me,
                 });
-                this.setModifiedTime();
+                me.setModifiedTime();
                 return new Topic(options);
             }
         },
-        //removeTopic: function(topic[>id or instance<]) {
-            //topic = Topic.getTopic(topic, this);
-            //if (topic) {
-                //if (topic.parent) {
-                    //topic.parent.removeChild(topic);
-                    //return this.setModifiedTime();
-                //} else {
-                    //throw 'root topic cannot be removed!';
-                //}
-            //}
-            //return this;
-        //},
     // }
     // legend {
         addLegend: function() {
-            if (this.legend) {
+            var me = this;
+            if (me.legend) {
                 //throw 'legend already exists';
-                return this.legend;
+                return me.legend;
             } else {
-                this.setModifiedTime();
+                me.setModifiedTime();
                 return new Legend({
-                    sheet: this
+                    sheet: me
                 });
             }
         },
         removeLegend: function() {
-            if (this.legend) {
-                this.legend.destroy();
-                this.legend = null;
-                return this.setModifiedTime();
+            var me = this;
+            if (me.legend) {
+                me.legend.destroy();
+                me.legend = null;
+                return me.setModifiedTime();
             }
-            return this;
+            return me;
         },
         addMarkerDescription: function(markerId, description) {
-            if (!this.legend) {
-                this.addLegend();
+            var me = this;
+            if (!me.legend) {
+                me.addLegend();
             }
-            return this.legend.addMarkerDescription(markerId, description);
+            return me.legend.addMarkerDescription(markerId, description);
         },
         removeMarkerDescription: function(markerId) {
-            if (!this.legend) {
-                return this;
+            var me = this;
+            if (!me.legend) {
+                return me;
             } else {
-                this.legend.removeMarkerDescription(markerId);
-                return this;
+                me.legend.removeMarkerDescription(markerId);
+                return me;
             }
         },
     // }
     // relationship {
         addRelationship: function(options) {
-            this.relationshipsNode = utils.findOrCreateChildNode(
-                this.doc,
+            var me = this;
+            me.relationshipsNode = utils.findOrCreateChildNode(
+                me.doc,
                 CONST.TAG_RELATIONSHIPS
             );
-            // do this detecting in lib/Relationship {
-                //var attrs = {};
-                //attrs[CONST.ATTR_END1] = options.sourceId;
-                //attrs[CONST.ATTR_END2] = options.targetId;
-                //var addedNode = utils.findChildNode(
-                    //this.relationshipsNode,
-                    //CONST.TAG_RELATIONSHIP,
-                    //attrs
-                //);
-                //if (addedNode) {
-                    ////throw 'relation already exist!';
-                    //return this.relationshipById[addedNode.getAttribute(CONST.ATTR_ID)];
-                //} else {
-            // }
-                this.setModifiedTime();
-                return new Relationship({
-                    id: options.id,
-                    sheet: this,
-                    sourceId: options.sourceId,
-                    targetId: options.targetId,
-                    title: options.title
-                });
-            //}
+            me.setModifiedTime();
+            return new Relationship({
+                id: options.id,
+                sheet: me,
+                sourceId: options.sourceId,
+                targetId: options.targetId,
+                title: options.title
+            });
         },
         removeRelationship: function(/*index, id, instance or sourceId, targetId*/) {
+            var me = this;
             var relationship;
             var args = toArray(arguments);
             if (args.length === 1) {
                 relationship = args[0];
                 if (!(relationship instanceof Relationship)) {
                     if (isNumber(relationship)) {
-                        relationship = this.relationships[relationship];
+                        relationship = me.relationships[relationship];
                     } else if (isString(relationship)) {
-                        relationship = this.relationshipById[relationship];
+                        relationship = me.relationshipById[relationship];
                     }
                 }
             } else {
@@ -2870,23 +2864,23 @@ var Sheet = declare('Sheet', DomMixin, {
                 attrs[CONST.ATTR_END1] = sourceId;
                 attrs[CONST.ATTR_END2] = targetId;
                 var relationshipNode = utils.findChildNode(
-                    this.relationshipsNode,
+                    me.relationshipsNode,
                     CONST.TAG_RELATIONSHIP,
                     attrs
                 );
                 if (relationshipNode) {
-                    relationship = this.relationshipById[
+                    relationship = me.relationshipById[
                         relationshipNode.getAttribute(CONST.ATTR_ID)
                     ];
                 }
             }
             if (relationship) {
-                delete this.relationshipById[relationship.id];
-                this.relationships = difference(this.relationships, [relationship]);
+                delete me.relationshipById[relationship.id];
+                me.relationships = difference(me.relationships, [relationship]);
                 relationship.destroy();
-                return this.setModifiedTime();
+                return me.setModifiedTime();
             }
-            return this;
+            return me;
         },
     // }
 });
@@ -2955,9 +2949,10 @@ var Topic = declare('Topic', DomMixin, {
          *      - doc
          *   // }
          */
+        var me = this;
         var sheet = options.sheet;
 
-        extend(this, {
+        extend(me, {
             isRootTopic: !options.parent,
             parent: options.parent,
             structure: options.structure,
@@ -2967,74 +2962,77 @@ var Topic = declare('Topic', DomMixin, {
             childById: {},
         });
         if (options.doc) {
-            this.doc = options.doc;
-            this._loadSubTopics();
+            me.doc = options.doc;
+            me._loadSubTopics();
         } else {
-            this.doc = domParser.parseFromString(tmplTopic({
+            me.doc = domParser.parseFromString(tmplTopic({
                 id: options.id || uuid(NS),
                 title: options.title,
                 styleId: options.styleId || '',
             })).documentElement;
-            this.setModifiedTime();
+            me.setModifiedTime();
         }
-        this.id = this.getAttribute(CONST.ATTR_ID);
+        me.id = me.getAttribute(CONST.ATTR_ID);
         // xml structure {
-            this._addToParent();
+            me._addToParent();
         // }
         // level, etc {
         // }
-        sheet.topics = union(sheet.topics, [this]);
-        sheet.topicById[this.id] = this;
+        sheet.topics = union(sheet.topics, [me]);
+        sheet.topicById[me.id] = me;
     },
     _addToParent: function(parent) {
-        var sheet = this.sheet;
-        if (this.isRootTopic) {
-            sheet.doc.appendChild(this.doc);
-            sheet.rootTopic = this;
+        var me = this;
+        var sheet = me.sheet;
+        if (me.isRootTopic) {
+            sheet.doc.appendChild(me.doc);
+            sheet.rootTopic = me;
         } else {
-            parent = parent || this.parent;
-            this.parent = parent; // if parent is defined, change it
-            this.topicsType = getTopicsType(this, sheet); // attached or detached
+            parent = parent || me.parent;
+            me.parent = parent; // if parent is defined, change it
+            me.topicsType = getTopicsType(me, sheet); // attached or detached
             var parentDoc = parent.doc;
             var childrenNode = utils.findOrCreateChildNode(
                 parentDoc, CONST.TAG_CHILDREN
             );
             var childrenTopicsNode = utils.findOrCreateChildNode(
                 childrenNode, CONST.TAG_TOPICS, {
-                    type: this.topicsType
+                    type: me.topicsType
                 }
             ); // floating or not
-            childrenTopicsNode.appendChild(this.doc);
-            parent.children = union(parent.children, [this]);
-            parent.childById[this.id] = this;
+            childrenTopicsNode.appendChild(me.doc);
+            parent.children = union(parent.children, [me]);
+            parent.childById[me.id] = me;
         }
     },
     destroy: function(force) {
-        var sheet = this.sheet;
-        if (force || sheet.rootTopic !== this) { // cannot destroy root topic unless it is forced to
-            each(this.children, function(child) {
+        var me = this;
+        var sheet = me.sheet;
+        if (force || sheet.rootTopic !== me) { // cannot destroy root topic unless it is forced to
+            each(me.children, function(child) {
                 child.destroy();
             });
-            DomMixin.prototype.destroy.apply(this);
-            sheet.topics = difference(sheet.topics, [this]);
-            delete sheet.topicById[this.id];
+            DomMixin.prototype.destroy.apply(me);
+            sheet.topics = difference(sheet.topics, [me]);
+            delete sheet.topicById[me.id];
         }
     },
     toPlainObject: function() {
+        var me = this;
         return {
-            hyperlink: this.getHyperlink(),
-            id: this.id,
-            isRootTopic: this.isRootTopic,
-            labels: this.getLabels(),
-            markers: this.getMarkers(),
-            modifiedTime: this.getModifiedTime(), // timestamp
-            notes: this.getNotes(),
-            parentId: this.parent ? this.parent.id : '',
-            sheetId: this.sheet.id,
-            structure: this.structure,
-            title: this.getTitle(),
-            type: this.type,
-            children: map(this.children, function(child) {
+            hyperlink: me.getHyperlink(),
+            id: me.id,
+            isRootTopic: me.isRootTopic,
+            labels: me.getLabels(),
+            markers: me.getMarkers(),
+            modifiedTime: me.getModifiedTime(), // timestamp
+            notes: me.getNotes(),
+            parentId: me.parent ? me.parent.id : '',
+            sheetId: me.sheet.id,
+            structure: me.structure,
+            title: me.getTitle(),
+            type: me.type,
+            children: map(me.children, function(child) {
                 return child.toPlainObject();
             })
         };
@@ -3053,20 +3051,21 @@ var Topic = declare('Topic', DomMixin, {
          *     </children>
          * </topic>
          */
-        each(this.doc.getElementsByTagName(CONST.TAG_CHILDREN), function(childrenNode) {
+        var me = this;
+        each(me.doc.getElementsByTagName(CONST.TAG_CHILDREN), function(childrenNode) {
             each(childrenNode.getElementsByTagName(CONST.TAG_TOPICS), function(topicsNode) {
                 var type = topicsNode.getAttribute(CONST.ATTR_TYPE);
                 each(topicsNode.getElementsByTagName(CONST.TAG_TOPIC), function(doc) {
                     new Topic({
                         doc: doc,
-                        sheet: this.sheet,
-                        parent: this,
+                        sheet: me.sheet,
+                        parent: me,
                         type: type,
                     });
                 });
             });
         });
-        return this;
+        return me;
     },
     // parent & child {
         getBranch: function() { // folded, etc
@@ -3081,33 +3080,36 @@ var Topic = declare('Topic', DomMixin, {
             return this.setModifiedTime();
         },
         addChild: function(options/*instance or options*/) {
-            this.setModifiedTime();
+            var me = this;
+            me.setModifiedTime();
             if (options instanceof Topic) {
-                options._addToParent(this);
+                options._addToParent(me);
                 return options;
             } else {
                 return new Topic(extend(options, {
-                    parent: this,
-                    sheet: this.sheet
+                    parent: me,
+                    sheet: me.sheet
                 }));
             }
         },
         removeChild: function(child/*id or instance*/, dryrun) {
-            child = Topic.getTopic(child, this.sheet);
+            var me = this;
+            child = Topic.getTopic(child, me.sheet);
             if (child) {
-                delete this.childById[child.id];
-                this.children = difference(this.children, [child]);
+                delete me.childById[child.id];
+                me.children = difference(me.children, [child]);
                 if (!dryrun) {
                     child.destroy();
                 }
             }
-            return this.setModifiedTime();
+            return me.setModifiedTime();
         },
         isAncestorOf: function(targetTopic) {
-            targetTopic = Topic.getTopic(targetTopic, this.sheet);
+            var me = this;
+            targetTopic = Topic.getTopic(targetTopic, me.sheet);
             var topic = targetTopic;
             while (topic.parent) {
-                if (topic.parent === this) {
+                if (topic.parent === me) {
                     return true;
                 }
                 topic = topic.parent;
@@ -3115,22 +3117,23 @@ var Topic = declare('Topic', DomMixin, {
             return false;
         },
         moveTo: function(targetTopic) {
-            targetTopic = Topic.getTopic(targetTopic, this.sheet);
+            var me = this;
+            targetTopic = Topic.getTopic(targetTopic, me.sheet);
             if (!targetTopic) {
                 throw 'target topic does not exist';
             }
-            if (this.isRootTopic) {
+            if (me.isRootTopic) {
                 throw 'cannot move root topic';
             }
-            if (this === targetTopic) {
+            if (me === targetTopic) {
                 throw 'cannot move to itself';
             }
-            if (this.isAncestorOf(targetTopic)) {
+            if (me.isAncestorOf(targetTopic)) {
                 throw 'cannot move to a child topic';
             }
-            this.parent.removeChild(this, true);
-            targetTopic.addChild(this);
-            return this.setModifiedTime();
+            me.parent.removeChild(me, true);
+            targetTopic.addChild(me);
+            return me.setModifiedTime();
         },
         //moveChild: function([>fromIndex, toIndex<]) {
             //TODO
@@ -3150,19 +3153,20 @@ var Topic = declare('Topic', DomMixin, {
             return '';
         },
         setNotes: function(notes) {
+            var me = this;
             // TODO support styles
             if (!isString(notes)) {
                 //throw 'notes must be a string!';
-                return this;
+                return me;
             }
             var noteLines = notes.split('\n');
-            utils.removeChildNode(this.doc, CONST.TAG_NOTES);
+            utils.removeChildNode(me.doc, CONST.TAG_NOTES);
             var notesNode = domParser.parseFromString(tmplNotes({
                 lines: noteLines,
                 plainNotes: notes
             })).documentElement;
-            this.doc.appendChild(notesNode);
-            return this.setModifiedTime();
+            me.doc.appendChild(notesNode);
+            return me.setModifiedTime();
         },
     // }
     // labels {
@@ -3177,6 +3181,7 @@ var Topic = declare('Topic', DomMixin, {
             return result;
         },
         setLabels: function(labels) {
+            var me = this;
             if (isString(labels)) {
                 labels = map(labels.split(','), function(label) {
                     return label;
@@ -3187,12 +3192,12 @@ var Topic = declare('Topic', DomMixin, {
             labels = map(labels, function(label) {
                 return trim(label);
             });
-            utils.removeChildNode(this.doc, CONST.TAG_LABELS);
+            utils.removeChildNode(me.doc, CONST.TAG_LABELS);
             var labelsNode = domParser.parseFromString(tmplLabels({
                 labels: labels
             })).documentElement;
-            this.doc.appendChild(labelsNode);
-            return this.setModifiedTime();
+            me.doc.appendChild(labelsNode);
+            return me.setModifiedTime();
         },
     // }
     // hyperlink {
@@ -3230,40 +3235,43 @@ var Topic = declare('Topic', DomMixin, {
             return result;
         },
         setMarkers: function(markers) {
+            var me = this;
             if (!isArray(markers)) {
                 //throw 'invalid markers';
-                return this;
+                return me;
             }
             markers = uniq(markers);
-            utils.removeChildNode(this.doc, CONST.TAG_MARKERREFS);
+            utils.removeChildNode(me.doc, CONST.TAG_MARKERREFS);
             var markersNode = domParser.parseFromString(tmplMarkers({
                 markers: markers
             })).documentElement;
-            this.doc.appendChild(markersNode);
-            return this.setModifiedTime();
+            me.doc.appendChild(markersNode);
+            return me.setModifiedTime();
         },
         addMarker: function(id) {
             // an exception of `instance.addXXXX()`-formatted function
             // because there is not a constructor named `Marker`,
             // this function returns Topic instance instead
-            var markersNode = utils.findOrCreateChildNode(this.doc, CONST.TAG_MARKERREFS);
+            var me = this;
+            var markersNode = utils.findOrCreateChildNode(me.doc, CONST.TAG_MARKERREFS);
             var attrs = {};
             attrs[CONST.ATTR_MARKERID] = id;
-            if (utils.findChildNode(this.doc, CONST.TAG_MARKERREF, attrs)) {
+            if (utils.findChildNode(me.doc, CONST.TAG_MARKERREF, attrs)) {
                 throw 'marker already exists!';
             }
             var newMarkerNode = domParser.parseFromString(tmplMarker({
                 id: id
             })).documentElement;
             markersNode.appendChild(newMarkerNode);
-            return this.setModifiedTime();
+            return me.setModifiedTime();
         },
         removeMarker: function(id) {
-            var markersNode = utils.findOrCreateChildNode(this.doc, CONST.TAG_MARKERREFS);
+            var me = this;
+            var markersNode = utils.findOrCreateChildNode(me.doc, CONST.TAG_MARKERREFS);
             var attrs = {};
             attrs[CONST.ATTR_MARKERID] = id;
             utils.removeChildNode(markersNode, CONST.TAG_MARKERREF, attrs);
-            return this.setModifiedTime();
+            return me.setModifiedTime();
         },
     // }
 });
@@ -3321,11 +3329,12 @@ var Workbook = declare('Workbook', DomMixin, {
          *      - attachments
          *   // }
          */
+        var me = this;
         var defaultSheetName = utils.getDefaultSheetName(1);
         var defaultTopicName = utils.getDefaultTopicName('Root');
 
         options = options || {};
-        extend(this, {
+        extend(me, {
             attachments: options.attachments || {},
             // shortcuts to access sheets {
                 sheets: [],
@@ -3333,33 +3342,32 @@ var Workbook = declare('Workbook', DomMixin, {
             // }
         });
         if (options.doc) { // create from xml docs
-            this.doc = options.doc;
-            this.stylesDoc = options.stylesDoc;
-            this._loadSheets();
+            me.doc = options.doc;
+            me.stylesDoc = options.stylesDoc;
+            me._loadSheets();
         } else { // create with first sheet & root topic
-            this.doc = domParser.parseFromString(tmplContent({
+            me.doc = domParser.parseFromString(tmplContent({
                 timestamp: utils.getCurrentTimestamp()
             })).documentElement;
-            this.stylesDoc = domParser.parseFromString(tmplStyles()).documentElement;
+            me.stylesDoc = domParser.parseFromString(tmplStyles()).documentElement;
 
-            this.addSheet({
+            me.addSheet({
                 id: options.firstSheetId,
                 title: options.firstSheetName || defaultSheetName,
                 rootTopicId: options.rootTopicId,
                 rootTopicName: options.rootTopicName || defaultTopicName
             });
 
-            this.setModifiedTime();
+            me.setModifiedTime();
         }
     },
     _loadSheets: function() {
-        this.eachChildNode(function(childNode) {
-            if (childNode.tagName === CONST.TAG_SHEET) {
-                new Sheet({ // create from node
-                    workbook: this,
-                    doc: childNode
-                });
-            }
+        var me = this;
+        utils.eachChildNode(me.doc, CONST.TAG_SHEET, {}, function(childNode) {
+            new Sheet({ // create from node
+                workbook: me,
+                doc: childNode
+            });
         });
     },
     // sheet {
@@ -3377,55 +3385,59 @@ var Workbook = declare('Workbook', DomMixin, {
              *    theme: options.theme
              * }
              */
+            var me = this;
             options = options || {};
-            this.setModifiedTime();
+            me.setModifiedTime();
             extend(options, {
-                workbook: this,
+                workbook: me,
                 title: options.title || utils.getDefaultSheetName()
             });
             return new Sheet(options);
         },
         moveSheet: function(fromIndex, toIndex) {
-            var doc = this.doc;
-            var fromSheet = this.sheets[fromIndex],
-                toSheet = this.sheets[toIndex];
+            var me = this;
+            var doc = me.doc;
+            var fromSheet = me.sheets[fromIndex],
+                toSheet = me.sheets[toIndex];
             if (fromSheet && toSheet) {
                 // dom structure
                 doc.removeChild(fromSheet.doc);
                 doc.insertBefore(fromSheet.doc, toSheet.doc);
                 // data structure
-                remove(this.sheets, fromIndex); // remove first
-                this.sheets.splice(toIndex, 0, fromSheet); // insert to target position
+                remove(me.sheets, fromIndex); // remove first
+                me.sheets.splice(toIndex, 0, fromSheet); // insert to target position
             }
-            return this.setModifiedTime();
+            return me.setModifiedTime();
         },
         removeSheet: function(sheet/* index or id or instance */) {
-            if (this.sheets.length <= 1) {
+            var me = this;
+            if (me.sheets.length <= 1) {
                 return; // primary sheet cannot be removed
             }
             var index, id;
             if (isNumber(sheet)) {
-                sheet = this.sheets[sheet];
+                sheet = me.sheets[sheet];
             } else if (isString(sheet)) {
-                sheet = this.sheetById[sheet];
+                sheet = me.sheetById[sheet];
             }
-            index = indexOf(this.sheets, sheet);
+            index = indexOf(me.sheets, sheet);
             id = sheet.id;
             sheet.destroy(); // first destroy, then delete
-            delete this.sheetById[id];
-            remove(this.sheets, index);
-            return this.setModifiedTime();
+            delete me.sheetById[id];
+            remove(me.sheets, index);
+            return me.setModifiedTime();
         },
     // }
     destroy: function() {
         // cannot destroy workbook instance?
     },
     toPlainObject: function() {
+        var me = this;
         return {
-            sheets: map(this.sheets, function(sheet) {
+            sheets: map(me.sheets, function(sheet) {
                 return sheet.toPlainObject();
             }),
-            modifiedTime: this.getModifiedTime() // timestamp
+            modifiedTime: me.getModifiedTime() // timestamp
         };
     },
 });
@@ -3629,8 +3641,8 @@ extend(Workbook, {
     },
     save: function(workbook, filename) {
         // TODO support embed markers
+        var zip = workbook.zip ? workbook.zip : new JSZip(); // keep the origin contents
 
-        var zip = new JSZip();
         // content.xml
         zip.file(CONST.CONTENT_XML, xmlSerializer.serializeToString(workbook.doc));
         // styles.xml
