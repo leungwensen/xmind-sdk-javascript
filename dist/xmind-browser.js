@@ -1909,6 +1909,7 @@ var CONST = {
     SHAPE_ROUND_RECTANGLE: "org.xmind.topicShape.roundedRect",
     STYLES_XML: "styles.xml",
     TAG_CHILDREN: "children",
+    TAG_LABEL: "label",
     TAG_LABELS: "labels",
     TAG_LEGEND: "legend",
     TAG_MARKERREF : "marker-ref",
@@ -2409,7 +2410,7 @@ var Legend = declare('Legend', DomMixin, {
         var me = this;
         // marker descriptions {
             var markerDescriptions = map(
-                me.markerDescriptionsNode.childNodes,
+                utils.findChildNodes(me.markerDescriptionsNode, CONST.TAG_MARKER_DESCRIPTION),
                 function(childNode) {
                     return {
                         markderId: childNode.getAttribute(CONST.ATTR_MARKERID),
@@ -2711,9 +2712,10 @@ var Sheet = declare('Sheet', DomMixin, {
             theme: me.getTheme(),
             title: me.getTitle(),
             modifiedTime: me.getModifiedTime(), // timestamp
-            topics: map(me.topics, function(topic) {
-                return topic.toPlainObject();
-            }),
+            rootTopic: me.rootTopic.toPlainObject(),
+            //topics: map(me.topics, function(topic) {
+                //return topic.toPlainObject();
+            //}),
             relationships: map(me.relationships, function(relationship) {
                 return relationship.toPlainObject();
             }),
@@ -3176,11 +3178,9 @@ var Topic = declare('Topic', DomMixin, {
         getLabels: function() {
             var result = [];
             var labelsNode = utils.findChildNode(this.doc, CONST.TAG_LABELS);
-            if (labelsNode && labelsNode.childNodes) {
-                result = map(labelsNode.childNodes, function(labelNode) {
-                    return labelNode.textContent;
-                });
-            }
+            result = map(utils.findChildNodes(labelsNode, CONST.TAG_LABEL), function(labelNode) {
+                return labelNode.textContent;
+            });
             return result;
         },
         setLabels: function(labels) {
