@@ -2722,7 +2722,7 @@ var Sheet = declare('Sheet', DomMixin, {
     },
     _loadLegend: function() {
         var me = this;
-        var legenNode = me.doc.getElementsByTagName(CONST.TAG_LEGEND)[0];
+        var legenNode = utils.findChildNodes(me.doc, CONST.TAG_LEGEND)[0];
         if (legenNode) {
             new Legend({
                 sheet: me,
@@ -2749,7 +2749,7 @@ var Sheet = declare('Sheet', DomMixin, {
     },
     _loadRelationships: function() {
         var me = this;
-        var relationshipsNode = me.doc.getElementsByTagName(CONST.TAG_RELATIONSHIPS)[0];
+        var relationshipsNode = utils.findChildNodes(me.doc, CONST.TAG_RELATIONSHIPS)[0];
         if (relationshipsNode) {
             me.relationshipsNode = relationshipsNode;
             each(relationshipsNode.childNodes, function(childNode) {
@@ -3052,10 +3052,13 @@ var Topic = declare('Topic', DomMixin, {
          * </topic>
          */
         var me = this;
-        each(me.doc.getElementsByTagName(CONST.TAG_CHILDREN), function(childrenNode) {
-            each(childrenNode.getElementsByTagName(CONST.TAG_TOPICS), function(topicsNode) {
+        var childrenNodes = utils.findChildNodes(me.doc, CONST.TAG_CHILDREN);
+        each(childrenNodes, function(childrenNode) {
+            var topicsNodes = utils.findChildNodes(childrenNode, CONST.TAG_TOPICS);
+            each(topicsNodes, function(topicsNode) {
                 var type = topicsNode.getAttribute(CONST.ATTR_TYPE);
-                each(topicsNode.getElementsByTagName(CONST.TAG_TOPIC), function(doc) {
+                var topicNodes = utils.findChildNodes(topicsNode, CONST.TAG_TOPIC);
+                each(topicNodes, function(doc) {
                     new Topic({
                         doc: doc,
                         sheet: me.sheet,
@@ -3528,7 +3531,9 @@ var utils = {
         if (!doc) {
             return [];
         }
-        var resultNodes = doc.getElementsByTagName(tagName);
+        var resultNodes = filter(doc.childNodes, function(node) {
+            return node.tagName === tagName;
+        });
         resultNodes = filter(resultNodes, function(node) {
             return node && every(keys(attrs), function(key) {
                 return node.getAttribute(key) === attrs[key];
