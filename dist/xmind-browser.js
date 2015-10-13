@@ -3617,6 +3617,7 @@ extend(Workbook, {
             attachments = {};
 
         each(zip.files, function(file, filename) {
+            filename = filename.replace(/^\//, '');
             if (filename === CONST.CONTENT_XML) {
                 // content.xml
                 doc = domParser.parseFromString(
