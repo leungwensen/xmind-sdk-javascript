@@ -1,49 +1,54 @@
 {
-    "name": "xmind",
-    "title": "xmind-sdk-javascript",
-    "description": "XMind SDK for Node.",
-    "homepage": "https://github.com/leungwensen/xmind-sdk-javascript",
-    "version": "0.1.20151013",
-    "main": "index.js",
-    "author": {
-        "description": "team of xmind-sdk-javascript",
-        "url": "https://github.com/leungwensen/xmind-sdk-javascript/graphs/contributors"
-    },
-    "bugs": {
-        "url": "https://github.com/leungwensen/xmind-sdk-javascript/issues"
-    },
-    "files": [
-        "bin",
-        "index.js",
-        "lib"
-    ],
-    "dependencies": {
-        "jszip": "*",
-        "pastry": "*",
-        "xmldom": "*"
-    },
-    "devDependencies": {
-        "grunt": "*",
-        "grunt-contrib-watch": "*",
-        "grunt-mocha-test": "*",
-        "load-grunt-config": "*"
-    },
-    "engines": {
-        "node": ">=0.8.0"
-    },
-    "keywords": [
-        "XMind",
-        "SDK"
-    ],
-    "license": "MIT",
-    "licenses": [{
-        "type": "MIT",
-        "url": "https://github.com/leungwensen/xmind-sdk-javascript/blob/master/LICENSE.md"
-    }],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/leungwensen/xmind-sdk-javascript.git"
-    },
-    "scripts": {
-    }
+	"name": "xmind",
+	"title": "xmind-sdk-javascript",
+	"description": "XMind SDK for Node.",
+	"homepage": "https://github.com/leungwensen/xmind-sdk-javascript",
+	"version": "0.1.20151013",
+	"main": "index.js",
+	"author": {
+		"description": "team of xmind-sdk-javascript",
+		"url": "https://github.com/leungwensen/xmind-sdk-javascript/graphs/contributors"
+	},
+	"bugs": {
+		"url": "https://github.com/leungwensen/xmind-sdk-javascript/issues"
+	},
+	"files": [
+		"bin",
+		"index.js",
+		"lib"
+	],
+	"dependencies": {
+		"jszip": "^2.5.0",
+		"xmldom": "^0.1.22",
+		"zero-crypto": "*",
+        "zero-fmt": "*",
+		"zero-lang": "^0.0.20151202",
+		"zero-oop": "*",
+		"zero-text": "*"
+	},
+	"devDependencies": {
+		"grunt": "^0.4.5",
+		"grunt-contrib-watch": "^0.6.1",
+		"grunt-mocha-test": "^0.12.7",
+		"load-grunt-config": "^0.19.1"
+	},
+	"engines": {
+		"node": ">=0.8.0"
+	},
+	"keywords": [
+		"XMind",
+		"SDK"
+	],
+	"license": "MIT",
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "https://github.com/leungwensen/xmind-sdk-javascript/blob/master/LICENSE.md"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/leungwensen/xmind-sdk-javascript.git"
+	},
+	"scripts": {}
 }
