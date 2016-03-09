@@ -3,7 +3,7 @@
 	"title": "xmind-sdk-javascript",
 	"description": "XMind SDK for Node.",
 	"homepage": "https://github.com/leungwensen/xmind-sdk-javascript",
-	"version": "0.1.20160309",
+	"version": "0.1.20160310",
 	"main": "index.js",
 	"author": {
 		"description": "team of xmind-sdk-javascript",
@@ -13,9 +13,12 @@
 		"url": "https://github.com/leungwensen/xmind-sdk-javascript/issues"
 	},
 	"files": [
-		"bin",
+		"dist",
+		"doc",
+		"index-browser.js",
 		"index.js",
-		"lib"
+		"lib",
+		"package.json"
 	],
 	"dependencies": {
 		"jszip": "^2.5.0",
