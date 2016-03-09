@@ -1,5 +1,9 @@
 # history
 
+## 0.1.20160309
+
+- [x] reconstruct
+
 ## 0.1.20150805
 
 - [x] xmind.save, xmind.open implement

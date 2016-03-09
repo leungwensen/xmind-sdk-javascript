@@ -9,4 +9,4 @@ browser:
 	./node_modules/.bin/uglifyjs    ./dist/xmind-browser.js  >  ./dist/xmind-browser.min.js
 
 publish:
-	npm publish xmind && cnpm sync xmind
+	npm publish && cnpm sync xmind
