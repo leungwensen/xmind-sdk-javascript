@@ -1,14 +1,1573 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+window.xmind = module.exports = require('./lib/xmind-browser');
+
+},{"./lib/xmind-browser":22}],2:[function(require,module,exports){
+/* jshint undef: true, unused: true */
+/* global module */
+
+var CONST = {
+    ATTACHMENTS_DIR: "attachments/",
+    ATTR_BRANCH: "branch",
+    ATTR_DESCRIPTION: "description",
+    ATTR_END1: "end1",
+    ATTR_END2: "end2",
+    ATTR_HREF: "xlink:href",
+    ATTR_ID: "id",
+    ATTR_MARKERID: "marker-id",
+    ATTR_STYLE_ID: "style-id",
+    ATTR_THEME: "theme",
+    ATTR_TIMESTAMP: "timestamp",
+    ATTR_TYPE: "type",
+    ATTR_VERSION: "version",
+    ATTR_VISIBILITY: "visibility",
+    ATTR_X: "svg:x",
+    ATTR_Y: "svg:y",
+    AUTHOR: "leungwensen@gmail.com",
+    CONTENT_XML: "content.xml",
+    FILE_PROTOCOL: "file://",
+    HTML_FORMAT_NOTE: "html",
+    HTTPS_PROTOCOL: "https://",
+    HTTP_PROTOCOL: "http://",
+    MANIFEST_XML: "META-INF/manifest.xml",
+    MARKERS_DIR: "markers/",
+    MARKER_SHEET: "markers/markerSheet.xml",
+    MARKER_SHEET_XML: "markerSheet.xml",
+    META_INF_DIR: "META-INF/",
+    META_XML: "meta.xml",
+    NAMESPACE: "xmlns",
+    NS_FO: "http://www.w3.org/1999/XSL/Format",
+    NS_SVG: "http://www.w3.org/2000/svg",
+    NS_URI: "http://www.w3.org/1999/xhtml",
+    NS_XHTML: "http://www.w3.org/1999/xhtml",
+    NS_XLINK: "http://www.w3.org/1999/xlink",
+    PLAIN_FORMAT_NOTE: "plain",
+    REVISIONS_DIR: "Revisions/",
+    REVISIONS_XML: "revisions.xml",
+    SHAPE_ELLIPSIS: "org.xmind.topicShape.ellipse",
+    SHAPE_RECTANGLE: "org.xmind.topicShape.rectangle",
+    SHAPE_ROUND_RECTANGLE: "org.xmind.topicShape.roundedRect",
+    STYLES_XML: "styles.xml",
+    TAG_CHILDREN: "children",
+    TAG_LABEL: "label",
+    TAG_LABELS: "labels",
+    TAG_LEGEND: "legend",
+    TAG_MARKERREF: "marker-ref",
+    TAG_MARKERREFS: "marker-refs",
+    TAG_MARKER_DESCRIPTION: "marker-description",
+    TAG_MARKER_DESCRIPTIONS: "marker-descriptions",
+    TAG_NOTES: "notes",
+    TAG_POSITION: "position",
+    TAG_RELATIONSHIP: "relationship",
+    TAG_RELATIONSHIPS: "relationships",
+    TAG_SHEET: "sheet",
+    TAG_TITLE: "title",
+    TAG_TOPIC: "topic",
+    TAG_TOPICS: "topics",
+    TAG_WORKBOOK: "xmap-content",
+    TOPIC_ATTACHED: "attached",
+    TOPIC_DETACHED: "detached",
+    TOPIC_FLOATING: "floating",
+    TOPIC_PROTOCOL: "xmind:#",
+    TOPIC_ROOT: "root",
+    VAL_FOLDED: "folded",
+    VERSION: "2.0",
+    XMAP: "urn:xmind:xmap:xmlns:content:2.0",
+    XMIND_EXT: ".xmind",
+    MAKERIDS: [
+        "flag-black",
+        "flag-blue",
+        "flag-green",
+        "flag-orange",
+        "flag-purple",
+        "flag-red",
+        "other-calendar",
+        "other-clock",
+        "other-coffee-cup",
+        "other-email",
+        "other-exclam",
+        "other-fax",
+        "other-lightbulb",
+        "other-people",
+        "other-phone",
+        "other-question",
+        "priority-1",
+        "priority-2",
+        "priority-3",
+        "priority-4",
+        "priority-5",
+        "priority-6",
+        "smiley-angry",
+        "smiley-boring",
+        "smiley-cry",
+        "smiley-laugh",
+        "smiley-smile",
+        "smiley-surprise",
+        "task-3quar",
+        "task-done",
+        "task-half",
+        "task-pause",
+        "task-quarter",
+        "task-start",
+    ]
+};
+
+module.exports = CONST;
+
+
+},{}],3:[function(require,module,exports){
+var lang = require('zero-lang');
+var declare = require('zero-oop/declare');
+var json = require('zero-encoding/json');
+
+var isDate = lang.isDate;
+var isNumber = lang.isNumber;
+var toInt = lang.toInteger;
+
+var CONST = require('./CONST');
+var utils = require('./utils');
+
+var DomMixin = declare('DomMixin', {
+    /*
+     * constructor.doc is required!
+     *   - constructor.doc is instance of DocumentElement or Node
+     */
+    // attribute
+    getAttribute: function (name) {
+        return this.doc.getAttribute(name) || '';
+    },
+    setAttribute: function (name, value) {
+        this.doc.setAttribute(name, value);
+        return this;
+    },
+    removeAttribute: function (name) {
+        this.doc.removeAttribute(name);
+        return this;
+    },
+
+    // child node
+    eachChildNode: function (tagName, attrs, callback) {
+        utils.eachChildNode(this.doc, tagName, attrs, callback);
+    },
+    findOrCreateChildNode: function (tagName, attrs) {
+        return utils.findOrCreateChildNode(this.doc, tagName, attrs);
+    },
+
+    // timestamp
+    getModifiedTime: function () {
+        return toInt(this.getAttribute(CONST.ATTR_TIMESTAMP));
+    },
+    setModifiedTime: function (timestamp/*Date instance or number(timestamp)*/) {
+        timestamp = isDate(timestamp) ? timestamp.getTime() : timestamp;
+        if (!isNumber(timestamp)) {
+            timestamp = utils.getCurrentTimestamp();
+        }
+        this.setAttribute(CONST.ATTR_TIMESTAMP, timestamp);
+        return this;
+    },
+
+    // title
+    getTitle: function () {
+        var titleNode = utils.findChildNode(this.doc, CONST.TAG_TITLE);
+        return titleNode ? titleNode.textContent : '';
+    },
+    setTitle: function (title) {
+        var titleNode = utils.findOrCreateChildNode(this.doc, CONST.TAG_TITLE);
+        titleNode.textContent = title;
+        return this;
+    },
+
+    // position
+    getPosition: function () {
+        var positionNode = utils.findChildNode(this.doc, CONST.TAG_POSITION);
+        return positionNode ? {
+            x: toInt(positionNode.getAttribute(CONST.ATTR_X)),
+            y: toInt(positionNode.getAttribute(CONST.ATTR_Y))
+        } : null;
+    },
+    setPosition: function (position) {
+        var positionNode = utils.findOrCreateChildNode(this.doc, CONST.TAG_POSITION);
+        positionNode.setAttribute(CONST.ATTR_X, position.x);
+        positionNode.setAttribute(CONST.ATTR_Y, position.y);
+        return this;
+    },
+    removePosition: function () {
+        utils.removeChildNode(this.doc, CONST.TAG_POSITION);
+        return this;
+    },
+
+    // life cycle
+    destroy: function () {
+        var me = this;
+        me.doc.parentNode.removeChild(me.doc);
+        me.doc = null;
+        me = null;
+    },
+
+    // parse & stringify
+    toPlainObject: function () {
+        return this;
+    },
+    toJSON: function () {
+        return json.stringify(this.toPlainObject());
+    },
+});
+
+module.exports = DomMixin;
+
+
+},{"./CONST":2,"./utils":21,"zero-encoding/json":71,"zero-lang":76,"zero-oop/declare":82}],4:[function(require,module,exports){
+var lang = require('zero-lang');
+var declare = require('zero-oop/declare');
+var extend = lang.extend;
+var map = lang.map;
+
+var xmldom = require('xmldom');
+var domParser = new xmldom.DOMParser();
+
+var DomMixin = require('./DomMixin');
+
+var CONST = require('./CONST');
+var utils = require('./utils');
+
+var DEFAULT_VISIBILITY = 'visible';
+var DEFAULT_POSITION = {
+    x: 500,
+    y: 500,
+};
+
+var tmplLegend = require('./template/legend');
+
+var Legend = declare('Legend', DomMixin, {
+    constructor: function(options) {
+        /*
+         * options:
+         *   - sheet(required)
+         *   // when creating a new one {
+         *      - position
+         *      - isVisible
+         *      - markerDescriptions
+         *   // }
+         *   // when loading from an existing one {
+         *      - doc
+         *   // }
+         */
+        var me = this;
+        var sheet = options.sheet;
+
+        extend(me, {
+            sheet: sheet
+        });
+        if (options.doc) {
+            me.doc = options.doc;
+        } else {
+            var position = options.position || DEFAULT_POSITION;
+            var markerDescriptions = options.markerDescriptions || [];
+            var visibility = options.visibility || DEFAULT_VISIBILITY;
+            me.doc = domParser.parseFromString(tmplLegend({
+                visibility: visibility,
+                markerDescriptions: markerDescriptions,
+                position: position
+            }, lang)).documentElement;
+            // xml structure {
+                sheet.doc.appendChild(me.doc);
+            // }
+        }
+        var markerDescriptionsNode = utils.findOrCreateChildNode(
+            me.doc,
+            CONST.TAG_MARKER_DESCRIPTIONS
+        );
+        extend(me, {
+            markerDescriptionsNode: markerDescriptionsNode
+        });
+        sheet.legend = me;
+    },
+    toPlainObject: function() {
+        var me = this;
+        // marker descriptions {
+            var markerDescriptions = map(
+                utils.findChildNodes(me.markerDescriptionsNode, CONST.TAG_MARKER_DESCRIPTION),
+                function(childNode) {
+                    return {
+                        markderId: childNode.getAttribute(CONST.ATTR_MARKERID),
+                        description: childNode.getAttribute(CONST.ATTR_DESCRIPTION)
+                    };
+                }
+            );
+        // }
+        return {
+            sheetId: me.sheet.id,
+            markerDescriptions: markerDescriptions,
+            position: me.getPosition() || DEFAULT_POSITION,
+            visibility: me.getVisibility() || DEFAULT_VISIBILITY
+        };
+    },
+    addMarkerDescription: function(markerId, description) {
+        // markerId should not be duplicated
+        // an exception of `instance.addXXXX()`-formatted function
+        // because there is not a constructor named `MarkerDescription`,
+        // this function returns Legend instance instead
+        var me = this;
+        var attrs = {};
+        attrs[CONST.ATTR_MARKERID] = markerId;
+        attrs[CONST.ATTR_DESCRIPTION] = description;
+        utils.findOrCreateChildNode(
+            me.markerDescriptionsNode,
+            CONST.TAG_MARKER_DESCRIPTION,
+            attrs
+        );
+        return me;
+    },
+    removeMarkerDescription: function(markerId) {
+        var me = this;
+        // markerId should not be duplicated
+        var attrs = {};
+        attrs[CONST.ATTR_MARKERID] = markerId;
+        utils.removeChildNode(
+            me.markerDescriptionsNode,
+            CONST.TAG_MARKER_DESCRIPTION,
+            attrs
+        );
+        return me;
+    },
+    getVisibility: function() {
+        return this.getAttribute(CONST.ATTR_VISIBILITY);
+    },
+    setVisibility: function(value) {
+        this.setAttribute(CONST.ATTR_VISIBILITY, value);
+        return this;
+    }
+});
+
+extend(Legend, {
+    DEFAULT_VISIBILITY: DEFAULT_VISIBILITY,
+    DEFAULT_POSITION: DEFAULT_POSITION
+});
+
+module.exports = Legend;
+
+
+},{"./CONST":2,"./DomMixin":3,"./template/legend":11,"./utils":21,"xmldom":67,"zero-lang":76,"zero-oop/declare":82}],5:[function(require,module,exports){
+var lang = require('zero-lang');
+var declare = require('zero-oop/declare');
+var uuid = require('zero-crypto/uuid');
+
+var extend = lang.extend;
+var union = lang.union;
+
+var xmldom = require('xmldom');
+var domParser = new xmldom.DOMParser();
+
+var DomMixin = require('./DomMixin');
+
+var CONST = require('./CONST');
+var utils = require('./utils');
+
+var NS = 'relationship-';
+
+var tmplRelationship = require('./template/relationship');
+
+var Relationship = declare('Relationship', DomMixin, {
+    constructor: function (options) {
+        /*
+         * options:
+         *   - sheet(required)
+         *   // when creating a new one {
+         *      - sourceId
+         *      - targetId
+         *      - title
+         *      - id
+         *   // }
+         *   // when loading from an existing one {
+         *      - doc
+         *   // }
+         */
+        var me = this;
+        var sheet = options.sheet;
+
+        extend(me, {
+            sheet: sheet
+        });
+        var relationshipsNode = utils.findOrCreateChildNode(
+            sheet.doc, CONST.TAG_RELATIONSHIPS
+        );
+        sheet.relationshipsNode = relationshipsNode;
+        if (options.doc) {
+            me.doc = options.doc;
+        } else {
+            // id, sourceId and targetId cannot be the same with the existing ones {
+            var attrs = {};
+            var id = options.id || uuid(NS);
+            attrs[CONST.ATTR_END1] = options.sourceId;
+            attrs[CONST.ATTR_END2] = options.targetId;
+            attrs[CONST.ATTR_ID] = id;
+            if (utils.findChildNode(relationshipsNode, CONST.TAG_RELATIONSHIP, attrs)) {
+                throw 'the same relationship already exists';
+            }
+            // }
+            me.doc = domParser.parseFromString(tmplRelationship({
+                id: id,
+                sourceId: options.sourceId,
+                targetId: options.targetId
+            }, lang)).documentElement;
+            // xml structure {
+            relationshipsNode.appendChild(me.doc);
+            // }
+            me.setModifiedTime();
+        }
+        me.id = me.getAttribute(CONST.ATTR_ID);
+        extend(me, {
+            id: me.getAttribute(CONST.ATTR_ID),
+            sourceId: me.getAttribute(CONST.ATTR_END1),
+            targetId: me.getAttribute(CONST.ATTR_END2)
+        });
+        if (options.title) {
+            me.setTitle(options.title);
+        }
+        sheet.relationships = union(sheet.relationships, [me]);
+        sheet.relationshipById[me.id] = me;
+    },
+    toPlainObject: function () {
+        var me = this;
+        return {
+            id: me.id,
+            sheetId: me.sheet.id,
+            sourceId: me.getSource(),
+            targetId: me.getTarget(),
+            modifiedTime: me.getModifiedTime(),
+            title: me.getTitle()
+        };
+    },
+    getSource: function () {
+        return this.getAttribute(CONST.ATTR_END1);
+    },
+    setSource: function (value) {
+        var me = this;
+        var targetId = me.getTarget();
+        if (targetId === value) {
+            throw 'source & target should not be the same';
+        } else if (value) {
+            me.setAttribute(CONST.ATTR_END1, value);
+            //me.sourceId = value;
+            return me.setModifiedTime();
+        }
+    },
+    getTarget: function () {
+        return this.getAttribute(CONST.ATTR_END2);
+    },
+    setTarget: function (value) {
+        var me = this;
+        var sourceId = me.getSource();
+        if (sourceId === value) {
+            throw 'source & target should not be the same';
+        } else if (value) {
+            me.setAttribute(CONST.ATTR_END2, value);
+            //me.targetId = value;
+            return me.setModifiedTime();
+        }
+    }
+});
+
+module.exports = Relationship;
+
+},{"./CONST":2,"./DomMixin":3,"./template/relationship":17,"./utils":21,"xmldom":67,"zero-crypto/uuid":70,"zero-lang":76,"zero-oop/declare":82}],6:[function(require,module,exports){
+var lang = require('zero-lang');
+var declare = require('zero-oop/declare');
+var sprintf = require('zero-fmt/sprintf');
+var uuid = require('zero-crypto/uuid');
+var difference = lang.difference;
+var each = lang.each;
+var extend = lang.extend;
+var isNumber = lang.isNumber;
+var isString = lang.isString;
+var map = lang.map;
+var toArray = lang.toArray;
+var union = lang.union;
+
+var xmldom = require('xmldom');
+var domParser = new xmldom.DOMParser();
+
+var DomMixin = require('./DomMixin');
+var Topic = require('./Topic');
+var Relationship = require('./Relationship');
+var Legend = require('./Legend');
+
+var CONST = require('./CONST');
+var utils = require('./utils');
+
+var NS = 'sheet-';
+
+var tmplSheet = require('./template/sheet');
+
+var Sheet = declare('Sheet', DomMixin, {
+    constructor: function (options) {
+        /*
+         * options:
+         *   - workbook(required)
+         *   // when creating a new one {
+         *      - title
+         *      - rootTopicName
+         *      - theme
+         *   // }
+         *   // when loading from an existing one {
+         *      - doc
+         *   // }
+         */
+        var me = this;
+        var workbook = options.workbook;
+
+        extend(me, {
+            legend: null,
+            relationshipById: {},
+            relationships: [],
+            rootTopic: null,
+            topicById: {},
+            topics: [],
+            workbook: workbook,
+        });
+        if (options.doc) {
+            me.doc = options.doc;
+            me._loadLegend()
+                ._loadRootTopic()
+                ._loadRelationships();
+        } else {
+            if (options.id && workbook.sheetById[options.id]) {
+                throw sprintf('sheet id `%s` already exists!', options.id);
+            }
+            me.doc = domParser.parseFromString(tmplSheet({
+                id: options.id || uuid(NS),
+                title: options.title,
+                theme: options.theme,
+            }, lang)).documentElement;
+            // xml structure {
+            workbook.doc.appendChild(me.doc);
+            // }
+            me._addRootTopic({
+                id: options.rootTopicId || utils.getDefaultTopicName('Root'),
+                title: options.rootTopicName,
+                styleId: options.rootTopicStyleId
+            });
+            me.setModifiedTime();
+        }
+        extend(me, {
+            id: me.getAttribute(CONST.ATTR_ID)
+        });
+        workbook.sheets = union(workbook.sheets, [me]);
+        workbook.sheetById[me.id] = me;
+    },
+    destroy: function () {
+        // TODO
+        // NOTE: the last sheet cannot be deleted
+        var me = this;
+        var workbook = me.workbook;
+        if (workbook.sheets.length <= 1) {
+            throw 'cannot destroy the last sheet!';
+        } else {
+            each(me.topics, function (topic) {
+                topic.destroy(true);
+            });
+            each(me.relationships, function (relationship) {
+                relationship.destroy();
+            });
+            if (me.legend) {
+                me.legend.destroy();
+            }
+            DomMixin.prototype.destroy.apply(me);
+        }
+    },
+    toPlainObject: function () {
+        var me = this;
+        return {
+            id: me.id,
+            theme: me.getTheme(),
+            title: me.getTitle(),
+            modifiedTime: me.getModifiedTime(), // timestamp
+            rootTopic: me.rootTopic.toPlainObject(),
+            //topics: map(me.topics, function(topic) {
+            //return topic.toPlainObject();
+            //}),
+            relationships: map(me.relationships, function (relationship) {
+                return relationship.toPlainObject();
+            }),
+            legend: me.legend ? me.legend.toPlainObject() : null
+        };
+    },
+    _loadLegend: function () {
+        var me = this;
+        var legenNode = utils.findChildNodes(me.doc, CONST.TAG_LEGEND)[0];
+        if (legenNode) {
+            new Legend({
+                sheet: me,
+                doc: legenNode
+            });
+        }
+        return me;
+    },
+    _loadRootTopic: function () {
+        var me = this;
+        var rootTopicNode = utils.findChildNode(
+            me.doc,
+            CONST.TAG_TOPIC
+        );
+        if (rootTopicNode) {
+            new Topic({
+                sheet: me,
+                doc: rootTopicNode,
+            });
+        } else {
+            me._addRootTopic(); // fix xmind file
+        }
+        return me;
+    },
+    _loadRelationships: function () {
+        var me = this;
+        var relationshipsNode = utils.findChildNodes(me.doc, CONST.TAG_RELATIONSHIPS)[0];
+        if (relationshipsNode) {
+            me.relationshipsNode = relationshipsNode;
+            each(relationshipsNode.childNodes, function (childNode) {
+                new Relationship({
+                    sheet: me,
+                    doc: childNode
+                });
+            });
+        }
+        return this;
+    },
+    // theme {
+    getTheme: function () {
+        return this.getAttribute(CONST.ATTR_THEME);
+    },
+    setTheme: function (theme) {
+        this.setAttribute(CONST.ATTR_THEME, theme);
+        return this.setModifiedTime();
+    },
+    // }
+    // topics {
+    getRootTopic: function () {
+        return this.rootTopic;
+    },
+    _addRootTopic: function (options) {
+        var me = this;
+        if (me.rootTopic) {
+            //throw 'root topic already exists';
+            return me.rootTopic;
+        } else {
+            options = options || {};
+            extend(options, {
+                sheet: me,
+            });
+            me.setModifiedTime();
+            return new Topic(options);
+        }
+    },
+    // }
+    // legend {
+    addLegend: function () {
+        var me = this;
+        if (me.legend) {
+            //throw 'legend already exists';
+            return me.legend;
+        } else {
+            me.setModifiedTime();
+            return new Legend({
+                sheet: me
+            });
+        }
+    },
+    removeLegend: function () {
+        var me = this;
+        if (me.legend) {
+            me.legend.destroy();
+            me.legend = null;
+            return me.setModifiedTime();
+        }
+        return me;
+    },
+    addMarkerDescription: function (markerId, description) {
+        var me = this;
+        if (!me.legend) {
+            me.addLegend();
+        }
+        return me.legend.addMarkerDescription(markerId, description);
+    },
+    removeMarkerDescription: function (markerId) {
+        var me = this;
+        if (!me.legend) {
+            return me;
+        } else {
+            me.legend.removeMarkerDescription(markerId);
+            return me;
+        }
+    },
+    // }
+    // relationship {
+    addRelationship: function (options) {
+        var me = this;
+        me.relationshipsNode = utils.findOrCreateChildNode(
+            me.doc,
+            CONST.TAG_RELATIONSHIPS
+        );
+        me.setModifiedTime();
+        return new Relationship({
+            id: options.id,
+            sheet: me,
+            sourceId: options.sourceId,
+            targetId: options.targetId,
+            title: options.title
+        });
+    },
+    removeRelationship: function (/*index, id, instance or sourceId, targetId*/) {
+        var me = this;
+        var relationship;
+        var args = toArray(arguments);
+        if (args.length === 1) {
+            relationship = args[0];
+            if (!(relationship instanceof Relationship)) {
+                if (isNumber(relationship)) {
+                    relationship = me.relationships[relationship];
+                } else if (isString(relationship)) {
+                    relationship = me.relationshipById[relationship];
+                }
+            }
+        } else {
+            var sourceId = args[0];
+            var targetId = args[1];
+            var attrs = {};
+            attrs[CONST.ATTR_END1] = sourceId;
+            attrs[CONST.ATTR_END2] = targetId;
+            var relationshipNode = utils.findChildNode(
+                me.relationshipsNode,
+                CONST.TAG_RELATIONSHIP,
+                attrs
+            );
+            if (relationshipNode) {
+                relationship = me.relationshipById[
+                    relationshipNode.getAttribute(CONST.ATTR_ID)
+                    ];
+            }
+        }
+        if (relationship) {
+            delete me.relationshipById[relationship.id];
+            me.relationships = difference(me.relationships, [relationship]);
+            relationship.destroy();
+            return me.setModifiedTime();
+        }
+        return me;
+    },
+    // }
+});
+
+module.exports = Sheet;
+
+
+},{"./CONST":2,"./DomMixin":3,"./Legend":4,"./Relationship":5,"./Topic":7,"./template/sheet":18,"./utils":21,"xmldom":67,"zero-crypto/uuid":70,"zero-fmt/sprintf":73,"zero-lang":76,"zero-oop/declare":82}],7:[function(require,module,exports){
+var lang = require('zero-lang');
+var declare = require('zero-oop/declare');
+var uuid = require('zero-crypto/uuid');
+var difference = lang.difference;
+var each = lang.each;
+var extend = lang.extend;
+var isArray = lang.isArray;
+var isString = lang.isString;
+var map = lang.map;
+var trim = lang.trim;
+var union = lang.union;
+var uniq = lang.uniq;
+
+var xmldom = require('xmldom');
+var domParser = new xmldom.DOMParser();
+
+var DomMixin = require('./DomMixin');
+
+var CONST = require('./CONST');
+var utils = require('./utils');
+
+var NS = 'topic-';
+
+var tmplLabels = require('./template/labels');
+var tmplMarker = require('./template/marker');
+var tmplMarkers = require('./template/markers');
+var tmplNotes = require('./template/notes');
+var tmplTopic = require('./template/topic');
+
+function getTopicsType(topic) {
+    // FIXME is this official?
+    var REGEXP_FLOATING = new RegExp(CONST.TOPIC_FLOATING + '$', 'i');
+    if (
+        topic.type === CONST.TOPIC_DETACHED ||
+        (topic.structure || '').match(REGEXP_FLOATING)
+    ) {
+        return CONST.TOPIC_DETACHED;
+    }
+    return CONST.TOPIC_ATTACHED;
+}
+
+var Topic = declare('Topic', DomMixin, {
+    constructor: function (options) {
+        /*
+         * options:
+         *   - sheet(required)
+         *   - parent
+         *   - type
+         *   // when creating a new one {
+         *      - id
+         *      - title
+         *      - structure
+         *   // }
+         *   // when loading from an existing one {
+         *      - doc
+         *   // }
+         */
+        var me = this;
+        var sheet = options.sheet;
+
+        extend(me, {
+            isRootTopic: !options.parent,
+            parent: options.parent,
+            structure: options.structure,
+            type: options.type,
+            sheet: sheet,
+            children: [],
+            childById: {},
+        });
+        if (options.doc) {
+            me.doc = options.doc;
+            me._loadSubTopics();
+        } else {
+            me.doc = domParser.parseFromString(tmplTopic({
+                id: options.id || uuid(NS),
+                title: options.title,
+                styleId: options.styleId || '',
+            }, lang)).documentElement;
+            me.setModifiedTime();
+        }
+        me.id = me.getAttribute(CONST.ATTR_ID);
+        // xml structure {
+        me._addToParent();
+        // }
+        // level, etc {
+        // }
+        sheet.topics = union(sheet.topics, [me]);
+        sheet.topicById[me.id] = me;
+    },
+    _addToParent: function (parent) {
+        var me = this;
+        var sheet = me.sheet;
+        if (me.isRootTopic) {
+            sheet.doc.appendChild(me.doc);
+            sheet.rootTopic = me;
+        } else {
+            parent = parent || me.parent;
+            me.parent = parent; // if parent is defined, change it
+            me.topicsType = getTopicsType(me, sheet); // attached or detached
+            var parentDoc = parent.doc;
+            var childrenNode = utils.findOrCreateChildNode(
+                parentDoc, CONST.TAG_CHILDREN
+            );
+            var childrenTopicsNode = utils.findOrCreateChildNode(
+                childrenNode, CONST.TAG_TOPICS, {
+                    type: me.topicsType
+                }
+            ); // floating or not
+            childrenTopicsNode.appendChild(me.doc);
+            parent.children = union(parent.children, [me]);
+            parent.childById[me.id] = me;
+        }
+    },
+    destroy: function (force) {
+        var me = this;
+        var sheet = me.sheet;
+        if (force || sheet.rootTopic !== me) { // cannot destroy root topic unless it is forced to
+            each(me.children, function (child) {
+                child.destroy();
+            });
+            DomMixin.prototype.destroy.apply(me);
+            sheet.topics = difference(sheet.topics, [me]);
+            delete sheet.topicById[me.id];
+        }
+    },
+    toPlainObject: function () {
+        var me = this;
+        return {
+            hyperlink: me.getHyperlink(),
+            id: me.id,
+            isRootTopic: me.isRootTopic,
+            labels: me.getLabels(),
+            markers: me.getMarkers(),
+            modifiedTime: me.getModifiedTime(), // timestamp
+            notes: me.getNotes(),
+            parentId: me.parent ? me.parent.id : '',
+            sheetId: me.sheet.id,
+            structure: me.structure,
+            title: me.getTitle(),
+            type: me.type,
+            children: map(me.children, function (child) {
+                return child.toPlainObject();
+            })
+        };
+    },
+    _loadSubTopics: function () {
+        /*
+         * <topic>
+         *     <!-- other childNodes -->
+         *     <children>
+         *         <topics type="attached">
+         *             <!-- normal sub topics -->
+         *         </topics>
+         *         <topics type="detached">
+         *             <!-- floating sub topics -->
+         *         </topics>
+         *     </children>
+         * </topic>
+         */
+        var me = this;
+        var childrenNodes = utils.findChildNodes(me.doc, CONST.TAG_CHILDREN);
+        each(childrenNodes, function (childrenNode) {
+            var topicsNodes = utils.findChildNodes(childrenNode, CONST.TAG_TOPICS);
+            each(topicsNodes, function (topicsNode) {
+                var type = topicsNode.getAttribute(CONST.ATTR_TYPE);
+                var topicNodes = utils.findChildNodes(topicsNode, CONST.TAG_TOPIC);
+                each(topicNodes, function (doc) {
+                    new Topic({
+                        doc: doc,
+                        sheet: me.sheet,
+                        parent: me,
+                        type: type,
+                    });
+                });
+            });
+        });
+        return me;
+    },
+    // parent & child {
+    getBranch: function () { // folded, etc
+        return this.getAttribute(CONST.ATTR_BRANCH);
+    },
+    setBranch: function (value) {
+        this.setAttribute(CONST.ATTR_BRANCH, value);
+        return this.setModifiedTime();
+    },
+    setBranchFolded: function () {
+        this.setAttribute(CONST.ATTR_BRANCH, CONST.VAL_FOLDED);
+        return this.setModifiedTime();
+    },
+    addChild: function (options/*instance or options*/) {
+        var me = this;
+        me.setModifiedTime();
+        if (options instanceof Topic) {
+            options._addToParent(me);
+            return options;
+        } else {
+            return new Topic(extend(options, {
+                parent: me,
+                sheet: me.sheet
+            }));
+        }
+    },
+    removeChild: function (child/*id or instance*/, dryrun) {
+        var me = this;
+        child = Topic.getTopic(child, me.sheet);
+        if (child) {
+            delete me.childById[child.id];
+            me.children = difference(me.children, [child]);
+            if (!dryrun) {
+                child.destroy();
+            }
+        }
+        return me.setModifiedTime();
+    },
+    isAncestorOf: function (targetTopic) {
+        var me = this;
+        targetTopic = Topic.getTopic(targetTopic, me.sheet);
+        var topic = targetTopic;
+        while (topic.parent) {
+            if (topic.parent === me) {
+                return true;
+            }
+            topic = topic.parent;
+        }
+        return false;
+    },
+    moveTo: function (targetTopic) {
+        var me = this;
+        targetTopic = Topic.getTopic(targetTopic, me.sheet);
+        if (!targetTopic) {
+            throw 'target topic does not exist';
+        }
+        if (me.isRootTopic) {
+            throw 'cannot move root topic';
+        }
+        if (me === targetTopic) {
+            throw 'cannot move to itself';
+        }
+        if (me.isAncestorOf(targetTopic)) {
+            throw 'cannot move to a child topic';
+        }
+        me.parent.removeChild(me, true);
+        targetTopic.addChild(me);
+        return me.setModifiedTime();
+    },
+    //moveChild: function([>fromIndex, toIndex<]) {
+    //TODO
+    //},
+    // }
+    // floating, etc {
+    // }
+    // notes {
+    getNotes: function () {
+        var notesNode = utils.findChildNode(this.doc, CONST.TAG_NOTES);
+        if (notesNode) {
+            var plainNotesNode = utils.findChildNode(notesNode, CONST.PLAIN_FORMAT_NOTE);
+            if (plainNotesNode) {
+                return plainNotesNode.textContent;
+            }
+        }
+        return '';
+    },
+    setNotes: function (notes) {
+        var me = this;
+        // TODO support styles
+        if (!isString(notes)) {
+            //throw 'notes must be a string!';
+            return me;
+        }
+        var noteLines = notes.split('\n');
+        utils.removeChildNode(me.doc, CONST.TAG_NOTES);
+        var notesNode = domParser.parseFromString(tmplNotes({
+            lines: noteLines,
+            plainNotes: notes
+        }, lang)).documentElement;
+        me.doc.appendChild(notesNode);
+        return me.setModifiedTime();
+    },
+    // }
+    // labels {
+    getLabels: function () {
+        var result = [];
+        var labelsNode = utils.findChildNode(this.doc, CONST.TAG_LABELS);
+        result = map(utils.findChildNodes(labelsNode, CONST.TAG_LABEL), function (labelNode) {
+            return labelNode.textContent;
+        });
+        return result;
+    },
+    setLabels: function (labels) {
+        var me = this;
+        if (isString(labels)) {
+            labels = map(labels.split(','), function (label) {
+                return label;
+            });
+        } else {
+            labels = isArray(labels) ? labels : [labels];
+        }
+        labels = map(labels, function (label) {
+            return trim(label);
+        });
+        utils.removeChildNode(me.doc, CONST.TAG_LABELS);
+        var labelsNode = domParser.parseFromString(tmplLabels({
+            labels: labels
+        }, lang)).documentElement;
+        me.doc.appendChild(labelsNode);
+        return me.setModifiedTime();
+    },
+    // }
+    // hyperlink {
+    getHyperlink: function () {
+        return this.doc.getAttribute(CONST.ATTR_HREF);
+    },
+    setHyperlink: function (hyperlink) {
+        /*
+         * hyperlink which refers to one of these:
+         *   - url
+         *   - topic
+         *   - file
+         */
+        this.setAttribute(CONST.ATTR_HREF, hyperlink);
+        return this.setModifiedTime();
+    },
+    removeHyperlink: function () {
+        this.removeAttribute(CONST.ATTR_HREF);
+        return this.setModifiedTime();
+    },
+    // }
+    // marker {
+    // automatically add legends?
+    getMarkers: function () {
+        var result = [];
+        var markersNode = utils.findChildNode(this.doc, CONST.TAG_MARKERREFS);
+        if (markersNode) {
+            utils.eachChildNode(markersNode, CONST.TAG_MARKERREF, {}, function (node) {
+                var id = node.getAttribute(CONST.ATTR_MARKERID);
+                if (id) {
+                    result.push(id);
+                }
+            });
+        }
+        return result;
+    },
+    setMarkers: function (markers) {
+        var me = this;
+        if (!isArray(markers)) {
+            //throw 'invalid markers';
+            return me;
+        }
+        markers = uniq(markers);
+        utils.removeChildNode(me.doc, CONST.TAG_MARKERREFS);
+        var markersNode = domParser.parseFromString(tmplMarkers({
+            markers: markers
+        }, lang)).documentElement;
+        me.doc.appendChild(markersNode);
+        return me.setModifiedTime();
+    },
+    addMarker: function (id) {
+        // an exception of `instance.addXXXX()`-formatted function
+        // because there is not a constructor named `Marker`,
+        // this function returns Topic instance instead
+        var me = this;
+        var markersNode = utils.findOrCreateChildNode(me.doc, CONST.TAG_MARKERREFS);
+        var attrs = {};
+        attrs[CONST.ATTR_MARKERID] = id;
+        if (utils.findChildNode(me.doc, CONST.TAG_MARKERREF, attrs)) {
+            throw 'marker already exists!';
+        }
+        var newMarkerNode = domParser.parseFromString(tmplMarker({
+            id: id
+        }, lang)).documentElement;
+        markersNode.appendChild(newMarkerNode);
+        return me.setModifiedTime();
+    },
+    removeMarker: function (id) {
+        var me = this;
+        var markersNode = utils.findOrCreateChildNode(me.doc, CONST.TAG_MARKERREFS);
+        var attrs = {};
+        attrs[CONST.ATTR_MARKERID] = id;
+        utils.removeChildNode(markersNode, CONST.TAG_MARKERREF, attrs);
+        return me.setModifiedTime();
+    },
+    // }
+});
+
+extend(Topic, {
+    getTopic: function (topic/*id or instance*/, sheet) {
+        if (isString(topic)) {
+            topic = sheet.topicById[topic];
+        } else if (!(topic instanceof Topic)) {
+            topic = null;
+        }
+        return topic;
+    }
+});
+
+module.exports = Topic;
+
+
+},{"./CONST":2,"./DomMixin":3,"./template/labels":10,"./template/marker":13,"./template/markers":14,"./template/notes":16,"./template/topic":20,"./utils":21,"xmldom":67,"zero-crypto/uuid":70,"zero-lang":76,"zero-oop/declare":82}],8:[function(require,module,exports){
+var lang = require('zero-lang');
+var declare = require('zero-oop/declare');
+var extend = lang.extend;
+var indexOf = lang.indexOf;
+var isNumber = lang.isNumber;
+var isString = lang.isString;
+var map = lang.map;
+var remove = lang.remove;
+
+var xmldom = require('xmldom');
+var domParser = new xmldom.DOMParser();
+
+var DomMixin = require('./DomMixin');
+var Sheet = require('./Sheet');
+
+var CONST = require('./CONST');
+var utils = require('./utils');
+
+var tmplContent = require('./template/content');
+var tmplStyles = require('./template/styles');
+
+var Workbook = declare('Workbook', DomMixin, {
+    constructor: function (options) {
+        /*
+         * options:
+         *   // when creating a new one {
+         *      - firstSheetName
+         *      - rootTopicName
+         *   // }
+         *   // when loading from an existing one {
+         *      - doc
+         *      - stylesDoc
+         *      - attachments
+         *   // }
+         */
+        var me = this;
+        var defaultSheetName = utils.getDefaultSheetName(1);
+        var defaultTopicName = utils.getDefaultTopicName('Root');
+
+        options = options || {};
+        extend(me, {
+            attachments: options.attachments || {},
+            // shortcuts to access sheets {
+            sheets: [],
+            sheetById: {},
+            // }
+        });
+        if (options.doc) { // create from xml docs
+            me.doc = options.doc;
+            me.stylesDoc = options.stylesDoc;
+            me._loadSheets();
+        } else { // create with first sheet & root topic
+            me.doc = domParser.parseFromString(tmplContent({
+                timestamp: utils.getCurrentTimestamp()
+            }, lang)).documentElement;
+            me.stylesDoc = domParser.parseFromString(tmplStyles()).documentElement;
+
+            me.addSheet({
+                id: options.firstSheetId,
+                title: options.firstSheetName || defaultSheetName,
+                rootTopicId: options.rootTopicId,
+                rootTopicName: options.rootTopicName || defaultTopicName
+            });
+
+            me.setModifiedTime();
+        }
+    },
+    _loadSheets: function () {
+        var me = this;
+        utils.eachChildNode(me.doc, CONST.TAG_SHEET, {}, function (childNode) {
+            new Sheet({ // create from node
+                workbook: me,
+                doc: childNode
+            });
+        });
+    },
+    // sheet {
+    getPrimarySheet: function () {
+        return this.sheets[0];
+    },
+    addSheet: function (options) {
+        /*
+         * options: {
+         *    workbook: this,
+         *    title: options.sheetName,
+         *    id: options.sheetId,
+         *    rootTopicName: options.rootTopicName,
+         *    rootTopicId: options.rootTopicId,
+         *    theme: options.theme
+         * }
+         */
+        var me = this;
+        options = options || {};
+        me.setModifiedTime();
+        extend(options, {
+            workbook: me,
+            title: options.title || utils.getDefaultSheetName()
+        });
+        return new Sheet(options);
+    },
+    moveSheet: function (fromIndex, toIndex) {
+        var me = this;
+        var doc = me.doc;
+        var fromSheet = me.sheets[fromIndex],
+            toSheet = me.sheets[toIndex];
+        if (fromSheet && toSheet) {
+            // dom structure
+            doc.removeChild(fromSheet.doc);
+            doc.insertBefore(fromSheet.doc, toSheet.doc);
+            // data structure
+            remove(me.sheets, fromIndex); // remove first
+            me.sheets.splice(toIndex, 0, fromSheet); // insert to target position
+        }
+        return me.setModifiedTime();
+    },
+    removeSheet: function (sheet/* index or id or instance */) {
+        var me = this;
+        if (me.sheets.length <= 1) {
+            return; // primary sheet cannot be removed
+        }
+        var index, id;
+        if (isNumber(sheet)) {
+            sheet = me.sheets[sheet];
+        } else if (isString(sheet)) {
+            sheet = me.sheetById[sheet];
+        }
+        index = indexOf(me.sheets, sheet);
+        id = sheet.id;
+        sheet.destroy(); // first destroy, then delete
+        delete me.sheetById[id];
+        remove(me.sheets, index);
+        return me.setModifiedTime();
+    },
+    // }
+    destroy: function () {
+        // cannot destroy workbook instance?
+    },
+    toPlainObject: function () {
+        var me = this;
+        return {
+            sheets: map(me.sheets, function (sheet) {
+                return sheet.toPlainObject();
+            }),
+            modifiedTime: me.getModifiedTime() // timestamp
+        };
+    },
+});
+
+module.exports = Workbook;
+
+
+},{"./CONST":2,"./DomMixin":3,"./Sheet":6,"./template/content":9,"./template/styles":19,"./utils":21,"xmldom":67,"zero-lang":76,"zero-oop/declare":82}],9:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-content xmlns="urn:xmind:xmap:xmlns:content:2.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" version="2.0"></xmap-content>';return _s;
+};
+},{}],10:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<labels>';helper.each(data.labels, function(label){ _s+='<label>'+_e(label)+'</label>';}); _s+='</labels>';return _s;
+};
+},{}],11:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<legend visibility="'+_e(data.visibility)+'"><marker-descriptions>';helper.each(data.markerDescriptions, function(md){ _s+='<marker-description description="'+_e(md.description)+'" marker-id="'+_e(md.id)+'"/>';}); _s+='</marker-descriptions><position svg:x="'+_e(data.position.x)+'" svg:y="'+_e(data.position.y)+'"/></legend>';return _s;
+};
+},{}],12:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<?xml version="1.0" encoding="UTF-8" standalone="no"?><manifest xmlns="urn:xmind:xmap:xmlns:manifest:1.0"><file-entry full-path="content.xml" media-type="text/xml"/><file-entry full-path="META-INF/" media-type=""/><file-entry full-path="META-INF/manifest.xml" media-type="text/xml"/><file-entry full-path="styles.xml" media-type=""/><file-entry full-path="Thumbnails/" media-type=""/><file-entry full-path="Thumbnails/thumbnail.jpg" media-type="image/jpeg"/></manifest>';return _s;
+};
+},{}],13:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<marker-ref marker-id="'+_e(data.id)+'"/>';return _s;
+};
+},{}],14:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<marker-refs>';helper.each(data.markers, function(marker){ _s+='<marker-ref marker-id="'+_e(marker)+'"/>';}); _s+='</marker-refs>';return _s;
+};
+},{}],15:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<?xml version="1.0" encoding="UTF-8" standalone="no"?><meta xmlns="urn:xmind:xmap:xmlns:meta:2.0" version="2.0"/>';return _s;
+};
+},{}],16:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<notes><html>';helper.each(data.lines, function(line){ _s+='<xhtml:p>'+_e(line)+'</xhtml:p>';}); _s+='<!--styles are not supported yet {--><!--<xhtml:p>--><!--<xhtml:span style-id="67gllifq4r1g91gks0tdif9dou">what</xhtml:span>--><!--</xhtml:p>--><!--}--></html><plain>'+_e(data.plainNotes)+'</plain></notes>';return _s;
+};
+},{}],17:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<relationship end1="'+_e(data.sourceId)+'" end2="'+_e(data.targetId)+'" id="'+_e(data.id)+'"/>';return _s;
+};
+},{}],18:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<sheet id="'+_e(data.id)+'" ';if(data.theme) { _s+='theme="'+_e(data.theme)+'"';} _s+='><title>'+_e(data.title)+'</title></sheet>';return _s;
+};
+},{}],19:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-styles xmlns="urn:xmind:xmap:xmlns:style:2.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" version="2.0"><automatic-styles></automatic-styles><master-styles></master-styles><styles></styles></xmap-styles>';return _s;
+};
+},{}],20:[function(require,module,exports){
+module.exports = function anonymous(data,helper
+/**/) {
+data=data||{};helper=helper||{};var _e=helper.escape?helper.escape:function(s){return s;};var _s='<topic id="'+_e(data.id)+'" ';if(data.styleId) { _s+='style-id="'+_e(data.styleId)+'"';} _s+='><title>'+_e(data.title)+'</title></topic>';return _s;
+};
+},{}],21:[function(require,module,exports){
+var lang = require('zero-lang');
+var each = lang.each;
+var forIn = lang.forIn;
+var every = lang.every;
+var keys = lang.keys;
+var filter = lang.filter;
+var sprintf = require('zero-fmt/sprintf');
+
+function noop() {}
+
+var utils = {
+    getCurrentTimestamp: function() {
+        return Date.now();
+    },
+    getDefaultSheetName: function(index) {
+        return sprintf('Sheet %d', index || 1);
+    },
+    getDefaultTopicName: function(structureClass) {
+        return sprintf('%s Topic', structureClass);
+    },
+    findChildNode: function(doc, tagName, attrs) {
+        attrs = attrs || {};
+        if (!doc) {
+            return;
+        }
+        return utils.findChildNodes(doc, tagName, attrs)[0];
+    },
+    findChildNodes: function(doc, tagName, attrs) {
+        attrs = attrs || {};
+        if (!doc) {
+            return [];
+        }
+        var resultNodes = filter(doc.childNodes, function(node) {
+            return node.tagName === tagName;
+        });
+        resultNodes = filter(resultNodes, function(node) {
+            return node && every(keys(attrs), function(key) {
+                return node.getAttribute(key) === attrs[key];
+            });
+        });
+        return resultNodes;
+    },
+    eachChildNode: function(doc, tagName, attrs, callback) {
+        callback = callback || noop;
+        each(utils.findChildNodes(doc, tagName, attrs), function(node) {
+            callback(node);
+        });
+    },
+    findOrCreateChildNode: function(doc, tagName, attrs) {
+        attrs = attrs || {};
+        if (!doc) {
+            // throw 'doc not defined';
+            return null;
+        }
+        var resultNode = utils.findChildNode(doc, tagName, attrs);
+        if (!resultNode) {
+            var ownerDoc = doc;
+            if (!doc.createElement) { // create with ownerDocument
+                ownerDoc = doc.ownerDocument;
+            }
+            resultNode = ownerDoc.createElement(tagName);
+            forIn(attrs, function(value, key) {
+                resultNode.setAttribute(key, value);
+            });
+            doc.appendChild(resultNode);
+        }
+        return resultNode;
+    },
+    removeChildNode: function(doc, tagName, attrs) {
+        attrs = attrs || {};
+        var resultNode = utils.findChildNode(doc, tagName, attrs);
+        if (resultNode) {
+            doc.removeChild(resultNode);
+        }
+        return resultNode;
+    }
+};
+
+module.exports = utils;
+
+},{"zero-fmt/sprintf":73,"zero-lang":76}],22:[function(require,module,exports){
+var lang = require('zero-lang');
+var forIn = lang.forIn;
+var extend = lang.extend;
+
+var xmldom = require('xmldom');
+var domParser = new xmldom.DOMParser();
+var xmlSerializer = new xmldom.XMLSerializer();
+
+var JSZip = require('jszip');
+
+var saveAs = require('filesaver.js').saveAs;
+
+var CONST = require('./CONST');
+var DomMixin = require('./DomMixin');
+var Legend = require('./Legend');
+var Relationship = require('./Relationship');
+var Sheet = require('./Sheet');
+var Topic = require('./Topic');
+var Workbook = require('./Workbook');
+var utils = require('./utils');
+
+var tmplMeta = require('./template/meta');
+var tmplManifest = require('./template/manifest');
+
+extend(Workbook, {
+    open: function (data) {
+        var zip = new JSZip(data);
+
+        var doc,
+            stylesDoc,
+            attachments = {};
+
+        forIn(zip.files, function (file, filename) {
+            filename = filename.replace(/^\//, '');
+            if (filename === CONST.CONTENT_XML) {
+                // content.xml
+                doc = domParser.parseFromString(
+                    zip.file(filename).asText()
+                ).documentElement;
+            } else if (filename === CONST.STYLES_XML) {
+                // styles.xml
+                stylesDoc = domParser.parseFromString(
+                    zip.file(filename).asText()
+                ).documentElement;
+            } else if (filename.indexOf(CONST.ATTACHMENTS_DIR) === 0) {
+                // attachments/*
+                var shortName = filename.replace(CONST.ATTACHMENTS_DIR, '');
+                attachments[shortName] = zip.file(filename).asText();
+            }
+        });
+        if (!doc) {
+            throw 'invalid xmind file';
+        }
+        var workbook = new Workbook({
+            doc: doc,
+            stylesDoc: stylesDoc,
+            attachments: attachments
+        });
+        workbook.zip = zip;
+        return workbook;
+    },
+    save: function (workbook, filename) {
+        // TODO support embed markers
+        var zip = workbook.zip ? workbook.zip : new JSZip(); // keep the origin contents
+
+        // content.xml
+        zip.file(CONST.CONTENT_XML, xmlSerializer.serializeToString(workbook.doc));
+        // styles.xml
+        zip.file(CONST.STYLES_XML, xmlSerializer.serializeToString(workbook.stylesDoc));
+        // meta.xml
+        zip.file(CONST.META_XML, tmplMeta());
+        // META-INF/manifest.xml
+        zip.file(CONST.MANIFEST_XML, tmplManifest());
+        // attachments/*
+        forIn(workbook.attachments, function (content, filename) {
+            zip.file(CONST.ATTACHMENTS_DIR + filename, content);
+        });
+
+        workbook.zip = zip;
+
+        var content = zip.generate({
+            type: 'blob'
+        });
+        saveAs(content, filename);
+    }
+});
+
+module.exports = {
+    CONST: CONST,
+    DomMixin: DomMixin,
+    Legend: Legend,
+    Relationship: Relationship,
+    Sheet: Sheet,
+    Topic: Topic,
+    Workbook: Workbook,
+    open: Workbook.open,
+    save: Workbook.save,
+    utils: utils
+};
+
+},{"./CONST":2,"./DomMixin":3,"./Legend":4,"./Relationship":5,"./Sheet":6,"./Topic":7,"./Workbook":8,"./template/manifest":12,"./template/meta":15,"./utils":21,"filesaver.js":27,"jszip":36,"xmldom":67,"zero-lang":76}],23:[function(require,module,exports){
+(function (global){
 /*!
  * The buffer module from node.js, for the browser.
  *
  * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
  * @license  MIT
  */
+/* eslint-disable no-proto */
+
+'use strict'
 
 var base64 = require('base64-js')
 var ieee754 = require('ieee754')
-var isArray = require('is-array')
+var isArray = require('isarray')
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -33,9 +1592,6 @@ var rootParent = {}
  *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
  *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
  *
- *   - Safari 5-7 lacks support for changing the `Object.prototype.constructor` property
- *     on objects.
- *
  *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
  *
  *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
@@ -44,20 +1600,21 @@ var rootParent = {}
  * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
  * get the Object implementation, which is slower but behaves correctly.
  */
-Buffer.TYPED_ARRAY_SUPPORT = (function () {
-  function Bar () {}
+Buffer.TYPED_ARRAY_SUPPORT = global.TYPED_ARRAY_SUPPORT !== undefined
+  ? global.TYPED_ARRAY_SUPPORT
+  : typedArraySupport()
+
+function typedArraySupport () {
   try {
     var arr = new Uint8Array(1)
     arr.foo = function () { return 42 }
-    arr.constructor = Bar
     return arr.foo() === 42 && // typed array instances can be augmented
-        arr.constructor === Bar && // constructor can be set
         typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
         arr.subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
   } catch (e) {
     return false
   }
-})()
+}
 
 function kMaxLength () {
   return Buffer.TYPED_ARRAY_SUPPORT
@@ -66,16 +1623,13 @@ function kMaxLength () {
 }
 
 /**
- * Class: Buffer
- * =============
+ * The Buffer constructor returns instances of `Uint8Array` that have their
+ * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
+ * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
+ * and the `Uint8Array` methods. Square bracket notation works as expected -- it
+ * returns a single octet.
  *
- * The Buffer constructor returns instances of `Uint8Array` that are augmented
- * with function properties for all the node `Buffer` API functions. We use
- * `Uint8Array` so that square bracket notation works as expected -- it returns
- * a single octet.
- *
- * By augmenting the instances, we can avoid modifying the `Uint8Array`
- * prototype.
+ * The `Uint8Array` prototype remains unmodified.
  */
 function Buffer (arg) {
   if (!(this instanceof Buffer)) {
@@ -84,8 +1638,10 @@ function Buffer (arg) {
     return new Buffer(arg)
   }
 
-  this.length = 0
-  this.parent = undefined
+  if (!Buffer.TYPED_ARRAY_SUPPORT) {
+    this.length = 0
+    this.parent = undefined
+  }
 
   // Common case.
   if (typeof arg === 'number') {
@@ -99,6 +1655,12 @@ function Buffer (arg) {
 
   // Unusual.
   return fromObject(this, arg)
+}
+
+// TODO: Legacy, not needed anymore. Remove in next major version.
+Buffer._augment = function (arr) {
+  arr.__proto__ = Buffer.prototype
+  return arr
 }
 
 function fromNumber (that, length) {
@@ -175,10 +1737,12 @@ function fromTypedArray (that, array) {
 }
 
 function fromArrayBuffer (that, array) {
+  array.byteLength // this throws if `array` is not a valid ArrayBuffer
+
   if (Buffer.TYPED_ARRAY_SUPPORT) {
     // Return an augmented `Uint8Array` instance, for best performance
-    array.byteLength
-    that = Buffer._augment(new Uint8Array(array))
+    that = new Uint8Array(array)
+    that.__proto__ = Buffer.prototype
   } else {
     // Fallback: Return an object instance of the Buffer class
     that = fromTypedArray(that, new Uint8Array(array))
@@ -213,14 +1777,31 @@ function fromJsonObject (that, object) {
   return that
 }
 
+if (Buffer.TYPED_ARRAY_SUPPORT) {
+  Buffer.prototype.__proto__ = Uint8Array.prototype
+  Buffer.__proto__ = Uint8Array
+  if (typeof Symbol !== 'undefined' && Symbol.species &&
+      Buffer[Symbol.species] === Buffer) {
+    // Fix subarray() in ES2016. See: https://github.com/feross/buffer/pull/97
+    Object.defineProperty(Buffer, Symbol.species, {
+      value: null,
+      configurable: true
+    })
+  }
+} else {
+  // pre-set for values that may exist in the future
+  Buffer.prototype.length = undefined
+  Buffer.prototype.parent = undefined
+}
+
 function allocate (that, length) {
   if (Buffer.TYPED_ARRAY_SUPPORT) {
     // Return an augmented `Uint8Array` instance, for best performance
-    that = Buffer._augment(new Uint8Array(length))
+    that = new Uint8Array(length)
+    that.__proto__ = Buffer.prototype
   } else {
     // Fallback: Return an object instance of the Buffer class
     that.length = length
-    that._isBuffer = true
   }
 
   var fromPool = length !== 0 && length <= Buffer.poolSize >>> 1
@@ -360,10 +1941,6 @@ function byteLength (string, encoding) {
 }
 Buffer.byteLength = byteLength
 
-// pre-set for values that may exist in the future
-Buffer.prototype.length = undefined
-Buffer.prototype.parent = undefined
-
 function slowToString (encoding, start, end) {
   var loweredCase = false
 
@@ -406,6 +1983,10 @@ function slowToString (encoding, start, end) {
     }
   }
 }
+
+// The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
+// Buffer instances.
+Buffer.prototype._isBuffer = true
 
 Buffer.prototype.toString = function toString () {
   var length = this.length | 0
@@ -475,18 +2056,6 @@ Buffer.prototype.indexOf = function indexOf (val, byteOffset) {
   }
 
   throw new TypeError('val must be string, number or Buffer')
-}
-
-// `get` is deprecated
-Buffer.prototype.get = function get (offset) {
-  console.log('.get() is deprecated. Access using array indexes instead.')
-  return this.readUInt8(offset)
-}
-
-// `set` is deprecated
-Buffer.prototype.set = function set (v, offset) {
-  console.log('.set() is deprecated. Access using array indexes instead.')
-  return this.writeUInt8(v, offset)
 }
 
 function hexWrite (buf, string, offset, length) {
@@ -625,31 +2194,20 @@ function base64Slice (buf, start, end) {
 
 function utf8Slice (buf, start, end) {
   end = Math.min(buf.length, end)
-  var firstByte
-  var secondByte
-  var thirdByte
-  var fourthByte
-  var bytesPerSequence
-  var tempCodePoint
-  var codePoint
   var res = []
+
   var i = start
-
-  for (; i < end; i += bytesPerSequence) {
-    firstByte = buf[i]
-    codePoint = 0xFFFD
-
-    if (firstByte > 0xEF) {
-      bytesPerSequence = 4
-    } else if (firstByte > 0xDF) {
-      bytesPerSequence = 3
-    } else if (firstByte > 0xBF) {
-      bytesPerSequence = 2
-    } else {
-      bytesPerSequence = 1
-    }
+  while (i < end) {
+    var firstByte = buf[i]
+    var codePoint = null
+    var bytesPerSequence = (firstByte > 0xEF) ? 4
+      : (firstByte > 0xDF) ? 3
+      : (firstByte > 0xBF) ? 2
+      : 1
 
     if (i + bytesPerSequence <= end) {
+      var secondByte, thirdByte, fourthByte, tempCodePoint
+
       switch (bytesPerSequence) {
         case 1:
           if (firstByte < 0x80) {
@@ -688,8 +2246,10 @@ function utf8Slice (buf, start, end) {
       }
     }
 
-    if (codePoint === 0xFFFD) {
-      // we generated an invalid codePoint so make sure to only advance by 1 byte
+    if (codePoint === null) {
+      // we did not generate a valid codePoint so insert a
+      // replacement char (U+FFFD) and advance only 1 byte
+      codePoint = 0xFFFD
       bytesPerSequence = 1
     } else if (codePoint > 0xFFFF) {
       // encode to utf16 (surrogate pair dance)
@@ -699,9 +2259,33 @@ function utf8Slice (buf, start, end) {
     }
 
     res.push(codePoint)
+    i += bytesPerSequence
   }
 
-  return String.fromCharCode.apply(String, res)
+  return decodeCodePointsArray(res)
+}
+
+// Based on http://stackoverflow.com/a/22747272/680742, the browser with
+// the lowest limit is Chrome, with 0x10000 args.
+// We go 1 magnitude less, for safety
+var MAX_ARGUMENTS_LENGTH = 0x1000
+
+function decodeCodePointsArray (codePoints) {
+  var len = codePoints.length
+  if (len <= MAX_ARGUMENTS_LENGTH) {
+    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
+  }
+
+  // Decode in chunks to avoid "call stack size exceeded".
+  var res = ''
+  var i = 0
+  while (i < len) {
+    res += String.fromCharCode.apply(
+      String,
+      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
+    )
+  }
+  return res
 }
 
 function asciiSlice (buf, start, end) {
@@ -769,7 +2353,8 @@ Buffer.prototype.slice = function slice (start, end) {
 
   var newBuf
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    newBuf = Buffer._augment(this.subarray(start, end))
+    newBuf = this.subarray(start, end)
+    newBuf.__proto__ = Buffer.prototype
   } else {
     var sliceLen = end - start
     newBuf = new Buffer(sliceLen, undefined)
@@ -990,7 +2575,7 @@ Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0)
   if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
-  this[offset] = value
+  this[offset] = (value & 0xff)
   return offset + 1
 }
 
@@ -1007,7 +2592,7 @@ Buffer.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = value
+    this[offset] = (value & 0xff)
     this[offset + 1] = (value >>> 8)
   } else {
     objectWriteUInt16(this, value, offset, true)
@@ -1021,7 +2606,7 @@ Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert
   if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
     this[offset] = (value >>> 8)
-    this[offset + 1] = value
+    this[offset + 1] = (value & 0xff)
   } else {
     objectWriteUInt16(this, value, offset, false)
   }
@@ -1043,7 +2628,7 @@ Buffer.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert
     this[offset + 3] = (value >>> 24)
     this[offset + 2] = (value >>> 16)
     this[offset + 1] = (value >>> 8)
-    this[offset] = value
+    this[offset] = (value & 0xff)
   } else {
     objectWriteUInt32(this, value, offset, true)
   }
@@ -1058,7 +2643,7 @@ Buffer.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert
     this[offset] = (value >>> 24)
     this[offset + 1] = (value >>> 16)
     this[offset + 2] = (value >>> 8)
-    this[offset + 3] = value
+    this[offset + 3] = (value & 0xff)
   } else {
     objectWriteUInt32(this, value, offset, false)
   }
@@ -1111,7 +2696,7 @@ Buffer.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
   if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80)
   if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
   if (value < 0) value = 0xff + value + 1
-  this[offset] = value
+  this[offset] = (value & 0xff)
   return offset + 1
 }
 
@@ -1120,7 +2705,7 @@ Buffer.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) 
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = value
+    this[offset] = (value & 0xff)
     this[offset + 1] = (value >>> 8)
   } else {
     objectWriteUInt16(this, value, offset, true)
@@ -1134,7 +2719,7 @@ Buffer.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) 
   if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
     this[offset] = (value >>> 8)
-    this[offset + 1] = value
+    this[offset + 1] = (value & 0xff)
   } else {
     objectWriteUInt16(this, value, offset, false)
   }
@@ -1146,7 +2731,7 @@ Buffer.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) 
   offset = offset | 0
   if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
   if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = value
+    this[offset] = (value & 0xff)
     this[offset + 1] = (value >>> 8)
     this[offset + 2] = (value >>> 16)
     this[offset + 3] = (value >>> 24)
@@ -1165,7 +2750,7 @@ Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) 
     this[offset] = (value >>> 24)
     this[offset + 1] = (value >>> 16)
     this[offset + 2] = (value >>> 8)
-    this[offset + 3] = value
+    this[offset + 3] = (value & 0xff)
   } else {
     objectWriteUInt32(this, value, offset, false)
   }
@@ -1173,7 +2758,6 @@ Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) 
 }
 
 function checkIEEE754 (buf, value, offset, ext, max, min) {
-  if (value > max || value < min) throw new RangeError('value is out of bounds')
   if (offset + ext > buf.length) throw new RangeError('index out of range')
   if (offset < 0) throw new RangeError('index out of range')
 }
@@ -1249,7 +2833,11 @@ Buffer.prototype.copy = function copy (target, targetStart, start, end) {
       target[i + targetStart] = this[i + start]
     }
   } else {
-    target._set(this.subarray(start, start + len), targetStart)
+    Uint8Array.prototype.set.call(
+      target,
+      this.subarray(start, start + len),
+      targetStart
+    )
   }
 
   return len
@@ -1286,96 +2874,8 @@ Buffer.prototype.fill = function fill (value, start, end) {
   return this
 }
 
-/**
- * Creates a new `ArrayBuffer` with the *copied* memory of the buffer instance.
- * Added in Node 0.12. Only available in browsers that support ArrayBuffer.
- */
-Buffer.prototype.toArrayBuffer = function toArrayBuffer () {
-  if (typeof Uint8Array !== 'undefined') {
-    if (Buffer.TYPED_ARRAY_SUPPORT) {
-      return (new Buffer(this)).buffer
-    } else {
-      var buf = new Uint8Array(this.length)
-      for (var i = 0, len = buf.length; i < len; i += 1) {
-        buf[i] = this[i]
-      }
-      return buf.buffer
-    }
-  } else {
-    throw new TypeError('Buffer.toArrayBuffer not supported in this browser')
-  }
-}
-
 // HELPER FUNCTIONS
 // ================
-
-var BP = Buffer.prototype
-
-/**
- * Augment a Uint8Array *instance* (not the Uint8Array class!) with Buffer methods
- */
-Buffer._augment = function _augment (arr) {
-  arr.constructor = Buffer
-  arr._isBuffer = true
-
-  // save reference to original Uint8Array set method before overwriting
-  arr._set = arr.set
-
-  // deprecated
-  arr.get = BP.get
-  arr.set = BP.set
-
-  arr.write = BP.write
-  arr.toString = BP.toString
-  arr.toLocaleString = BP.toString
-  arr.toJSON = BP.toJSON
-  arr.equals = BP.equals
-  arr.compare = BP.compare
-  arr.indexOf = BP.indexOf
-  arr.copy = BP.copy
-  arr.slice = BP.slice
-  arr.readUIntLE = BP.readUIntLE
-  arr.readUIntBE = BP.readUIntBE
-  arr.readUInt8 = BP.readUInt8
-  arr.readUInt16LE = BP.readUInt16LE
-  arr.readUInt16BE = BP.readUInt16BE
-  arr.readUInt32LE = BP.readUInt32LE
-  arr.readUInt32BE = BP.readUInt32BE
-  arr.readIntLE = BP.readIntLE
-  arr.readIntBE = BP.readIntBE
-  arr.readInt8 = BP.readInt8
-  arr.readInt16LE = BP.readInt16LE
-  arr.readInt16BE = BP.readInt16BE
-  arr.readInt32LE = BP.readInt32LE
-  arr.readInt32BE = BP.readInt32BE
-  arr.readFloatLE = BP.readFloatLE
-  arr.readFloatBE = BP.readFloatBE
-  arr.readDoubleLE = BP.readDoubleLE
-  arr.readDoubleBE = BP.readDoubleBE
-  arr.writeUInt8 = BP.writeUInt8
-  arr.writeUIntLE = BP.writeUIntLE
-  arr.writeUIntBE = BP.writeUIntBE
-  arr.writeUInt16LE = BP.writeUInt16LE
-  arr.writeUInt16BE = BP.writeUInt16BE
-  arr.writeUInt32LE = BP.writeUInt32LE
-  arr.writeUInt32BE = BP.writeUInt32BE
-  arr.writeIntLE = BP.writeIntLE
-  arr.writeIntBE = BP.writeIntBE
-  arr.writeInt8 = BP.writeInt8
-  arr.writeInt16LE = BP.writeInt16LE
-  arr.writeInt16BE = BP.writeInt16BE
-  arr.writeInt32LE = BP.writeInt32LE
-  arr.writeInt32BE = BP.writeInt32BE
-  arr.writeFloatLE = BP.writeFloatLE
-  arr.writeFloatBE = BP.writeFloatBE
-  arr.writeDoubleLE = BP.writeDoubleLE
-  arr.writeDoubleBE = BP.writeDoubleBE
-  arr.fill = BP.fill
-  arr.inspect = BP.inspect
-  arr.toArrayBuffer = BP.toArrayBuffer
-
-  return arr
-}
 
 var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g
 
@@ -1420,7 +2920,6 @@ function utf8ToBytes (string, units) {
           // unexpected trail
           if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
           continue
-
         } else if (i + 1 === length) {
           // unpaired lead
           if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
@@ -1441,8 +2940,7 @@ function utf8ToBytes (string, units) {
       }
 
       // valid surrogate pair
-      codePoint = leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00 | 0x10000
-
+      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000
     } else if (leadSurrogate) {
       // valid bmp char, but last char was a lead
       if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
@@ -1520,133 +3018,124 @@ function blitBuffer (src, dst, offset, length) {
   return i
 }
 
-},{"base64-js":2,"ieee754":3,"is-array":4}],2:[function(require,module,exports){
-var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"base64-js":24,"ieee754":25,"isarray":26}],24:[function(require,module,exports){
+'use strict'
 
-;(function (exports) {
-	'use strict';
+exports.toByteArray = toByteArray
+exports.fromByteArray = fromByteArray
 
-  var Arr = (typeof Uint8Array !== 'undefined')
-    ? Uint8Array
-    : Array
+var lookup = []
+var revLookup = []
+var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
 
-	var PLUS   = '+'.charCodeAt(0)
-	var SLASH  = '/'.charCodeAt(0)
-	var NUMBER = '0'.charCodeAt(0)
-	var LOWER  = 'a'.charCodeAt(0)
-	var UPPER  = 'A'.charCodeAt(0)
-	var PLUS_URL_SAFE = '-'.charCodeAt(0)
-	var SLASH_URL_SAFE = '_'.charCodeAt(0)
+function init () {
+  var i
+  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+  var len = code.length
 
-	function decode (elt) {
-		var code = elt.charCodeAt(0)
-		if (code === PLUS ||
-		    code === PLUS_URL_SAFE)
-			return 62 // '+'
-		if (code === SLASH ||
-		    code === SLASH_URL_SAFE)
-			return 63 // '/'
-		if (code < NUMBER)
-			return -1 //no match
-		if (code < NUMBER + 10)
-			return code - NUMBER + 26 + 26
-		if (code < UPPER + 26)
-			return code - UPPER
-		if (code < LOWER + 26)
-			return code - LOWER + 26
-	}
+  for (i = 0; i < len; i++) {
+    lookup[i] = code[i]
+  }
 
-	function b64ToByteArray (b64) {
-		var i, j, l, tmp, placeHolders, arr
+  for (i = 0; i < len; ++i) {
+    revLookup[code.charCodeAt(i)] = i
+  }
+  revLookup['-'.charCodeAt(0)] = 62
+  revLookup['_'.charCodeAt(0)] = 63
+}
 
-		if (b64.length % 4 > 0) {
-			throw new Error('Invalid string. Length must be a multiple of 4')
-		}
+init()
 
-		// the number of equal signs (place holders)
-		// if there are two placeholders, than the two characters before it
-		// represent one byte
-		// if there is only one, then the three characters before it represent 2 bytes
-		// this is just a cheap hack to not do indexOf twice
-		var len = b64.length
-		placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0
+function toByteArray (b64) {
+  var i, j, l, tmp, placeHolders, arr
+  var len = b64.length
 
-		// base64 is 4/3 + up to two characters of the original data
-		arr = new Arr(b64.length * 3 / 4 - placeHolders)
+  if (len % 4 > 0) {
+    throw new Error('Invalid string. Length must be a multiple of 4')
+  }
 
-		// if there are placeholders, only get up to the last complete 4 chars
-		l = placeHolders > 0 ? b64.length - 4 : b64.length
+  // the number of equal signs (place holders)
+  // if there are two placeholders, than the two characters before it
+  // represent one byte
+  // if there is only one, then the three characters before it represent 2 bytes
+  // this is just a cheap hack to not do indexOf twice
+  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0
 
-		var L = 0
+  // base64 is 4/3 + up to two characters of the original data
+  arr = new Arr(len * 3 / 4 - placeHolders)
 
-		function push (v) {
-			arr[L++] = v
-		}
+  // if there are placeholders, only get up to the last complete 4 chars
+  l = placeHolders > 0 ? len - 4 : len
 
-		for (i = 0, j = 0; i < l; i += 4, j += 3) {
-			tmp = (decode(b64.charAt(i)) << 18) | (decode(b64.charAt(i + 1)) << 12) | (decode(b64.charAt(i + 2)) << 6) | decode(b64.charAt(i + 3))
-			push((tmp & 0xFF0000) >> 16)
-			push((tmp & 0xFF00) >> 8)
-			push(tmp & 0xFF)
-		}
+  var L = 0
 
-		if (placeHolders === 2) {
-			tmp = (decode(b64.charAt(i)) << 2) | (decode(b64.charAt(i + 1)) >> 4)
-			push(tmp & 0xFF)
-		} else if (placeHolders === 1) {
-			tmp = (decode(b64.charAt(i)) << 10) | (decode(b64.charAt(i + 1)) << 4) | (decode(b64.charAt(i + 2)) >> 2)
-			push((tmp >> 8) & 0xFF)
-			push(tmp & 0xFF)
-		}
+  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)]
+    arr[L++] = (tmp & 0xFF0000) >> 16
+    arr[L++] = (tmp & 0xFF00) >> 8
+    arr[L++] = tmp & 0xFF
+  }
 
-		return arr
-	}
+  if (placeHolders === 2) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4)
+    arr[L++] = tmp & 0xFF
+  } else if (placeHolders === 1) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2)
+    arr[L++] = (tmp >> 8) & 0xFF
+    arr[L++] = tmp & 0xFF
+  }
 
-	function uint8ToBase64 (uint8) {
-		var i,
-			extraBytes = uint8.length % 3, // if we have 1 byte left, pad 2 bytes
-			output = "",
-			temp, length
+  return arr
+}
 
-		function encode (num) {
-			return lookup.charAt(num)
-		}
+function tripletToBase64 (num) {
+  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
+}
 
-		function tripletToBase64 (num) {
-			return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F)
-		}
+function encodeChunk (uint8, start, end) {
+  var tmp
+  var output = []
+  for (var i = start; i < end; i += 3) {
+    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
+    output.push(tripletToBase64(tmp))
+  }
+  return output.join('')
+}
 
-		// go through the array every three bytes, we'll deal with trailing stuff later
-		for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
-			temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
-			output += tripletToBase64(temp)
-		}
+function fromByteArray (uint8) {
+  var tmp
+  var len = uint8.length
+  var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
+  var output = ''
+  var parts = []
+  var maxChunkLength = 16383 // must be multiple of 3
 
-		// pad the end with zeros, but make sure to not forget the extra bytes
-		switch (extraBytes) {
-			case 1:
-				temp = uint8[uint8.length - 1]
-				output += encode(temp >> 2)
-				output += encode((temp << 4) & 0x3F)
-				output += '=='
-				break
-			case 2:
-				temp = (uint8[uint8.length - 2] << 8) + (uint8[uint8.length - 1])
-				output += encode(temp >> 10)
-				output += encode((temp >> 4) & 0x3F)
-				output += encode((temp << 2) & 0x3F)
-				output += '='
-				break
-		}
+  // go through the array every three bytes, we'll deal with trailing stuff later
+  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)))
+  }
 
-		return output
-	}
+  // pad the end with zeros, but make sure to not forget the extra bytes
+  if (extraBytes === 1) {
+    tmp = uint8[len - 1]
+    output += lookup[tmp >> 2]
+    output += lookup[(tmp << 4) & 0x3F]
+    output += '=='
+  } else if (extraBytes === 2) {
+    tmp = (uint8[len - 2] << 8) + (uint8[len - 1])
+    output += lookup[tmp >> 10]
+    output += lookup[(tmp >> 4) & 0x3F]
+    output += lookup[(tmp << 2) & 0x3F]
+    output += '='
+  }
 
-	exports.toByteArray = b64ToByteArray
-	exports.fromByteArray = uint8ToBase64
-}(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
+  parts.push(output)
 
-},{}],3:[function(require,module,exports){
+  return parts.join('')
+}
+
+},{}],25:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -1732,354 +3221,14 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],4:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
+var toString = {}.toString;
 
-/**
- * isArray
- */
-
-var isArray = Array.isArray;
-
-/**
- * toString
- */
-
-var str = Object.prototype.toString;
-
-/**
- * Whether or not the given `val`
- * is an array.
- *
- * example:
- *
- *        isArray([]);
- *        // > true
- *        isArray(arguments);
- *        // > false
- *        isArray('');
- *        // > false
- *
- * @param {mixed} val
- * @return {bool}
- */
-
-module.exports = isArray || function (val) {
-  return !! val && '[object Array]' == str.call(val);
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
 };
 
-},{}],5:[function(require,module,exports){
-// shim for using process in browser
-
-var process = module.exports = {};
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = setTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            currentQueue[queueIndex].run();
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    clearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        setTimeout(drainQueue, 0);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-// TODO(shtylman)
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-},{}],6:[function(require,module,exports){
-window.xmind = module.exports = require('./lib/xmind-browser');
-
-},{"./lib/xmind-browser":28}],7:[function(require,module,exports){
-/* jshint undef: true, unused: true */
-/* global module */
-
-var CONST = {
-    ATTACHMENTS_DIR: "attachments/",
-    ATTR_BRANCH: "branch",
-    ATTR_DESCRIPTION: "description",
-    ATTR_END1: "end1",
-    ATTR_END2: "end2",
-    ATTR_HREF: "xlink:href",
-    ATTR_ID: "id",
-    ATTR_MARKERID: "marker-id",
-    ATTR_STYLE_ID: "style-id",
-    ATTR_THEME: "theme",
-    ATTR_TIMESTAMP: "timestamp",
-    ATTR_TYPE: "type",
-    ATTR_VERSION: "version",
-    ATTR_VISIBILITY: "visibility",
-    ATTR_X: "svg:x",
-    ATTR_Y: "svg:y",
-    AUTHOR: "leungwensen@gmail.com",
-    CONTENT_XML: "content.xml",
-    FILE_PROTOCOL: "file://",
-    HTML_FORMAT_NOTE: "html",
-    HTTPS_PROTOCOL: "https://",
-    HTTP_PROTOCOL: "http://",
-    MANIFEST_XML: "META-INF/manifest.xml",
-    MARKERS_DIR:  "markers/",
-    MARKER_SHEET: "markers/markerSheet.xml",
-    MARKER_SHEET_XML: "markerSheet.xml",
-    META_INF_DIR: "META-INF/",
-    META_XML: "meta.xml",
-    NAMESPACE: "xmlns",
-    NS_FO: "http://www.w3.org/1999/XSL/Format",
-    NS_SVG: "http://www.w3.org/2000/svg",
-    NS_URI: "http://www.w3.org/1999/xhtml",
-    NS_XHTML: "http://www.w3.org/1999/xhtml",
-    NS_XLINK: "http://www.w3.org/1999/xlink",
-    PLAIN_FORMAT_NOTE: "plain",
-    REVISIONS_DIR: "Revisions/",
-    REVISIONS_XML: "revisions.xml",
-    SHAPE_ELLIPSIS: "org.xmind.topicShape.ellipse",
-    SHAPE_RECTANGLE: "org.xmind.topicShape.rectangle",
-    SHAPE_ROUND_RECTANGLE: "org.xmind.topicShape.roundedRect",
-    STYLES_XML: "styles.xml",
-    TAG_CHILDREN: "children",
-    TAG_LABEL: "label",
-    TAG_LABELS: "labels",
-    TAG_LEGEND: "legend",
-    TAG_MARKERREF : "marker-ref",
-    TAG_MARKERREFS: "marker-refs",
-    TAG_MARKER_DESCRIPTION: "marker-description",
-    TAG_MARKER_DESCRIPTIONS: "marker-descriptions",
-    TAG_NOTES: "notes",
-    TAG_POSITION: "position",
-    TAG_RELATIONSHIP: "relationship",
-    TAG_RELATIONSHIPS: "relationships",
-    TAG_SHEET: "sheet",
-    TAG_TITLE: "title",
-    TAG_TOPIC: "topic",
-    TAG_TOPICS: "topics",
-    TAG_WORKBOOK: "xmap-content",
-    TOPIC_ATTACHED: "attached",
-    TOPIC_DETACHED: "detached",
-    TOPIC_FLOATING: "floating",
-    TOPIC_PROTOCOL: "xmind:#",
-    TOPIC_ROOT: "root",
-    VAL_FOLDED: "folded",
-    VERSION: "2.0",
-    XMAP: "urn:xmind:xmap:xmlns:content:2.0",
-    XMIND_EXT: ".xmind",
-    MAKERIDS: [
-        "flag-black",
-        "flag-blue",
-        "flag-green",
-        "flag-orange",
-        "flag-purple",
-        "flag-red",
-        "other-calendar",
-        "other-clock",
-        "other-coffee-cup",
-        "other-email",
-        "other-exclam",
-        "other-fax",
-        "other-lightbulb",
-        "other-people",
-        "other-phone",
-        "other-question",
-        "priority-1",
-        "priority-2",
-        "priority-3",
-        "priority-4",
-        "priority-5",
-        "priority-6",
-        "smiley-angry",
-        "smiley-boring",
-        "smiley-cry",
-        "smiley-laugh",
-        "smiley-smile",
-        "smiley-surprise",
-        "task-3quar",
-        "task-done",
-        "task-half",
-        "task-pause",
-        "task-quarter",
-        "task-start",
-    ]
-};
-
-module.exports = CONST;
-
-
-},{}],8:[function(require,module,exports){
-/* jshint undef: true, unused: true, node: true */
-/* global require, module */
-
-var pastry = require('pastry'),
-    declare = pastry.declare,
-    isDate = pastry.isDate,
-    isNumber = pastry.isNumber,
-    json = pastry.json,
-    toInt = pastry.toInt;
-
-var CONST = require('./CONST');
-var utils = require('./utils');
-
-var DomMixin = declare('DomMixin', {
-    /*
-     * constructor.doc is required!
-     *   - constructor.doc is instance of DocumentElement or Node
-     */
-    // attribute {
-        getAttribute: function(name) {
-            return this.doc.getAttribute(name) || '';
-        },
-        setAttribute: function(name, value) {
-            this.doc.setAttribute(name, value);
-            return this;
-        },
-        removeAttribute: function(name) {
-            this.doc.removeAttribute(name);
-            return this;
-        },
-    // }
-    // child node {
-        eachChildNode: function(tagName, attrs, callback) {
-            utils.eachChildNode(this.doc, tagName, attrs, callback);
-        },
-        findOrCreateChildNode: function(tagName, attrs) {
-            return utils.findOrCreateChildNode(this.doc, tagName, attrs);
-        },
-    // }
-    // timestamp {
-        getModifiedTime: function() {
-            return toInt(this.getAttribute(CONST.ATTR_TIMESTAMP));
-        },
-        setModifiedTime: function(timestamp/*Date instance or number(timestamp)*/) {
-            timestamp = isDate(timestamp) ? timestamp.getTime() : timestamp;
-            if (!isNumber(timestamp)) {
-                timestamp = utils.getCurrentTimestamp();
-            }
-            this.setAttribute(CONST.ATTR_TIMESTAMP, timestamp);
-            return this;
-        },
-    // }
-    // title {
-        getTitle: function() {
-            var titleNode = utils.findChildNode(this.doc, CONST.TAG_TITLE);
-            return titleNode ? titleNode.textContent : '';
-        },
-        setTitle: function(title) {
-            var titleNode = utils.findOrCreateChildNode(this.doc, CONST.TAG_TITLE);
-            titleNode.textContent = title;
-            return this;
-        },
-    // }
-    // position {
-        getPosition: function() {
-            var positionNode = utils.findChildNode(this.doc, CONST.TAG_POSITION);
-            return positionNode ? {
-                x: toInt(positionNode.getAttribute(CONST.ATTR_X)),
-                y: toInt(positionNode.getAttribute(CONST.ATTR_Y))
-            } : null;
-        },
-        setPosition: function(position) {
-            var positionNode = utils.findOrCreateChildNode(this.doc, CONST.TAG_POSITION);
-            positionNode.setAttribute(CONST.ATTR_X, position.x);
-            positionNode.setAttribute(CONST.ATTR_Y, position.y);
-            return this;
-        },
-        removePosition: function() {
-            utils.removeChildNode(this.doc, CONST.TAG_POSITION);
-            return this;
-        },
-    // }
-    // life cycle {
-        destroy: function() {
-            var me = this;
-            me.doc.parentNode.removeChild(me.doc);
-            me.doc = null;
-            me = null;
-        },
-    // }
-    // parse & stringify {
-        toPlainObject: function() {
-            return this;
-        },
-        toJSON: function() {
-            return json.stringify(this.toPlainObject());
-        },
-    // }
-});
-
-module.exports = DomMixin;
-
-
-},{"./CONST":7,"./utils":27,"pastry":68}],9:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /* FileSaver.js
  * A saveAs() FileSaver implementation.
  * 1.1.20150716
@@ -2337,1355 +3486,7 @@ if (typeof module !== "undefined" && module.exports) {
   });
 }
 
-},{}],10:[function(require,module,exports){
-/* jshint undef: true, unused: true */
-/* global require, module */
-
-var pastry = require('pastry'),
-    declare = pastry.declare,
-    extend = pastry.extend,
-    map = pastry.map;
-
-var xmldom = require('xmldom'),
-    domParser = new xmldom.DOMParser();
-
-var DomMixin = require('./DomMixin');
-
-var CONST = require('./CONST');
-var utils = require('./utils');
-
-var DEFAULT_VISIBILITY = 'visible';
-var DEFAULT_POSITION = {
-    x: 500,
-    y: 500,
-};
-
-var tmplLegend = require('./template/legend');
-
-var Legend = declare('Legend', DomMixin, {
-    constructor: function(options) {
-        /*
-         * options:
-         *   - sheet(required)
-         *   // when creating a new one {
-         *      - position
-         *      - isVisible
-         *      - markerDescriptions
-         *   // }
-         *   // when loading from an existing one {
-         *      - doc
-         *   // }
-         */
-        var me = this;
-        var sheet = options.sheet;
-
-        extend(me, {
-            sheet: sheet
-        });
-        if (options.doc) {
-            me.doc = options.doc;
-        } else {
-            var position = options.position || DEFAULT_POSITION;
-            var markerDescriptions = options.markerDescriptions || [];
-            var visibility = options.visibility || DEFAULT_VISIBILITY;
-            me.doc = domParser.parseFromString(tmplLegend({
-                visibility: visibility,
-                markerDescriptions: markerDescriptions,
-                position: position
-            })).documentElement;
-            // xml structure {
-                sheet.doc.appendChild(me.doc);
-            // }
-        }
-        var markerDescriptionsNode = utils.findOrCreateChildNode(
-            me.doc,
-            CONST.TAG_MARKER_DESCRIPTIONS
-        );
-        extend(me, {
-            markerDescriptionsNode: markerDescriptionsNode
-        });
-        sheet.legend = me;
-    },
-    toPlainObject: function() {
-        var me = this;
-        // marker descriptions {
-            var markerDescriptions = map(
-                utils.findChildNodes(me.markerDescriptionsNode, CONST.TAG_MARKER_DESCRIPTION),
-                function(childNode) {
-                    return {
-                        markderId: childNode.getAttribute(CONST.ATTR_MARKERID),
-                        description: childNode.getAttribute(CONST.ATTR_DESCRIPTION)
-                    };
-                }
-            );
-        // }
-        return {
-            sheetId: me.sheet.id,
-            markerDescriptions: markerDescriptions,
-            position: me.getPosition() || DEFAULT_POSITION,
-            visibility: me.getVisibility() || DEFAULT_VISIBILITY
-        };
-    },
-    addMarkerDescription: function(markerId, description) {
-        // markerId should not be duplicated
-        // an exception of `instance.addXXXX()`-formatted function
-        // because there is not a constructor named `MarkerDescription`,
-        // this function returns Legend instance instead
-        var me = this;
-        var attrs = {};
-        attrs[CONST.ATTR_MARKERID] = markerId;
-        attrs[CONST.ATTR_DESCRIPTION] = description;
-        utils.findOrCreateChildNode(
-            me.markerDescriptionsNode,
-            CONST.TAG_MARKER_DESCRIPTION,
-            attrs
-        );
-        return me;
-    },
-    removeMarkerDescription: function(markerId) {
-        var me = this;
-        // markerId should not be duplicated
-        var attrs = {};
-        attrs[CONST.ATTR_MARKERID] = markerId;
-        utils.removeChildNode(
-            me.markerDescriptionsNode,
-            CONST.TAG_MARKER_DESCRIPTION,
-            attrs
-        );
-        return me;
-    },
-    getVisibility: function() {
-        return this.getAttribute(CONST.ATTR_VISIBILITY);
-    },
-    setVisibility: function(value) {
-        this.setAttribute(CONST.ATTR_VISIBILITY, value);
-        return this;
-    }
-});
-
-extend(Legend, {
-    DEFAULT_VISIBILITY: DEFAULT_VISIBILITY,
-    DEFAULT_POSITION: DEFAULT_POSITION
-});
-
-module.exports = Legend;
-
-
-},{"./CONST":7,"./DomMixin":8,"./template/legend":17,"./utils":27,"pastry":68,"xmldom":69}],11:[function(require,module,exports){
-/* jshint undef: true, unused: true */
-/* global require, module */
-
-var pastry = require('pastry'),
-    declare = pastry.declare,
-    extend = pastry.extend,
-    union = pastry.union,
-    uuid = pastry.uuid;
-
-var xmldom = require('xmldom'),
-    domParser = new xmldom.DOMParser();
-
-var DomMixin = require('./DomMixin');
-
-var CONST = require('./CONST');
-var utils = require('./utils');
-
-var NS = 'relationship-';
-
-var tmplRelationship = require('./template/relationship');
-
-var Relationship = declare('Relationship', DomMixin, {
-    constructor: function(options) {
-        /*
-         * options:
-         *   - sheet(required)
-         *   // when creating a new one {
-         *      - sourceId
-         *      - targetId
-         *      - title
-         *      - id
-         *   // }
-         *   // when loading from an existing one {
-         *      - doc
-         *   // }
-         */
-        var me = this;
-        var sheet = options.sheet;
-
-        extend(me, {
-            sheet: sheet
-        });
-        var relationshipsNode = utils.findOrCreateChildNode(
-            sheet.doc, CONST.TAG_RELATIONSHIPS
-        );
-        sheet.relationshipsNode = relationshipsNode;
-        if (options.doc) {
-            me.doc = options.doc;
-        } else {
-            // id, sourceId and targetId cannot be the same with the existing ones {
-                var attrs = {};
-                var id = options.id || uuid(NS);
-                attrs[CONST.ATTR_END1] = options.sourceId;
-                attrs[CONST.ATTR_END2] = options.targetId;
-                attrs[CONST.ATTR_ID] = id;
-                if (utils.findChildNode(relationshipsNode, CONST.TAG_RELATIONSHIP, attrs)) {
-                    throw 'the same relationship already exists';
-                }
-            // }
-            me.doc = domParser.parseFromString(tmplRelationship({
-                id: id,
-                sourceId: options.sourceId,
-                targetId: options.targetId
-            })).documentElement;
-            // xml structure {
-                relationshipsNode.appendChild(me.doc);
-            // }
-            me.setModifiedTime();
-        }
-        me.id = me.getAttribute(CONST.ATTR_ID);
-        extend(me, {
-            id: me.getAttribute(CONST.ATTR_ID),
-            sourceId: me.getAttribute(CONST.ATTR_END1),
-            targetId: me.getAttribute(CONST.ATTR_END2)
-        });
-        if (options.title) {
-            me.setTitle(options.title);
-        }
-        sheet.relationships = union(sheet.relationships, [me]);
-        sheet.relationshipById[me.id] = me;
-    },
-    toPlainObject: function() {
-        var me = this;
-        return {
-            id: me.id,
-            sheetId: me.sheet.id,
-            sourceId: me.getSource(),
-            targetId: me.getTarget(),
-            modifiedTime: me.getModifiedTime(),
-            title: me.getTitle()
-        };
-    },
-    getSource: function() {
-        return this.getAttribute(CONST.ATTR_END1);
-    },
-    setSource: function(value) {
-        var me = this;
-        var targetId = me.getTarget();
-        if (targetId === value) {
-            throw 'source & target should not be the same';
-        } else if (value) {
-            me.setAttribute(CONST.ATTR_END1, value);
-            //me.sourceId = value;
-            return me.setModifiedTime();
-        }
-    },
-    getTarget: function() {
-        return this.getAttribute(CONST.ATTR_END2);
-    },
-    setTarget: function(value) {
-        var me = this;
-        var sourceId = me.getSource();
-        if (sourceId === value) {
-            throw 'source & target should not be the same';
-        } else if (value) {
-            me.setAttribute(CONST.ATTR_END2, value);
-            //me.targetId = value;
-            return me.setModifiedTime();
-        }
-    }
-});
-
-module.exports = Relationship;
-
-
-},{"./CONST":7,"./DomMixin":8,"./template/relationship":23,"./utils":27,"pastry":68,"xmldom":69}],12:[function(require,module,exports){
-/* jshint undef: true, unused: true */
-/* global require, module */
-
-var pastry = require('pastry'),
-    declare = pastry.declare,
-    difference = pastry.difference,
-    each = pastry.each,
-    extend = pastry.extend,
-    isNumber = pastry.isNumber,
-    isString = pastry.isString,
-    map = pastry.map,
-    sprintf = pastry.sprintf,
-    toArray = pastry.toArray,
-    union = pastry.union,
-    uuid = pastry.uuid;
-
-var xmldom = require('xmldom'),
-    domParser = new xmldom.DOMParser();
-
-var DomMixin = require('./DomMixin');
-var Topic = require('./Topic');
-var Relationship = require('./Relationship');
-var Legend = require('./Legend');
-
-var CONST = require('./CONST');
-var utils = require('./utils');
-
-var NS = 'sheet-';
-
-var tmplSheet = require('./template/sheet');
-
-var Sheet = declare('Sheet', DomMixin, {
-    constructor: function(options) {
-        /*
-         * options:
-         *   - workbook(required)
-         *   // when creating a new one {
-         *      - title
-         *      - rootTopicName
-         *      - theme
-         *   // }
-         *   // when loading from an existing one {
-         *      - doc
-         *   // }
-         */
-        var me = this;
-        var workbook = options.workbook;
-
-        extend(me, {
-            legend: null,
-            relationshipById: {},
-            relationships: [],
-            rootTopic: null,
-            topicById: {},
-            topics: [],
-            workbook: workbook,
-        });
-        if (options.doc) {
-            me.doc = options.doc;
-            me._loadLegend()
-                ._loadRootTopic()
-                ._loadRelationships();
-        } else {
-            if (options.id && workbook.sheetById[options.id]) {
-                throw sprintf('sheet id `%s` already exists!', options.id);
-            }
-            me.doc = domParser.parseFromString(tmplSheet({
-                id: options.id || uuid(NS),
-                title: options.title,
-                theme: options.theme,
-            })).documentElement;
-            // xml structure {
-                workbook.doc.appendChild(me.doc);
-            // }
-            me._addRootTopic({
-                id: options.rootTopicId || utils.getDefaultTopicName('Root'),
-                title: options.rootTopicName,
-                styleId: options.rootTopicStyleId
-            });
-            me.setModifiedTime();
-        }
-        extend(me, {
-            id: me.getAttribute(CONST.ATTR_ID)
-        });
-        workbook.sheets = union(workbook.sheets, [me]);
-        workbook.sheetById[me.id] = me;
-    },
-    destroy: function() {
-        // TODO
-        // NOTE: the last sheet cannot be deleted
-        var me = this;
-        var workbook = me.workbook;
-        if (workbook.sheets.length <= 1) {
-            throw 'cannot destroy the last sheet!';
-        } else {
-            each(me.topics, function(topic) {
-                topic.destroy(true);
-            });
-            each(me.relationships, function(relationship) {
-                relationship.destroy();
-            });
-            if (me.legend) {
-                me.legend.destroy();
-            }
-            DomMixin.prototype.destroy.apply(me);
-        }
-    },
-    toPlainObject: function() {
-        var me = this;
-        return {
-            id: me.id,
-            theme: me.getTheme(),
-            title: me.getTitle(),
-            modifiedTime: me.getModifiedTime(), // timestamp
-            rootTopic: me.rootTopic.toPlainObject(),
-            //topics: map(me.topics, function(topic) {
-                //return topic.toPlainObject();
-            //}),
-            relationships: map(me.relationships, function(relationship) {
-                return relationship.toPlainObject();
-            }),
-            legend: me.legend ? me.legend.toPlainObject() : null
-        };
-    },
-    _loadLegend: function() {
-        var me = this;
-        var legenNode = utils.findChildNodes(me.doc, CONST.TAG_LEGEND)[0];
-        if (legenNode) {
-            new Legend({
-                sheet: me,
-                doc: legenNode
-            });
-        }
-        return me;
-    },
-    _loadRootTopic: function() {
-        var me = this;
-        var rootTopicNode = utils.findChildNode(
-            me.doc,
-            CONST.TAG_TOPIC
-        );
-        if (rootTopicNode) {
-            new Topic({
-                sheet: me,
-                doc: rootTopicNode,
-            });
-        } else {
-            me._addRootTopic(); // fix xmind file
-        }
-        return me;
-    },
-    _loadRelationships: function() {
-        var me = this;
-        var relationshipsNode = utils.findChildNodes(me.doc, CONST.TAG_RELATIONSHIPS)[0];
-        if (relationshipsNode) {
-            me.relationshipsNode = relationshipsNode;
-            each(relationshipsNode.childNodes, function(childNode) {
-                new Relationship({
-                    sheet: me,
-                    doc: childNode
-                });
-            });
-        }
-        return this;
-    },
-    // theme {
-        getTheme: function() {
-            return this.getAttribute(CONST.ATTR_THEME);
-        },
-        setTheme: function(theme) {
-            this.setAttribute(CONST.ATTR_THEME, theme);
-            return this.setModifiedTime();
-        },
-    // }
-    // topics {
-        getRootTopic: function() {
-            return this.rootTopic;
-        },
-        _addRootTopic: function(options) {
-            var me = this;
-            if (me.rootTopic) {
-                //throw 'root topic already exists';
-                return me.rootTopic;
-            } else {
-                options = options || {};
-                extend(options, {
-                    sheet: me,
-                });
-                me.setModifiedTime();
-                return new Topic(options);
-            }
-        },
-    // }
-    // legend {
-        addLegend: function() {
-            var me = this;
-            if (me.legend) {
-                //throw 'legend already exists';
-                return me.legend;
-            } else {
-                me.setModifiedTime();
-                return new Legend({
-                    sheet: me
-                });
-            }
-        },
-        removeLegend: function() {
-            var me = this;
-            if (me.legend) {
-                me.legend.destroy();
-                me.legend = null;
-                return me.setModifiedTime();
-            }
-            return me;
-        },
-        addMarkerDescription: function(markerId, description) {
-            var me = this;
-            if (!me.legend) {
-                me.addLegend();
-            }
-            return me.legend.addMarkerDescription(markerId, description);
-        },
-        removeMarkerDescription: function(markerId) {
-            var me = this;
-            if (!me.legend) {
-                return me;
-            } else {
-                me.legend.removeMarkerDescription(markerId);
-                return me;
-            }
-        },
-    // }
-    // relationship {
-        addRelationship: function(options) {
-            var me = this;
-            me.relationshipsNode = utils.findOrCreateChildNode(
-                me.doc,
-                CONST.TAG_RELATIONSHIPS
-            );
-            me.setModifiedTime();
-            return new Relationship({
-                id: options.id,
-                sheet: me,
-                sourceId: options.sourceId,
-                targetId: options.targetId,
-                title: options.title
-            });
-        },
-        removeRelationship: function(/*index, id, instance or sourceId, targetId*/) {
-            var me = this;
-            var relationship;
-            var args = toArray(arguments);
-            if (args.length === 1) {
-                relationship = args[0];
-                if (!(relationship instanceof Relationship)) {
-                    if (isNumber(relationship)) {
-                        relationship = me.relationships[relationship];
-                    } else if (isString(relationship)) {
-                        relationship = me.relationshipById[relationship];
-                    }
-                }
-            } else {
-                var sourceId = args[0];
-                var targetId = args[1];
-                var attrs = {};
-                attrs[CONST.ATTR_END1] = sourceId;
-                attrs[CONST.ATTR_END2] = targetId;
-                var relationshipNode = utils.findChildNode(
-                    me.relationshipsNode,
-                    CONST.TAG_RELATIONSHIP,
-                    attrs
-                );
-                if (relationshipNode) {
-                    relationship = me.relationshipById[
-                        relationshipNode.getAttribute(CONST.ATTR_ID)
-                    ];
-                }
-            }
-            if (relationship) {
-                delete me.relationshipById[relationship.id];
-                me.relationships = difference(me.relationships, [relationship]);
-                relationship.destroy();
-                return me.setModifiedTime();
-            }
-            return me;
-        },
-    // }
-});
-
-module.exports = Sheet;
-
-
-},{"./CONST":7,"./DomMixin":8,"./Legend":10,"./Relationship":11,"./Topic":13,"./template/sheet":24,"./utils":27,"pastry":68,"xmldom":69}],13:[function(require,module,exports){
-/* jshint undef: true, unused: true */
-/* global require, module */
-
-var pastry = require('pastry'),
-    declare = pastry.declare,
-    difference = pastry.difference,
-    each = pastry.each,
-    extend = pastry.extend,
-    isArray = pastry.isArray,
-    isString = pastry.isString,
-    map = pastry.map,
-    trim = pastry.trim,
-    union = pastry.union,
-    uniq = pastry.uniq,
-    uuid = pastry.uuid;
-
-var xmldom = require('xmldom'),
-    domParser = new xmldom.DOMParser();
-
-var DomMixin = require('./DomMixin');
-
-var CONST = require('./CONST');
-var utils = require('./utils');
-
-var NS = 'topic-';
-
-var tmplLabels = require('./template/labels');
-var tmplMarker = require('./template/marker');
-var tmplMarkers = require('./template/markers');
-var tmplNotes = require('./template/notes');
-var tmplTopic = require('./template/topic');
-
-function getTopicsType(topic) {
-    // FIXME is this official?
-    var REGEXP_FLOATING = new RegExp(CONST.TOPIC_FLOATING + '$', 'i');
-    if (
-        topic.type === CONST.TOPIC_DETACHED ||
-        (topic.structure || '').match(REGEXP_FLOATING)
-    ) {
-        return CONST.TOPIC_DETACHED;
-    }
-    return CONST.TOPIC_ATTACHED;
-}
-
-var Topic = declare('Topic', DomMixin, {
-    constructor: function(options) {
-        /*
-         * options:
-         *   - sheet(required)
-         *   - parent
-         *   - type
-         *   // when creating a new one {
-         *      - id
-         *      - title
-         *      - structure
-         *   // }
-         *   // when loading from an existing one {
-         *      - doc
-         *   // }
-         */
-        var me = this;
-        var sheet = options.sheet;
-
-        extend(me, {
-            isRootTopic: !options.parent,
-            parent: options.parent,
-            structure: options.structure,
-            type: options.type,
-            sheet: sheet,
-            children: [],
-            childById: {},
-        });
-        if (options.doc) {
-            me.doc = options.doc;
-            me._loadSubTopics();
-        } else {
-            me.doc = domParser.parseFromString(tmplTopic({
-                id: options.id || uuid(NS),
-                title: options.title,
-                styleId: options.styleId || '',
-            })).documentElement;
-            me.setModifiedTime();
-        }
-        me.id = me.getAttribute(CONST.ATTR_ID);
-        // xml structure {
-            me._addToParent();
-        // }
-        // level, etc {
-        // }
-        sheet.topics = union(sheet.topics, [me]);
-        sheet.topicById[me.id] = me;
-    },
-    _addToParent: function(parent) {
-        var me = this;
-        var sheet = me.sheet;
-        if (me.isRootTopic) {
-            sheet.doc.appendChild(me.doc);
-            sheet.rootTopic = me;
-        } else {
-            parent = parent || me.parent;
-            me.parent = parent; // if parent is defined, change it
-            me.topicsType = getTopicsType(me, sheet); // attached or detached
-            var parentDoc = parent.doc;
-            var childrenNode = utils.findOrCreateChildNode(
-                parentDoc, CONST.TAG_CHILDREN
-            );
-            var childrenTopicsNode = utils.findOrCreateChildNode(
-                childrenNode, CONST.TAG_TOPICS, {
-                    type: me.topicsType
-                }
-            ); // floating or not
-            childrenTopicsNode.appendChild(me.doc);
-            parent.children = union(parent.children, [me]);
-            parent.childById[me.id] = me;
-        }
-    },
-    destroy: function(force) {
-        var me = this;
-        var sheet = me.sheet;
-        if (force || sheet.rootTopic !== me) { // cannot destroy root topic unless it is forced to
-            each(me.children, function(child) {
-                child.destroy();
-            });
-            DomMixin.prototype.destroy.apply(me);
-            sheet.topics = difference(sheet.topics, [me]);
-            delete sheet.topicById[me.id];
-        }
-    },
-    toPlainObject: function() {
-        var me = this;
-        return {
-            hyperlink: me.getHyperlink(),
-            id: me.id,
-            isRootTopic: me.isRootTopic,
-            labels: me.getLabels(),
-            markers: me.getMarkers(),
-            modifiedTime: me.getModifiedTime(), // timestamp
-            notes: me.getNotes(),
-            parentId: me.parent ? me.parent.id : '',
-            sheetId: me.sheet.id,
-            structure: me.structure,
-            title: me.getTitle(),
-            type: me.type,
-            children: map(me.children, function(child) {
-                return child.toPlainObject();
-            })
-        };
-    },
-    _loadSubTopics: function() {
-        /*
-         * <topic>
-         *     <!-- other childNodes -->
-         *     <children>
-         *         <topics type="attached">
-         *             <!-- normal sub topics -->
-         *         </topics>
-         *         <topics type="detached">
-         *             <!-- floating sub topics -->
-         *         </topics>
-         *     </children>
-         * </topic>
-         */
-        var me = this;
-        var childrenNodes = utils.findChildNodes(me.doc, CONST.TAG_CHILDREN);
-        each(childrenNodes, function(childrenNode) {
-            var topicsNodes = utils.findChildNodes(childrenNode, CONST.TAG_TOPICS);
-            each(topicsNodes, function(topicsNode) {
-                var type = topicsNode.getAttribute(CONST.ATTR_TYPE);
-                var topicNodes = utils.findChildNodes(topicsNode, CONST.TAG_TOPIC);
-                each(topicNodes, function(doc) {
-                    new Topic({
-                        doc: doc,
-                        sheet: me.sheet,
-                        parent: me,
-                        type: type,
-                    });
-                });
-            });
-        });
-        return me;
-    },
-    // parent & child {
-        getBranch: function() { // folded, etc
-            return this.getAttribute(CONST.ATTR_BRANCH);
-        },
-        setBranch: function(value) {
-            this.setAttribute(CONST.ATTR_BRANCH, value);
-            return this.setModifiedTime();
-        },
-        setBranchFolded: function() {
-            this.setAttribute(CONST.ATTR_BRANCH, CONST.VAL_FOLDED);
-            return this.setModifiedTime();
-        },
-        addChild: function(options/*instance or options*/) {
-            var me = this;
-            me.setModifiedTime();
-            if (options instanceof Topic) {
-                options._addToParent(me);
-                return options;
-            } else {
-                return new Topic(extend(options, {
-                    parent: me,
-                    sheet: me.sheet
-                }));
-            }
-        },
-        removeChild: function(child/*id or instance*/, dryrun) {
-            var me = this;
-            child = Topic.getTopic(child, me.sheet);
-            if (child) {
-                delete me.childById[child.id];
-                me.children = difference(me.children, [child]);
-                if (!dryrun) {
-                    child.destroy();
-                }
-            }
-            return me.setModifiedTime();
-        },
-        isAncestorOf: function(targetTopic) {
-            var me = this;
-            targetTopic = Topic.getTopic(targetTopic, me.sheet);
-            var topic = targetTopic;
-            while (topic.parent) {
-                if (topic.parent === me) {
-                    return true;
-                }
-                topic = topic.parent;
-            }
-            return false;
-        },
-        moveTo: function(targetTopic) {
-            var me = this;
-            targetTopic = Topic.getTopic(targetTopic, me.sheet);
-            if (!targetTopic) {
-                throw 'target topic does not exist';
-            }
-            if (me.isRootTopic) {
-                throw 'cannot move root topic';
-            }
-            if (me === targetTopic) {
-                throw 'cannot move to itself';
-            }
-            if (me.isAncestorOf(targetTopic)) {
-                throw 'cannot move to a child topic';
-            }
-            me.parent.removeChild(me, true);
-            targetTopic.addChild(me);
-            return me.setModifiedTime();
-        },
-        //moveChild: function([>fromIndex, toIndex<]) {
-            //TODO
-        //},
-    // }
-    // floating, etc {
-    // }
-    // notes {
-        getNotes: function() {
-            var notesNode = utils.findChildNode(this.doc, CONST.TAG_NOTES);
-            if (notesNode) {
-                var plainNotesNode = utils.findChildNode(notesNode, CONST.PLAIN_FORMAT_NOTE);
-                if (plainNotesNode) {
-                    return plainNotesNode.textContent;
-                }
-            }
-            return '';
-        },
-        setNotes: function(notes) {
-            var me = this;
-            // TODO support styles
-            if (!isString(notes)) {
-                //throw 'notes must be a string!';
-                return me;
-            }
-            var noteLines = notes.split('\n');
-            utils.removeChildNode(me.doc, CONST.TAG_NOTES);
-            var notesNode = domParser.parseFromString(tmplNotes({
-                lines: noteLines,
-                plainNotes: notes
-            })).documentElement;
-            me.doc.appendChild(notesNode);
-            return me.setModifiedTime();
-        },
-    // }
-    // labels {
-        getLabels: function() {
-            var result = [];
-            var labelsNode = utils.findChildNode(this.doc, CONST.TAG_LABELS);
-            result = map(utils.findChildNodes(labelsNode, CONST.TAG_LABEL), function(labelNode) {
-                return labelNode.textContent;
-            });
-            return result;
-        },
-        setLabels: function(labels) {
-            var me = this;
-            if (isString(labels)) {
-                labels = map(labels.split(','), function(label) {
-                    return label;
-                });
-            } else {
-                labels = isArray(labels) ? labels : [labels];
-            }
-            labels = map(labels, function(label) {
-                return trim(label);
-            });
-            utils.removeChildNode(me.doc, CONST.TAG_LABELS);
-            var labelsNode = domParser.parseFromString(tmplLabels({
-                labels: labels
-            })).documentElement;
-            me.doc.appendChild(labelsNode);
-            return me.setModifiedTime();
-        },
-    // }
-    // hyperlink {
-        getHyperlink: function() {
-            return this.doc.getAttribute(CONST.ATTR_HREF);
-        },
-        setHyperlink: function(hyperlink) {
-            /*
-             * hyperlink which refers to one of these:
-             *   - url
-             *   - topic
-             *   - file
-             */
-            this.setAttribute(CONST.ATTR_HREF, hyperlink);
-            return this.setModifiedTime();
-        },
-        removeHyperlink: function() {
-            this.removeAttribute(CONST.ATTR_HREF);
-            return this.setModifiedTime();
-        },
-    // }
-    // marker {
-        // automatically add legends?
-        getMarkers: function() {
-            var result = [];
-            var markersNode = utils.findChildNode(this.doc, CONST.TAG_MARKERREFS);
-            if (markersNode) {
-                utils.eachChildNode(markersNode, CONST.TAG_MARKERREF, {}, function(node) {
-                    var id = node.getAttribute(CONST.ATTR_MARKERID);
-                    if (id) {
-                        result.push(id);
-                    }
-                });
-            }
-            return result;
-        },
-        setMarkers: function(markers) {
-            var me = this;
-            if (!isArray(markers)) {
-                //throw 'invalid markers';
-                return me;
-            }
-            markers = uniq(markers);
-            utils.removeChildNode(me.doc, CONST.TAG_MARKERREFS);
-            var markersNode = domParser.parseFromString(tmplMarkers({
-                markers: markers
-            })).documentElement;
-            me.doc.appendChild(markersNode);
-            return me.setModifiedTime();
-        },
-        addMarker: function(id) {
-            // an exception of `instance.addXXXX()`-formatted function
-            // because there is not a constructor named `Marker`,
-            // this function returns Topic instance instead
-            var me = this;
-            var markersNode = utils.findOrCreateChildNode(me.doc, CONST.TAG_MARKERREFS);
-            var attrs = {};
-            attrs[CONST.ATTR_MARKERID] = id;
-            if (utils.findChildNode(me.doc, CONST.TAG_MARKERREF, attrs)) {
-                throw 'marker already exists!';
-            }
-            var newMarkerNode = domParser.parseFromString(tmplMarker({
-                id: id
-            })).documentElement;
-            markersNode.appendChild(newMarkerNode);
-            return me.setModifiedTime();
-        },
-        removeMarker: function(id) {
-            var me = this;
-            var markersNode = utils.findOrCreateChildNode(me.doc, CONST.TAG_MARKERREFS);
-            var attrs = {};
-            attrs[CONST.ATTR_MARKERID] = id;
-            utils.removeChildNode(markersNode, CONST.TAG_MARKERREF, attrs);
-            return me.setModifiedTime();
-        },
-    // }
-});
-
-extend(Topic, {
-    getTopic: function(topic/*id or instance*/, sheet) {
-        if (isString(topic)) {
-            topic = sheet.topicById[topic];
-        } else if (!(topic instanceof Topic)) {
-            topic = null;
-        }
-        return topic;
-    }
-});
-
-module.exports = Topic;
-
-
-},{"./CONST":7,"./DomMixin":8,"./template/labels":16,"./template/marker":19,"./template/markers":20,"./template/notes":22,"./template/topic":26,"./utils":27,"pastry":68,"xmldom":69}],14:[function(require,module,exports){
-/* jshint undef: true, unused: true */
-/* global require, module */
-
-var pastry = require('pastry'),
-    declare = pastry.declare,
-    extend = pastry.extend,
-    indexOf = pastry.indexOf,
-    isNumber = pastry.isNumber,
-    isString = pastry.isString,
-    map = pastry.map,
-    remove = pastry.remove;
-
-var xmldom = require('xmldom'),
-    domParser = new xmldom.DOMParser();
-
-var DomMixin = require('./DomMixin');
-var Sheet = require('./Sheet');
-
-var CONST = require('./CONST');
-var utils = require('./utils');
-
-var tmplContent = require('./template/content');
-var tmplStyles = require('./template/styles');
-
-var Workbook = declare('Workbook', DomMixin, {
-    constructor: function(options) {
-        /*
-         * options:
-         *   // when creating a new one {
-         *      - firstSheetName
-         *      - rootTopicName
-         *   // }
-         *   // when loading from an existing one {
-         *      - doc
-         *      - stylesDoc
-         *      - attachments
-         *   // }
-         */
-        var me = this;
-        var defaultSheetName = utils.getDefaultSheetName(1);
-        var defaultTopicName = utils.getDefaultTopicName('Root');
-
-        options = options || {};
-        extend(me, {
-            attachments: options.attachments || {},
-            // shortcuts to access sheets {
-                sheets: [],
-                sheetById: {},
-            // }
-        });
-        if (options.doc) { // create from xml docs
-            me.doc = options.doc;
-            me.stylesDoc = options.stylesDoc;
-            me._loadSheets();
-        } else { // create with first sheet & root topic
-            me.doc = domParser.parseFromString(tmplContent({
-                timestamp: utils.getCurrentTimestamp()
-            })).documentElement;
-            me.stylesDoc = domParser.parseFromString(tmplStyles()).documentElement;
-
-            me.addSheet({
-                id: options.firstSheetId,
-                title: options.firstSheetName || defaultSheetName,
-                rootTopicId: options.rootTopicId,
-                rootTopicName: options.rootTopicName || defaultTopicName
-            });
-
-            me.setModifiedTime();
-        }
-    },
-    _loadSheets: function() {
-        var me = this;
-        utils.eachChildNode(me.doc, CONST.TAG_SHEET, {}, function(childNode) {
-            new Sheet({ // create from node
-                workbook: me,
-                doc: childNode
-            });
-        });
-    },
-    // sheet {
-        getPrimarySheet: function() {
-            return this.sheets[0];
-        },
-        addSheet: function(options) {
-            /*
-             * options: {
-             *    workbook: this,
-             *    title: options.sheetName,
-             *    id: options.sheetId,
-             *    rootTopicName: options.rootTopicName,
-             *    rootTopicId: options.rootTopicId,
-             *    theme: options.theme
-             * }
-             */
-            var me = this;
-            options = options || {};
-            me.setModifiedTime();
-            extend(options, {
-                workbook: me,
-                title: options.title || utils.getDefaultSheetName()
-            });
-            return new Sheet(options);
-        },
-        moveSheet: function(fromIndex, toIndex) {
-            var me = this;
-            var doc = me.doc;
-            var fromSheet = me.sheets[fromIndex],
-                toSheet = me.sheets[toIndex];
-            if (fromSheet && toSheet) {
-                // dom structure
-                doc.removeChild(fromSheet.doc);
-                doc.insertBefore(fromSheet.doc, toSheet.doc);
-                // data structure
-                remove(me.sheets, fromIndex); // remove first
-                me.sheets.splice(toIndex, 0, fromSheet); // insert to target position
-            }
-            return me.setModifiedTime();
-        },
-        removeSheet: function(sheet/* index or id or instance */) {
-            var me = this;
-            if (me.sheets.length <= 1) {
-                return; // primary sheet cannot be removed
-            }
-            var index, id;
-            if (isNumber(sheet)) {
-                sheet = me.sheets[sheet];
-            } else if (isString(sheet)) {
-                sheet = me.sheetById[sheet];
-            }
-            index = indexOf(me.sheets, sheet);
-            id = sheet.id;
-            sheet.destroy(); // first destroy, then delete
-            delete me.sheetById[id];
-            remove(me.sheets, index);
-            return me.setModifiedTime();
-        },
-    // }
-    destroy: function() {
-        // cannot destroy workbook instance?
-    },
-    toPlainObject: function() {
-        var me = this;
-        return {
-            sheets: map(me.sheets, function(sheet) {
-                return sheet.toPlainObject();
-            }),
-            modifiedTime: me.getModifiedTime() // timestamp
-        };
-    },
-});
-
-module.exports = Workbook;
-
-
-},{"./CONST":7,"./DomMixin":8,"./Sheet":12,"./template/content":15,"./template/styles":25,"./utils":27,"pastry":68,"xmldom":69}],15:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-content xmlns="urn:xmind:xmap:xmlns:content:2.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" version="2.0"></xmap-content>';}return _s;
-};
-},{"pastry":68}],16:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<labels>';helper.each(labels, function(label){ _s+='<label>'+_e(label)+'</label>';}); _s+='</labels>';}return _s;
-};
-},{"pastry":68}],17:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<legend visibility="'+_e(visibility)+'"><marker-descriptions>';helper.each(markerDescriptions, function(md){ _s+='<marker-description description="'+_e(md.description)+'" marker-id="'+_e(md.id)+'"/>';}); _s+='</marker-descriptions><position svg:x="'+_e(position.x)+'" svg:y="'+_e(position.y)+'"/></legend>';}return _s;
-};
-},{"pastry":68}],18:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<?xml version="1.0" encoding="UTF-8" standalone="no"?><manifest xmlns="urn:xmind:xmap:xmlns:manifest:1.0"><file-entry full-path="content.xml" media-type="text/xml"/><file-entry full-path="META-INF/" media-type=""/><file-entry full-path="META-INF/manifest.xml" media-type="text/xml"/><file-entry full-path="styles.xml" media-type=""/><file-entry full-path="Thumbnails/" media-type=""/><file-entry full-path="Thumbnails/thumbnail.jpg" media-type="image/jpeg"/></manifest>';}return _s;
-};
-},{"pastry":68}],19:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<marker-ref marker-id="'+_e(id)+'"/>';}return _s;
-};
-},{"pastry":68}],20:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<marker-refs>';helper.each(markers, function(marker){ _s+='<marker-ref marker-id="'+_e(marker)+'"/>';}); _s+='</marker-refs>';}return _s;
-};
-},{"pastry":68}],21:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<?xml version="1.0" encoding="UTF-8" standalone="no"?><meta xmlns="urn:xmind:xmap:xmlns:meta:2.0" version="2.0"/>';}return _s;
-};
-},{"pastry":68}],22:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<notes><html>';helper.each(lines, function(line){ _s+='<xhtml:p>'+_e(line)+'</xhtml:p>';}); _s+='<!--styles are not supported yet {--><!--<xhtml:p>--><!--<xhtml:span style-id="67gllifq4r1g91gks0tdif9dou">what</xhtml:span>--><!--</xhtml:p>--><!--}--></html><plain>'+_e(plainNotes)+'</plain></notes>';}return _s;
-};
-},{"pastry":68}],23:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<relationship end1="'+_e(sourceId)+'" end2="'+_e(targetId)+'" id="'+_e(id)+'"/>';}return _s;
-};
-},{"pastry":68}],24:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<sheet id="'+_e(id)+'" ';if(theme) { _s+='theme="'+_e(theme)+'"';} _s+='><title>'+_e(title)+'</title></sheet>';}return _s;
-};
-},{"pastry":68}],25:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<?xml version="1.0" encoding="UTF-8" standalone="no"?><xmap-styles xmlns="urn:xmind:xmap:xmlns:style:2.0" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:svg="http://www.w3.org/2000/svg" version="2.0"><automatic-styles></automatic-styles><master-styles></master-styles><styles></styles></xmap-styles>';}return _s;
-};
-},{"pastry":68}],26:[function(require,module,exports){
-var helper = require("pastry"); module.exports = function(obj, ne){
-var _e=ne?function(s){return s;}:helper.escape,print=function(s,e){_s+=e?(s==null?'':s):_e(s);};obj=obj||{};with(obj){_s='<topic id="'+_e(id)+'" ';if(styleId) { _s+='style-id="'+_e(styleId)+'"';} _s+='><title>'+_e(title)+'</title></topic>';}return _s;
-};
-},{"pastry":68}],27:[function(require,module,exports){
-/* jshint undef: true, unused: true */
-/* global require, module */
-
-var pastry = require('pastry'),
-    each = pastry.each,
-    every = pastry.every,
-    keys = pastry.keys,
-    sprintf = pastry.sprintf,
-    filter = pastry.filter;
-
-function noop() {}
-
-var utils = {
-    getCurrentTimestamp: function() {
-        return Date.now();
-    },
-    getDefaultSheetName: function(index) {
-        return sprintf('Sheet %d', index || 1);
-    },
-    getDefaultTopicName: function(structureClass) {
-        return sprintf('%s Topic', structureClass);
-    },
-    findChildNode: function(doc, tagName, attrs) {
-        attrs = attrs || {};
-        if (!doc) {
-            return;
-        }
-        return utils.findChildNodes(doc, tagName, attrs)[0];
-    },
-    findChildNodes: function(doc, tagName, attrs) {
-        attrs = attrs || {};
-        if (!doc) {
-            return [];
-        }
-        var resultNodes = filter(doc.childNodes, function(node) {
-            return node.tagName === tagName;
-        });
-        resultNodes = filter(resultNodes, function(node) {
-            return node && every(keys(attrs), function(key) {
-                return node.getAttribute(key) === attrs[key];
-            });
-        });
-        return resultNodes;
-    },
-    eachChildNode: function(doc, tagName, attrs, callback) {
-        callback = callback || noop;
-        each(utils.findChildNodes(doc, tagName, attrs), function(node) {
-            callback(node);
-        });
-    },
-    findOrCreateChildNode: function(doc, tagName, attrs) {
-        attrs = attrs || {};
-        if (!doc) {
-            // throw 'doc not defined';
-            return null;
-        }
-        var resultNode = utils.findChildNode(doc, tagName, attrs);
-        if (!resultNode) {
-            var ownerDoc = doc;
-            if (!doc.createElement) { // create with ownerDocument
-                ownerDoc = doc.ownerDocument;
-            }
-            resultNode = ownerDoc.createElement(tagName);
-            each(attrs, function(value, key) {
-                resultNode.setAttribute(key, value);
-            });
-            doc.appendChild(resultNode);
-        }
-        return resultNode;
-    },
-    removeChildNode: function(doc, tagName, attrs) {
-        attrs = attrs || {};
-        var resultNode = utils.findChildNode(doc, tagName, attrs);
-        if (resultNode) {
-            doc.removeChild(resultNode);
-        }
-        return resultNode;
-    }
-};
-
-module.exports = utils;
-
-
-},{"pastry":68}],28:[function(require,module,exports){
-/* jshint undef: true, unused: true */
-/* global require, module */
-
-var pastry = require('pastry'),
-    each = pastry.each,
-    extend = pastry.extend;
-
-var xmldom = require('xmldom'),
-    domParser = new xmldom.DOMParser(),
-    xmlSerializer = new xmldom.XMLSerializer();
-
-var JSZip = require('jszip');
-
-var saveAs = require('./FileSaver/FileSaver').saveAs;
-
-var CONST = require('./CONST');
-var DomMixin = require('./DomMixin');
-var Legend = require('./Legend');
-var Relationship = require('./Relationship');
-var Sheet = require('./Sheet');
-var Topic = require('./Topic');
-var Workbook = require('./Workbook');
-var utils = require('./utils');
-
-var tmplMeta = require('./template/meta');
-var tmplManifest = require('./template/manifest');
-
-extend(Workbook, {
-    open: function(data) {
-        var zip = new JSZip(data);
-
-        var doc,
-            stylesDoc,
-            attachments = {};
-
-        each(zip.files, function(file, filename) {
-            filename = filename.replace(/^\//, '');
-            if (filename === CONST.CONTENT_XML) {
-                // content.xml
-                doc = domParser.parseFromString(
-                    zip.file(filename).asText()
-                ).documentElement;
-            } else if (filename === CONST.STYLES_XML) {
-                // styles.xml
-                stylesDoc = domParser.parseFromString(
-                    zip.file(filename).asText()
-                ).documentElement;
-            } else if (filename.indexOf(CONST.ATTACHMENTS_DIR) === 0) {
-                // attachments/*
-                var shortName = filename.replace(CONST.ATTACHMENTS_DIR, '');
-                attachments[shortName] = zip.file(filename).asText();
-            }
-        });
-        if (!doc) {
-            throw 'invalid xmind file';
-        }
-        var workbook = new Workbook({
-            doc: doc,
-            stylesDoc: stylesDoc,
-            attachments: attachments
-        });
-        workbook.zip = zip;
-        return workbook;
-    },
-    save: function(workbook, filename) {
-        // TODO support embed markers
-        var zip = workbook.zip ? workbook.zip : new JSZip(); // keep the origin contents
-
-        // content.xml
-        zip.file(CONST.CONTENT_XML, xmlSerializer.serializeToString(workbook.doc));
-        // styles.xml
-        zip.file(CONST.STYLES_XML, xmlSerializer.serializeToString(workbook.stylesDoc));
-        // meta.xml
-        zip.file(CONST.META_XML, tmplMeta());
-        // META-INF/manifest.xml
-        zip.file(CONST.MANIFEST_XML, tmplManifest());
-        // attachments/*
-        each(workbook.attachments, function(content, filename) {
-            zip.file(CONST.ATTACHMENTS_DIR + filename, content);
-        });
-
-        workbook.zip = zip;
-
-        var content = zip.generate({
-            type: 'blob'
-        });
-        saveAs(content, filename);
-    }
-});
-
-module.exports = {
-    CONST: CONST,
-    DomMixin: DomMixin,
-    Legend: Legend,
-    Relationship: Relationship,
-    Sheet: Sheet,
-    Topic: Topic,
-    Workbook: Workbook,
-    open: Workbook.open,
-    save: Workbook.save,
-    utils: utils
-};
-
-
-},{"./CONST":7,"./DomMixin":8,"./FileSaver/FileSaver":9,"./Legend":10,"./Relationship":11,"./Sheet":12,"./Topic":13,"./Workbook":14,"./template/manifest":18,"./template/meta":21,"./utils":27,"jszip":37,"pastry":68,"xmldom":69}],29:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 // private property
 var _keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
@@ -3757,7 +3558,7 @@ exports.decode = function(input, utf8) {
 
 };
 
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 function CompressedObject() {
     this.compressedSize = 0;
@@ -3787,7 +3588,7 @@ CompressedObject.prototype = {
 };
 module.exports = CompressedObject;
 
-},{}],31:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 exports.STORE = {
     magic: "\x00\x00",
@@ -3802,7 +3603,7 @@ exports.STORE = {
 };
 exports.DEFLATE = require('./flate');
 
-},{"./flate":36}],32:[function(require,module,exports){
+},{"./flate":35}],31:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -3906,7 +3707,7 @@ module.exports = function crc32(input, crc) {
 };
 // vim: set shiftwidth=4 softtabstop=4:
 
-},{"./utils":49}],33:[function(require,module,exports){
+},{"./utils":48}],32:[function(require,module,exports){
 'use strict';
 var utils = require('./utils');
 
@@ -4015,7 +3816,7 @@ DataReader.prototype = {
 };
 module.exports = DataReader;
 
-},{"./utils":49}],34:[function(require,module,exports){
+},{"./utils":48}],33:[function(require,module,exports){
 'use strict';
 exports.base64 = false;
 exports.binary = false;
@@ -4028,7 +3829,7 @@ exports.comment = null;
 exports.unixPermissions = null;
 exports.dosPermissions = null;
 
-},{}],35:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 'use strict';
 var utils = require('./utils');
 
@@ -4135,7 +3936,7 @@ exports.isRegExp = function (object) {
 };
 
 
-},{"./utils":49}],36:[function(require,module,exports){
+},{"./utils":48}],35:[function(require,module,exports){
 'use strict';
 var USE_TYPEDARRAY = (typeof Uint8Array !== 'undefined') && (typeof Uint16Array !== 'undefined') && (typeof Uint32Array !== 'undefined');
 
@@ -4153,7 +3954,7 @@ exports.uncompress =  function(input) {
     return pako.inflateRaw(input);
 };
 
-},{"pako":52}],37:[function(require,module,exports){
+},{"pako":51}],36:[function(require,module,exports){
 'use strict';
 
 var base64 = require('./base64');
@@ -4234,7 +4035,7 @@ JSZip.base64 = {
 JSZip.compressions = require('./compressions');
 module.exports = JSZip;
 
-},{"./base64":29,"./compressions":31,"./defaults":34,"./deprecatedPublicUtils":35,"./load":38,"./object":41,"./support":45}],38:[function(require,module,exports){
+},{"./base64":28,"./compressions":30,"./defaults":33,"./deprecatedPublicUtils":34,"./load":37,"./object":40,"./support":44}],37:[function(require,module,exports){
 'use strict';
 var base64 = require('./base64');
 var ZipEntries = require('./zipEntries');
@@ -4267,7 +4068,7 @@ module.exports = function(data, options) {
     return this;
 };
 
-},{"./base64":29,"./zipEntries":50}],39:[function(require,module,exports){
+},{"./base64":28,"./zipEntries":49}],38:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 module.exports = function(data, encoding){
@@ -4278,7 +4079,7 @@ module.exports.test = function(b){
 };
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":1}],40:[function(require,module,exports){
+},{"buffer":23}],39:[function(require,module,exports){
 'use strict';
 var Uint8ArrayReader = require('./uint8ArrayReader');
 
@@ -4300,7 +4101,7 @@ NodeBufferReader.prototype.readData = function(size) {
 };
 module.exports = NodeBufferReader;
 
-},{"./uint8ArrayReader":46}],41:[function(require,module,exports){
+},{"./uint8ArrayReader":45}],40:[function(require,module,exports){
 'use strict';
 var support = require('./support');
 var utils = require('./utils');
@@ -5185,7 +4986,7 @@ var out = {
 };
 module.exports = out;
 
-},{"./base64":29,"./compressedObject":30,"./compressions":31,"./crc32":32,"./defaults":34,"./nodeBuffer":39,"./signature":42,"./stringWriter":44,"./support":45,"./uint8ArrayWriter":47,"./utf8":48,"./utils":49}],42:[function(require,module,exports){
+},{"./base64":28,"./compressedObject":29,"./compressions":30,"./crc32":31,"./defaults":33,"./nodeBuffer":38,"./signature":41,"./stringWriter":43,"./support":44,"./uint8ArrayWriter":46,"./utf8":47,"./utils":48}],41:[function(require,module,exports){
 'use strict';
 exports.LOCAL_FILE_HEADER = "PK\x03\x04";
 exports.CENTRAL_FILE_HEADER = "PK\x01\x02";
@@ -5194,7 +4995,7 @@ exports.ZIP64_CENTRAL_DIRECTORY_LOCATOR = "PK\x06\x07";
 exports.ZIP64_CENTRAL_DIRECTORY_END = "PK\x06\x06";
 exports.DATA_DESCRIPTOR = "PK\x07\x08";
 
-},{}],43:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 'use strict';
 var DataReader = require('./dataReader');
 var utils = require('./utils');
@@ -5232,7 +5033,7 @@ StringReader.prototype.readData = function(size) {
 };
 module.exports = StringReader;
 
-},{"./dataReader":33,"./utils":49}],44:[function(require,module,exports){
+},{"./dataReader":32,"./utils":48}],43:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -5264,7 +5065,7 @@ StringWriter.prototype = {
 
 module.exports = StringWriter;
 
-},{"./utils":49}],45:[function(require,module,exports){
+},{"./utils":48}],44:[function(require,module,exports){
 (function (Buffer){
 'use strict';
 exports.base64 = true;
@@ -5302,7 +5103,7 @@ else {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":1}],46:[function(require,module,exports){
+},{"buffer":23}],45:[function(require,module,exports){
 'use strict';
 var DataReader = require('./dataReader');
 
@@ -5351,7 +5152,7 @@ Uint8ArrayReader.prototype.readData = function(size) {
 };
 module.exports = Uint8ArrayReader;
 
-},{"./dataReader":33}],47:[function(require,module,exports){
+},{"./dataReader":32}],46:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -5389,7 +5190,7 @@ Uint8ArrayWriter.prototype = {
 
 module.exports = Uint8ArrayWriter;
 
-},{"./utils":49}],48:[function(require,module,exports){
+},{"./utils":48}],47:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -5598,7 +5399,7 @@ exports.utf8decode = function utf8decode(buf) {
 };
 // vim: set shiftwidth=4 softtabstop=4:
 
-},{"./nodeBuffer":39,"./support":45,"./utils":49}],49:[function(require,module,exports){
+},{"./nodeBuffer":38,"./support":44,"./utils":48}],48:[function(require,module,exports){
 'use strict';
 var support = require('./support');
 var compressions = require('./compressions');
@@ -5926,7 +5727,7 @@ exports.isRegExp = function (object) {
 };
 
 
-},{"./compressions":31,"./nodeBuffer":39,"./support":45}],50:[function(require,module,exports){
+},{"./compressions":30,"./nodeBuffer":38,"./support":44}],49:[function(require,module,exports){
 'use strict';
 var StringReader = require('./stringReader');
 var NodeBufferReader = require('./nodeBufferReader');
@@ -6149,7 +5950,7 @@ ZipEntries.prototype = {
 // }}} end of ZipEntries
 module.exports = ZipEntries;
 
-},{"./nodeBufferReader":40,"./object":41,"./signature":42,"./stringReader":43,"./support":45,"./uint8ArrayReader":46,"./utils":49,"./zipEntry":51}],51:[function(require,module,exports){
+},{"./nodeBufferReader":39,"./object":40,"./signature":41,"./stringReader":42,"./support":44,"./uint8ArrayReader":45,"./utils":48,"./zipEntry":50}],50:[function(require,module,exports){
 'use strict';
 var StringReader = require('./stringReader');
 var utils = require('./utils');
@@ -6461,7 +6262,7 @@ ZipEntry.prototype = {
 };
 module.exports = ZipEntry;
 
-},{"./compressedObject":30,"./object":41,"./stringReader":43,"./utils":49}],52:[function(require,module,exports){
+},{"./compressedObject":29,"./object":40,"./stringReader":42,"./utils":48}],51:[function(require,module,exports){
 // Top level file is just a mixin of submodules & constants
 'use strict';
 
@@ -6477,7 +6278,7 @@ assign(pako, deflate, inflate, constants);
 
 module.exports = pako;
 
-},{"./lib/deflate":53,"./lib/inflate":54,"./lib/utils/common":55,"./lib/zlib/constants":58}],53:[function(require,module,exports){
+},{"./lib/deflate":52,"./lib/inflate":53,"./lib/utils/common":54,"./lib/zlib/constants":57}],52:[function(require,module,exports){
 'use strict';
 
 
@@ -6855,7 +6656,7 @@ exports.deflate = deflate;
 exports.deflateRaw = deflateRaw;
 exports.gzip = gzip;
 
-},{"./utils/common":55,"./utils/strings":56,"./zlib/deflate.js":60,"./zlib/messages":65,"./zlib/zstream":67}],54:[function(require,module,exports){
+},{"./utils/common":54,"./utils/strings":55,"./zlib/deflate.js":59,"./zlib/messages":64,"./zlib/zstream":66}],53:[function(require,module,exports){
 'use strict';
 
 
@@ -7236,7 +7037,7 @@ exports.inflate = inflate;
 exports.inflateRaw = inflateRaw;
 exports.ungzip  = inflate;
 
-},{"./utils/common":55,"./utils/strings":56,"./zlib/constants":58,"./zlib/gzheader":61,"./zlib/inflate.js":63,"./zlib/messages":65,"./zlib/zstream":67}],55:[function(require,module,exports){
+},{"./utils/common":54,"./utils/strings":55,"./zlib/constants":57,"./zlib/gzheader":60,"./zlib/inflate.js":62,"./zlib/messages":64,"./zlib/zstream":66}],54:[function(require,module,exports){
 'use strict';
 
 
@@ -7340,7 +7141,7 @@ exports.setTyped = function (on) {
 
 exports.setTyped(TYPED_OK);
 
-},{}],56:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 // String encode/decode helpers
 'use strict';
 
@@ -7527,7 +7328,7 @@ exports.utf8border = function(buf, max) {
   return (pos + _utf8len[buf[pos]] > max) ? pos : max;
 };
 
-},{"./common":55}],57:[function(require,module,exports){
+},{"./common":54}],56:[function(require,module,exports){
 'use strict';
 
 // Note: adler32 takes 12% for level 0 and 2% for level 6.
@@ -7561,7 +7362,7 @@ function adler32(adler, buf, len, pos) {
 
 module.exports = adler32;
 
-},{}],58:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 module.exports = {
 
   /* Allowed flush values; see deflate() and inflate() below for details */
@@ -7610,7 +7411,7 @@ module.exports = {
   //Z_NULL:                 null // Use -1 or null inline, depending on var type
 };
 
-},{}],59:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 'use strict';
 
 // Note: we can't get significant speed boost here.
@@ -7653,7 +7454,7 @@ function crc32(crc, buf, len, pos) {
 
 module.exports = crc32;
 
-},{}],60:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 'use strict';
 
 var utils   = require('../utils/common');
@@ -9420,7 +9221,7 @@ exports.deflatePrime = deflatePrime;
 exports.deflateTune = deflateTune;
 */
 
-},{"../utils/common":55,"./adler32":57,"./crc32":59,"./messages":65,"./trees":66}],61:[function(require,module,exports){
+},{"../utils/common":54,"./adler32":56,"./crc32":58,"./messages":64,"./trees":65}],60:[function(require,module,exports){
 'use strict';
 
 
@@ -9462,7 +9263,7 @@ function GZheader() {
 
 module.exports = GZheader;
 
-},{}],62:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 'use strict';
 
 // See state defs from inflate.js
@@ -9789,7 +9590,7 @@ module.exports = function inflate_fast(strm, start) {
   return;
 };
 
-},{}],63:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 'use strict';
 
 
@@ -11294,7 +11095,7 @@ exports.inflateSyncPoint = inflateSyncPoint;
 exports.inflateUndermine = inflateUndermine;
 */
 
-},{"../utils/common":55,"./adler32":57,"./crc32":59,"./inffast":62,"./inftrees":64}],64:[function(require,module,exports){
+},{"../utils/common":54,"./adler32":56,"./crc32":58,"./inffast":61,"./inftrees":63}],63:[function(require,module,exports){
 'use strict';
 
 
@@ -11623,7 +11424,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
   return 0;
 };
 
-},{"../utils/common":55}],65:[function(require,module,exports){
+},{"../utils/common":54}],64:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -11638,7 +11439,7 @@ module.exports = {
   '-6':   'incompatible version' /* Z_VERSION_ERROR (-6) */
 };
 
-},{}],66:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 'use strict';
 
 
@@ -12839,7 +12640,7 @@ exports._tr_flush_block  = _tr_flush_block;
 exports._tr_tally = _tr_tally;
 exports._tr_align = _tr_align;
 
-},{"../utils/common":55}],67:[function(require,module,exports){
+},{"../utils/common":54}],66:[function(require,module,exports){
 'use strict';
 
 
@@ -12870,2677 +12671,7 @@ function ZStream() {
 
 module.exports = ZStream;
 
-},{}],68:[function(require,module,exports){
-(function (process){
-/* jshint strict: true, undef: true, unused: true */
-/* global exports, module, PASTRY_CONFIG */
-
-(function (GLOBAL) {
-    'use strict';
-    /*
-     * @author      : 绝云(wensen.lws@alibaba-inc.com)
-     * @date        : 2014-07-07
-     * @description : 定义全局命名空间以及核心函数库
-     */
-
-    GLOBAL = GLOBAL || {};
-
-    if (GLOBAL.pastry) { // 避免重复运行
-        return;
-    }
-
-    var
-    // 命名空间 {
-        pastry = {},
-    // }
-    // 局部变量 {
-        A  = Array,
-        F  = Function,
-        O  = Object,
-        S  = String,
-        PS = 'prototype',
-        US = 'undefined',
-        AP = A[PS],
-        FP = F[PS],
-        // OP = O[PS],
-        SP = S[PS],
-
-        //noop = function () { },
-
-        // helpers {
-            toStr = {}.toString,
-            slice = AP.slice,
-
-            arrayFromSecondElement = function (arr) {
-                return slice.call(arr, 1);
-            },
-            applyNativeFunction = function (nativeFunc, target, args) {
-                return nativeFunc.apply(target, arrayFromSecondElement(args));
-            },
-
-            // isType() {
-                isType = function (type, obj) {
-                    return toStr.call(obj) === '[object ' + type + ']';
-                },
-                isArrayLike = pastry.isArrayLike = function (obj) {
-                    return (typeof obj === 'object' && isFinite(obj.length));
-                },
-                isFunction = pastry.isFunction = function (obj) {
-                    return isType('Function', obj);
-                },
-                isNumber = pastry.isNumber = function (obj) {
-                    return isType('Number', obj);
-                },
-                isObject = pastry.isObject = function (obj) {
-                    var type = typeof obj;
-                    return type === 'function' || type === 'object' && !!obj;
-                },
-                isPlainObject = pastry.isPlainObject = function (obj) {
-                    return isType('Object', obj);
-                },
-            // }
-
-            toArray = pastry.toArray = function (obj) {
-                return isArrayLike(obj) ? slice.call(obj) : [];
-            },
-
-            each,
-            hasValue,
-            uc;
-        // }
-
-    // }
-    // // 版本号 {
-    //     pastry.VERSION = '{VERSION}';
-    // // }
-
-    // ES5 && ES6 函数集 {
-        pastry.index = function (up) {
-            /*
-             * @description: 为实现 indexOf 和 lastIndexOf 而设计的函数
-             */
-            return function (arr, searchElement, fromIndex) {
-                var i,
-                    len = arr.length >>> 0;
-                if (len === 0) {
-                    return -1;
-                }
-                if (!fromIndex) {
-                    fromIndex = up ? 0 : arr.length;
-                } else if (fromIndex < 0) {
-                    fromIndex = Math.max(0, arr.length + fromIndex);
-                }
-                if (up) {
-                    for (i = fromIndex; i < arr.length; i++) {
-                        if (arr[i] === searchElement) {
-                            return i;
-                        }
-                    }
-                } else {
-                    for (i = fromIndex; i >= 0; i--) {
-                        if (arr[i] === searchElement) {
-                            return i;
-                        }
-                    }
-                }
-                return -1;
-            };
-        };
-        pastry.indexOf = AP.indexOf ?
-            /*
-             * @description : 返回 index （不存在则为 -1）
-             * @parameter*  : {Array } arr           , 要遍历的数组
-             * @parameter*  : {Object} searchElement , 要搜索的元素
-             * @parameter   : {Number} fromIndex     , 起始 index
-             * @return      : {Number} index
-             * @syntax      : pastry.indexOf(arr, searchElement[, fromIndex])
-             */
-            function (arr) {
-                return applyNativeFunction(AP.indexOf, arr, arguments);
-            } : pastry.index(true);
-        pastry.lastIndexOf = AP.lastIndexOf ?
-            /*
-             * @description : 返回最后一个 index （不存在则为 -1）
-             * @parameter*  : {Array } arr           , 要遍历的数组
-             * @parameter*  : {Object} searchElement , 要搜索的元素
-             * @parameter   : {Number} fromIndex     , 起始 index
-             * @return      : {Number} index
-             * @syntax      : pastry.indexOf(arr, searchElement[, fromIndex])
-             */
-            function (arr) {
-                return applyNativeFunction(AP.lastIndexOf, arr, arguments);
-            } : pastry.index();
-
-        function objForEach (obj, callback, thisObj) {
-            for (var key in obj) {
-                callback.call(thisObj, obj[key], key, obj);
-            }
-        }
-        each = pastry.each = pastry.forEach = AP.forEach ?
-            /*
-             * @description : 遍历
-             * @parameter*  : {Object  } obj      , 待循环变量
-             * @parameter*  : {Function} callback , 回调函数
-             * @parameter   : {Object  } thisObj  , 上下文变量
-             * @syntax      : pastry.each(obj Object, callback Function[, thisObj Object]);
-             * @syntax      : pastry.forEach(obj Object, callback Function[, thisObj Object]);
-             */
-            function (obj, callback, thisObj) {
-                if (isArrayLike(obj)) {
-                    applyNativeFunction(AP.forEach, toArray(obj), arguments);
-                } else if (isPlainObject(obj)) {
-                    objForEach(obj, callback, thisObj);
-                }
-            } : function (obj, callback, thisObj) {
-                if (isArrayLike(obj)) {
-                    var len = obj.length;
-                    for (var i = 0; i < len; i++) {
-                        if (i in obj) {
-                            callback.call(thisObj, obj[i], i, obj);
-                        }
-                    }
-                } else if (isPlainObject(obj)) {
-                    objForEach(obj, callback, thisObj);
-                }
-            };
-
-        pastry.eachReverse = function (arr, callback, thisObj) {
-            /*
-             * @description : 逆序遍历
-             * @parameter*  : {Array   } arr      , 待循环数组
-             * @parameter*  : {Function} callback , 回调函数
-             * @parameter   : {Object  } thisObj  , 上下文变量
-             * @syntax      : pastry.eachReverse(arr Array, callback Function[, thisObj Object]);
-             */
-            if (arr) {
-                var i = arr.length - 1;
-                for (; i > -1; i -= 1) {
-                    callback.call(thisObj, arr[i], i, arr);
-                }
-            }
-            return arr;
-        };
-
-        pastry.every = AP.every ?
-            /*
-             * @description : 测试是否对于 arr 中的元素，callback 都返回 true
-             * @parameter*  : {Array   } arr      , 待测试数组
-             * @parameter*  : {Function} callback , 待运行函数
-             * @parameter   : {Object  } thisObj  , 上下文变量
-             * @return      : {Boolean } 结果
-             * @syntax      : pastry.every(arr, callback[, thisObj])
-             */
-            function (arr) {
-                return applyNativeFunction(AP.every, arr, arguments);
-            } : function (arr, callback, thisObj) {
-                var i;
-                for (i = 0; i < arr.length; i ++) {
-                    if (!callback.call(thisObj, arr[i], i, arr)) {
-                        return false;
-                    }
-                }
-                return true;
-            };
-
-        pastry.filter = AP.filter ?
-            /*
-             * @description : 根据 callback 是否通过来过滤 arr 中的元素，返回过滤后的数组
-             * @parameter*  : {Array   } arr      , 待过滤数组
-             * @parameter*  : {Function} callback , 待运行函数
-             * @parameter   : {Object  } thisObj  , 上下文变量
-             * @return      : {Array   } 结果数组
-             * @syntax      : pastry.filter(arr, callback[, thisObj])
-             */
-            function (arr) {
-                return applyNativeFunction(AP.filter, arr, arguments);
-            } : function (arr, callback, thisObj) {
-                var res = [];
-                each(arr, function (element, key) {
-                    if (callback.call(thisObj, element, key, arr)) {
-                        res.push(element);
-                    }
-                });
-                return res;
-            };
-
-        pastry.map = AP.map ?
-            /*
-             * @description : 用 arr 通过 callback 函数加工各个元素得到新的数组
-             * @parameter*  : {Array   } arr      , 待加工数组
-             * @parameter*  : {Function} callback , 加工函数
-             * @parameter   : {Object  } thisObj  , 上下文变量
-             * @return      : {Array   } 结果数组
-             * @syntax      : pastry.map(arr, callback[, thisObj])
-             */
-            function (arr) {
-                return applyNativeFunction(AP.map, arr, arguments);
-            } : function (arr, callback, thisObj) {
-                var res = [];
-                each(arr, function (element, key) {
-                    res.push(callback.call(thisObj, element, key, arr));
-                });
-                return res;
-            };
-
-        pastry.some = AP.some ?
-            /*
-             * @description : 测试 arr 中每个元素，当有真的时候退出并返回 true
-             * @parameter*  : {Array   } arr      , 待测试数组
-             * @parameter*  : {Function} callback , 测试函数
-             * @parameter   : {Object  } thisObj  , 上下文变量
-             * @return      : {Boolean } 真值
-             * @syntax      : pastry.some(arr, callback[, thisObj])
-             */
-            function (arr) {
-                return applyNativeFunction(AP.some, arr, arguments);
-            } : function (arr, callback, thisObj) {
-                var i;
-                for (i = 0; i < arr.length; i ++) {
-                    if (callback.call(thisObj, arr[i], i, arr)) {
-                        return true;
-                    }
-                }
-                return false;
-            };
-
-        pastry.reduce = AP.reduce ?
-            /*
-             * @description : 从左到右遍历数组，运行函数并得到最终值
-             * @parameter*  : {Array   } arr      , 待遍历数组
-             * @parameter*  : {Function} callback , 遍历用函数
-             * @parameter   : {Object  } thisObj  , 上下文变量
-             * @return      : {Object  } 结果对象
-             * @syntax      : pastry.reduce(arr, callback[, thisObj])
-            // @paramForCallback* : {Object  } previousValue , 前一个值
-            // @paramForCallback* : {Object  } currentValue  , 当前值
-            // @paramForCallback  : {Number  } index         , index
-            // @paramForCallback  : {Array   } array         , 数组变量
-             */
-            function (arr) {
-                return applyNativeFunction(AP.reduce, arr, arguments);
-            } : function (arr, callback, thisObj) {
-                var i, value;
-                if (thisObj) {
-                    value = thisObj;
-                }
-                for (i = 0; i < arr.length; i ++) {
-                    if (value) {
-                        value = callback(value, arr[i], i, arr);
-                    } else {
-                        value = arr[i];
-                    }
-                }
-                return value;
-            };
-        pastry.reduceRight = AP.reduceRight ?
-            /*
-             * @description : 从右到左遍历数组，运行函数并得到最终值
-             * @parameter*  : {Array   } arr      , 待遍历数组
-             * @parameter*  : {Function} callback , 遍历用函数
-             * @parameter   : {Object  } thisObj  , 上下文变量
-             * @return      : {Object  } 结果对象
-             * @syntax      : pastry.reduce(arr, callback[, thisObj])
-            // @paramForCallback* : {Object  } previousValue , 前一个值
-            // @paramForCallback* : {Object  } currentValue  , 当前值
-            // @paramForCallback  : {Number  } index         , index
-            // @paramForCallback  : {Array   } array         , 数组变量
-             */
-            function (arr) {
-                return applyNativeFunction(AP.reduceRight, arr, arguments);
-            } : function (arr, callback, thisObj) {
-                var i, value;
-                if (thisObj) {
-                    value = thisObj;
-                }
-                for (i = arr.length - 1; i >= 0; i --) {
-                    if (value) {
-                        value = callback(value, arr[i], i, arr);
-                    } else {
-                        value = arr[i];
-                    }
-                }
-                return value;
-            };
-
-        pastry.trim = SP.trim ?
-            /*
-             * @description : 移除空白子串
-             * @parameter*  : {string} str, 待处理字符串
-             * @return      : {string} 结果字符串
-             * @syntax      : pastry.trim(str)
-             */
-            function (str) {
-                return str.trim();
-            } : function (str) {
-                return str.replace(/^\s+|\s+$/g, '');
-            };
-        pastry.trimLeft = SP.trimLeft ?
-            /*
-             * @description : 移除左空白子串
-             * @parameter*  : {string} str, 待处理字符串
-             * @return      : {string} 结果字符串
-             * @syntax      : pastry.trimLeft(str)
-             */
-            function (str) {
-                return str.trimLeft();
-            } : function (str) {
-                return str.replace(/^\s+/g, '');
-            };
-        pastry.trimRight = SP.trimRight ?
-            /*
-             * @description : 移除右空白子串
-             * @parameter*  : {string} str, 待处理字符串
-             * @return      : {string} 结果字符串
-             * @syntax      : pastry.trimRight(str)
-             */
-            function (str) {
-                return str.trimRight();
-            } : function (str) {
-                return str.replace(/\s+$/g, '');
-            };
-    // }
-    // helper 函数集 {
-        // 类型转换 {
-            pastry.toInt = function (str, base) {
-                return parseInt(str, base || 10);
-            };
-        // }
-        // 字符串相关 {
-            pastry.lc = function (str) {
-                /*
-                 * @syntax: pastry.lc(str String);
-                 */
-                return (str + '').toLowerCase();
-            };
-            uc = pastry.uc = function (str) {
-                /*
-                 * @syntax: pastry.uc(str String);
-                 */
-                return (str + '').toUpperCase();
-            };
-            pastry.hasSubString = function (str, subStr) {
-                /*
-                 * @syntax: pastry.hasSubString(str String, subStr String);
-                 */
-                return (str.indexOf(subStr) > -1);
-            };
-            pastry.capitalize = function (str) {
-                str = str + '';
-                return uc(str.charAt(0)) + str.substr(1);
-            };
-        // }
-        // 其它类型判断 pastry.is$Type(obj) {
-            /*
-             * @description : 类型判断
-             * @parameter*  : {Any} obj, 待判断对象
-             * @syntax      : pastry.is$Type(obj Any);
-             */
-            each([
-                'Array',
-                'Arguments',
-                'Boolean',
-                'Date',
-                'Error',
-                'RegExp',
-                'String'
-            ], function (type) {
-                pastry['is' + type] = function (obj) {
-                    return isType(type, obj);
-                };
-            });
-            if (A.isArray) {
-                pastry.isArray = A.isArray;
-            }
-            pastry.isNaN = function (obj) {
-                return isNumber(obj) && obj !== +obj;
-            };
-            pastry.isFinite = function (obj) {
-                return isNumber(obj) && isFinite(obj) && !isNaN(obj);
-            };
-            pastry.isUndefined = function (obj) {
-                return obj === undefined;
-            };
-            pastry.isNull = function (obj) {
-                return obj === null;
-            };
-        // }
-        // 数组、对象相关 {
-            pastry.range = function (start, stop, step) {
-                if (arguments.length <= 1) {
-                    stop = start || 0;
-                    start = 0;
-                }
-                step = step || 1;
-
-                var length = Math.max(Math.ceil((stop - start) / step), 0),
-                    range  = new Array(length),
-                    idx    = 0;
-                for (; idx < length; idx++, start += step) {
-                    range[idx] = start;
-                }
-                return range;
-            };
-            pastry.flatten = function (array) {
-                /*
-                 * @description: 扁平化二维数组
-                 */
-                array = array || [];
-                for (var r = [], i = 0, l = array.length; i < l; ++i) {
-                    if (isArrayLike(array[i])) {
-                        r = r.concat(array[i]);
-                    } else {
-                        r[r.length] = array[i];
-                    }
-                }
-                return r;
-            };
-            pastry.merge = function (dest) {
-                /*
-                 * @description : 合并对象
-                 * @parameter*  : {Object} dest, 目标对象
-                 * @syntax      : pastry.merge(dest Object[, src1 Object, src2 Object, ...]);
-                 */
-                each(arrayFromSecondElement(arguments), function (source) {
-                    if (source) {
-                        for (var prop in source) {
-                            if (toStr.call(source[prop]) !== toStr.call(dest[prop])) {
-                                dest[prop] = source[prop];
-                            } else {
-                                if (isPlainObject(source[prop])) {
-                                    dest[prop] = dest[prop] || {};
-                                    pastry.merge(dest[prop], source[prop]);
-                                } else {
-                                    dest[prop] = source[prop];
-                                }
-                            }
-                        }
-                    }
-                });
-                return dest;
-            };
-            pastry.extend = function (dest) {
-                /*
-                 * @description : 扩展对象
-                 * @parameter*  : {Object} dest, 目标对象
-                 * @syntax      : pastry.extend(dest Object[, src1 Object, src2 Object, ...]);
-                 */
-                each(arrayFromSecondElement(arguments), function (source) {
-                    if (source) {
-                        for (var prop in source) {
-                            dest[prop] = source[prop];
-                        }
-                    }
-                });
-                return dest;
-            };
-            pastry.remove = function (arr, fromIndex, toIndex) {
-                /*
-                 * @description : 删除数组元素
-                 * @parameter*  : {Array } arr       , 待处理数组
-                 * @parameter   : {Number} fromIndex , 起始 index
-                 * @parameter   : {Number} toIndex   , 结束 index
-                 * @syntax      : pastry.remove(arr, [fromIndex[, toIndex]])
-                 */
-                var rest,
-                    len = arr.length;
-                if (!isNumber(fromIndex)) {
-                    return arr;
-                }
-                rest = arr.slice((toIndex || fromIndex) + 1 || len);
-                arr.length = fromIndex < 0 ? len + fromIndex : fromIndex;
-                return arr.push.apply(arr, rest);
-            };
-            pastry.keys = O.keys ?
-                /*
-                 * @description : 获取对象键集合
-                 * @parameter*  : {object} obj, 对象
-                 * @syntax      : pastry.keys(obj)
-                 */
-                function (obj) {
-                    return O.keys(obj);
-                } : function (obj) {
-                    var result = [];
-                    if (isFunction(obj)) {
-                        each(obj, function (value, key) {
-                            if (key !== PS) {
-                                result.push(key);
-                            }
-                        });
-                    } else {
-                        each(obj, function (value, key) {
-                            result.push(key);
-                        });
-                    }
-                    return result;
-                };
-            pastry.invert = function(obj) {
-                var result = {};
-                each(obj, function (value, key) {
-                    result[value] = key;
-                });
-                return result;
-            };
-            pastry.values = function (obj) {
-                /*
-                 * @description : 获取对象值集合
-                 * @parameter*  : {object} obj, 对象
-                 * @syntax      : pastry.values(obj)
-                 */
-                var values = [];
-                each(obj, function (value) {
-                    values.push(value);
-                });
-                return values;
-            };
-            pastry.hasKey = function (obj, key) {
-                /*
-                 * @description : 检查是否存在键
-                 * @parameter*  : {Object} obj, 待检查对象
-                 * @parameter*  : {String} key, 键
-                 * @syntax      : pastry.hasKey(obj, key)
-                 */
-                return obj.hasOwnProperty(key);
-            };
-            hasValue = pastry.hasValue = function (obj, value) {
-                /*
-                 * @description : 检查是否存在值
-                 * @parameter*  : {Object} obj   , 待检查对象
-                 * @parameter*  : {String} value , 值
-                 * @syntax      : pastry.hasValue(obj, value)
-                 */
-                return (pastry.indexOf(pastry.values(obj), value) > -1);
-            };
-            pastry.uniq = function (arr) {
-                /*
-                 * @description : 求集合
-                 * @parameter*  : {Array} arr, 求集合数组
-                 * @syntax      : pastry.uniq(arr Array);
-                 */
-                var resultArr = [];
-                each(arr, function (element) {
-                    if (!hasValue(resultArr, element)) {
-                        resultArr.push(element);
-                    }
-                });
-                return resultArr;
-            };
-            pastry.union = function (/*arr1, arr2 */) {
-                /*
-                 * @description : 合集
-                 * @parameter*  : {Array} arr1, 求合集数组
-                 * @syntax      : pastry.union([arr1 Array, arr2 Array, ...]);
-                 */
-                var resultArr = [],
-                    sourceArrs = toArray(arguments);
-                each(sourceArrs, function (arr) {
-                    resultArr = resultArr.concat(arr);
-                });
-                return pastry.uniq(resultArr);
-            };
-            pastry.difference = function (arr) {
-                var rest = pastry.flatten(arrayFromSecondElement(arguments));
-                return pastry.filter(arr, function(value){
-                    return !hasValue(rest, value);
-                });
-            };
-            pastry.intersect = function (a, b) {
-                var result = [];
-                each(a, function (value) {
-                    if (hasValue(b, value)) {
-                        result.push(value);
-                    }
-                });
-                return result;
-            };
-            pastry.destroy = function (obj) {
-                /*
-                 * @description : 销毁对象
-                 * @parameter*  : {Object} obj, 待销毁对象
-                 * @syntax      : pastry.destroy(obj);
-                 */
-                for (var p in obj) {
-                    if (obj.hasOwnProperty(p)) {
-                        delete obj[p];
-                    }
-                }
-                obj.prototype = obj['__proto__'] = null;
-                obj = null;
-            };
-            pastry.clone = function (obj) {
-                /*
-                 * @description : 克隆对象
-                 * @parameter*  : {Object} obj, 待克隆对象
-                 * @syntax      : pastry.clone(obj);
-                 */
-                if (!isObject(obj)) {
-                    return obj;
-                }
-                return isArrayLike(obj) ? toArray(obj) : pastry.extend({}, obj);
-            };
-        // }
-        // 函数相关 {
-            pastry.bind = FP.bind ?
-                /*
-                 * @description : 绑定函数运行上下文
-                 * @parameter*  : {Function} func, 目标函数
-                 * @parameter*  : {Object  } oThis, 上下文
-                 * @syntax      : pastry.bind(func Function, oThis Object);
-                 */
-                function (func) {
-                    return applyNativeFunction(FP.bind, func, arguments);
-                } : function (func, oThis) {
-                    if (isFunction(oThis) && isFunction(func)) {
-                        var aArgs  = toArray(arguments).slice(2),
-                            FNOP   = function () {},
-                            fBound = function () {
-                                return func.apply(
-                                    this instanceof FNOP && oThis ? this : oThis || GLOBAL,
-                                    aArgs.concat(arguments)
-                                );
-                            };
-                        FNOP[pastry]   = func[pastry];
-                        fBound[pastry] = new FNOP();
-                        return fBound;
-                    }
-                };
-        // }
-        // 其它 {
-            pastry.getAny = function () {
-                /*
-                 * @description : 从一系列 callback 函数里按顺序尝试取值，并返回第一个可用值
-                 * @parameter*  : {Array} callbackList, 回调函数列表
-                 * @syntax      : pastry.getAny([func1 Function, func2 Function, ...]);
-                 */
-                var i, returnValue,
-                    callbackList = pastry.flatten(toArray(arguments));
-                for (i = 0; i < callbackList.length; i ++) {
-                    try {
-                        returnValue = callbackList[i]();
-                        break;
-                    } catch (e) {
-                    }
-                }
-                return returnValue;
-            };
-            pastry.uuid = function (prefix) {
-                /*
-                 * @description : 生成uuid
-                 * @parameter   : {String} prefix, 前缀
-                 * @syntax      : pastry.uuid(prefix String);
-                 */
-                prefix = prefix || '';
-                return prefix + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-                    .replace(/[xy]/g, function (c) {
-                        var r = Math.random()*16|0,
-                            v = (c === 'x') ? r : (r&0x3|0x8),
-                            result = v.toString(16);
-                        return result;
-                    });
-            };
-        // }
-    // }
-    // 增加 pastry 函数 {
-        /*
-         * @description : 把对象中的属性／方法加到 pastry 这个 namespace 下
-         * @parameter   : {Object } obj, 扩展对象
-         * @parameter   : {Boolean} override, 是否覆盖
-         * @syntax      : pastry.mixin(obj Object[, override Boolean]);
-         */
-        pastry.mixin = function (obj, override) {
-            each(obj, function (value, key) {
-                if (pastry[key] && !override) {
-                    throw 'pastry.' + key + ' already exists';
-                } else {
-                    pastry[key] = value;
-                }
-            });
-        };
-    // }
-    // 输出全局变量 {
-        pastry.setGLOBAL = function (key, value) {
-            /*
-             * @description : 设置全局变量
-             * @parameter   : {String} key, 变量名
-             * @parameter   : {Any   } value, 值
-             * @syntax      : pastry.setGLOBAL(key String, value Any);
-             */
-            if (typeof exports !== US) {
-                exports[key] = value;
-            }
-            GLOBAL[key] = value;
-        };
-        each([
-            'P',
-            'pastry',
-            'PASTRY'
-        ], function (alias) {
-            // set global names and alias
-            pastry.setGLOBAL(alias, pastry);
-        });
-
-        if (typeof exports !== US) {
-            if (typeof module !== US && module.exports) {
-                module.exports = pastry;
-            }
-        }
-    // }
-    // 配置项 {
-        pastry.CONFIG = pastry.merge({
-            defaultLocale: 'en_us',
-            locale: 'en_us'
-        }, (typeof PASTRY_CONFIG !== 'undefined' ? PASTRY_CONFIG : {}));
-    // }
-}(this));
-
-
-/* jshint strict: true, undef: true, unused: true */
-// /* global xxx, yyy */
-
-(function (GLOBAL) {
-    'use strict';
-    /*
-     * @author      : 绝云(wensen.lws@alibaba-inc.com)
-     * @date        : 2014-11-10
-     * @description : event 模块，包括全局和局部的
-     */
-
-    var pastry = GLOBAL.pastry,
-
-        // defination of event function {
-            event = function (target) {
-                target = target || this;
-
-                var events = target._events = {}; // all events stores in the the collection: *._events
-
-                target.on = function (name, callback, context) {
-                    /*
-                     * @description: 绑定事件
-                     */
-                    var list = events[name] || (events[name] = []);
-                    list.push({
-                        callback : callback,
-                        context  : context
-                    });
-                    return target;
-                };
-                target.off = function (name, callback) {
-                    /*
-                     * @description: 解绑事件
-                     */
-                    if (!name) {
-                        events = {};
-                    }
-                    var list = events[name] || [],
-                        i = list.length;
-                    if (!callback) {
-                        list = [];
-                    } else {
-                        while (i > 0) {
-                            i --;
-                            if (list[i].callback === callback) {
-                                list.splice(i, 1);
-                            }
-                        }
-                    }
-                    return target;
-                };
-                target.emit = function () {
-                    /*
-                     * @description: 触发事件
-                     */
-                    var args = pastry.toArray(arguments),
-                        list = events[args.shift()] || [];
-                    pastry.each(list, function (evt) {
-                        if (!evt.callback) {
-                            console.error(evt, list);
-                            throw 'event callback is not defined';
-                        }
-                        evt.callback.apply(evt.context, args);
-                    });
-                    return target;
-                };
-                target.trigger = target.emit; // alias
-                return target;
-            };
-        // }
-
-    // add on(), off(), emit(), trigger() to pastry {
-        event(pastry);
-    // }
-    // add .event to pastry {
-        pastry.event = event;
-    // }
-}(this));
-
-
-/* jshint strict: true, undef: true, unused: true */
-// /* global */
-
-var define;
-
-(function (GLOBAL, undef) {
-    'use strict';
-    /*
-     * @author      : wensen.lws
-     * @description : 模块加载
-     * @note        : 和 seajs、requirejs 的不同之一：define 的模块即时运行
-     */
-    if (define) { // 避免反复执行以及和其它模块加载器冲突
-        return;
-    }
-
-    var pastry = GLOBAL.pastry,
-
-        event = pastry.event,
-
-        each = pastry.each,
-
-        Module = function (meta) {
-            /*
-             * @description: 模块构造函数
-             */
-            var mod = this;
-            mod.initialise(meta);
-            return mod;
-        },
-
-        // 缓存数据 {
-            data = Module._data = {},
-
-            moduleByUri   = data.moduleByUri   = {},
-            exportsByUri  = data.exportsByUri  = {},
-            executedByUri = data.executedByUri = {},
-            queueByUri    = data.queueByUri    = {}, // 模块执行队列
-        // }
-
-        require;
-
-    event(Module); // 加上事件相关函数: on(), off(), emit(), trigger()
-
-    Module.prototype = {
-        initialise: function (meta) {
-            /*
-             * @description: 初始化
-             */
-            var mod = this,
-                id,
-                uri,
-                relativeUri;
-            pastry.extend(mod, meta);
-            Module.emit('module-initialised', mod);
-            if (uri = mod.uri) {
-                if (!moduleByUri[uri]) {
-                    moduleByUri[uri] = mod;
-                }
-                if (!queueByUri[uri]) {
-                    queueByUri[uri] = mod;
-                }
-            }
-            if (id = mod.id) {
-                if (!moduleByUri[id]) {
-                    moduleByUri[id] = mod;
-                }
-            }
-            if (relativeUri = mod.relativeUri) {
-                if (!moduleByUri[relativeUri]) {
-                    moduleByUri[relativeUri] = mod;
-                }
-                if (!queueByUri[relativeUri]) {
-                    queueByUri[mod.relativeUri] = mod;
-                }
-            }
-            return mod;
-        },
-        processDeps: function () {
-            var mod = this;
-            Module.emit('module-depsProcessed', mod);
-            return mod;
-        },
-        execute: function () {
-            var mod           = this,
-                depModExports = [];
-            if ('exports' in mod) {
-                delete queueByUri[mod.uri];
-                delete queueByUri[mod.relativeUri];
-                return mod;
-            }
-
-            if (pastry.every(mod.deps, function (uri) {
-                return !!executedByUri[uri];
-            })) {
-                var modFactory     = mod.factory,
-                    modUri         = mod.uri,
-                    modId          = mod.id,
-                    modRelativeUri = mod.relativeUri;
-
-                each(mod.deps, function (uri) {
-                    depModExports.push(exportsByUri[uri]);
-                });
-                mod.exports =
-                    exportsByUri[modUri] =
-                    exportsByUri[modId] =
-                    exportsByUri[modRelativeUri] = pastry.isFunction(modFactory) ?
-                        modFactory.apply(undef, depModExports) : modFactory;
-                executedByUri[modUri] =
-                    executedByUri[modId] =
-                    executedByUri[modRelativeUri] = true;
-                delete queueByUri[modUri];
-                Module.emit('module-executed', mod);
-            }
-            return mod;
-        }
-    };
-
-    Module.on('module-executed', function () {
-        /*
-         * @description : 执行所有依赖于该模块的模块
-         * @note        : hacking so hard
-         */
-        each(queueByUri, function (mod2BeExecuted/*, uri */) {
-            if (mod2BeExecuted instanceof Module) {
-                mod2BeExecuted.execute();
-            }
-        });
-    });
-
-    define = GLOBAL.define = Module.define = function (/* id, deps, factory */) {
-        // 解释参数 {
-            var args    = pastry.toArray(arguments),
-                id      = pastry.isString(args[0]) ? args.shift() : undef,
-                deps    = args.length > 1 ? args.shift() : [],
-                factory = args[0],
-                meta = {
-                    id      : id,
-                    uri     : id,
-                    deps    : deps,
-                    factory : factory
-                },
-                mod;
-        // }
-        // 需要对元数据进行处理就绑定这个事件 {
-            Module.emit('module-metaGot', meta);
-        // }
-        // 新建实例、保存并且即时运行 {
-            mod = new Module(meta)
-                .processDeps()
-                .execute();
-        // }
-        // define事件 {
-            Module.emit('module-defined', mod);
-        // }
-    };
-
-    define.amd = {}; // 最小 AMD 实现
-
-    require = define; // 即时运行，require 和 define 等价
-
-    // 核心模块定义 {
-        define('pastry/Module', function () {
-            return Module;
-        });
-        define('pastry/pastry', function () {
-            return pastry;
-        });
-        define('pastry/event/event', function () {
-            return pastry.event;
-        });
-    // }
-    // 输出 require 函数 {
-        pastry.setGLOBAL('require' , require);
-    // }
-}(this));
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/fmt/sprintf', [
-    'pastry/pastry'
-], function (
-    pastry
-) {
-    'use strict';
-    /*
-     * @author      : 绝云(wensen.lws@alibaba-inc.com)
-     * @date        : 2014-10-07
-     * @description : fmt 模块 - sprintf
-     */
-
-    var reg = /%(\+)?([0 ]|'(.))?(-)?([0-9]+)?(\.([0-9]+))?([%bcdfosxX])/g,
-
-        isUndefined = pastry.isUndefined,
-        some = pastry.some,
-        abs = Math.abs,
-        toInt = pastry.toInt,
-
-        sprintf = function (format) {
-            if (!pastry.isString(format)) {
-                throw 'sprintf: The first arguments need to be a valid format string.';
-            }
-
-            var part,
-                parts = [],
-                paramIndex = 1,
-                args = pastry.toArray(arguments);
-
-            while (part = reg.exec(format)) {
-                if ((paramIndex >= args.length) && (part[8] !== '%')) {
-                    throw 'sprintf: At least one argument was missing.';
-                }
-
-                parts[parts.length] = {
-                    begin: part.index,
-                    end: part.index + part[0].length,
-                    sign: (part[1] === '+'),
-                    negative: (parseFloat(args[paramIndex]) < 0) ? true : false,
-                    padding: (isUndefined(part[2])) ? (' ') : ((part[2].substring(0, 1) === "'") ? (part[3]) : (part[2])),
-                    alignLeft: (part[4] === '-'),
-                    width: (!isUndefined(part[5])) ? part[5] : false,
-                    precision: (!isUndefined(part[7])) ? part[7] : false,
-                    type: part[8],
-                    data: (part[8] !== '%') ? String(args[paramIndex++]) : false
-                };
-            }
-
-            var i, j, preSubStr, origLength,
-                newString = '',
-                start     = 0;
-
-            for (i = 0; i < parts.length; i ++) {
-                newString += format.substring(start, parts[i].begin);
-
-                start = parts[i].end;
-
-                preSubStr = '';
-                switch (parts[i].type) {
-                    case '%':
-                        preSubStr = '%';
-                        break;
-                    case 'b':
-                        preSubStr = abs(toInt(parts[i].data)).toString(2);
-                        break;
-                    case 'c':
-                        preSubStr = String.fromCharCode(abs(toInt(parts[i].data)));
-                        break;
-                    case 'd':
-                        preSubStr = String(abs(toInt(parts[i].data)));
-                        break;
-                    case 'f':
-                        preSubStr = (parts[i].precision === false) ?
-                            (String((abs(parseFloat(parts[i].data))))) :
-                            (abs(parseFloat(parts[i].data)).toFixed(parts[i].precision));
-                        break;
-                    case 'o':
-                        preSubStr = abs(toInt(parts[i].data)).toString(8);
-                        break;
-                    case 's':
-                        preSubStr = parts[i].data.substring(0, parts[i].precision ? parts[i].precision : parts[i].data.length);
-                        break;
-                    case 'x':
-                        preSubStr = abs(toInt(parts[i].data)).toString(16).toLowerCase();
-                        break;
-                    case 'X':
-                        preSubStr = abs(toInt(parts[i].data)).toString(16).toUpperCase();
-                        break;
-                    default:
-                        throw 'sprintf: Unknown type "' + parts[i].type + '" detected. This should never happen. Maybe the regex is wrong.';
-                }
-
-                if (parts[i].type === '%') {
-                    newString += preSubStr;
-                    continue;
-                }
-
-                if (parts[i].width !== false) {
-                    if (parts[i].width > preSubStr.length) {
-                        origLength = preSubStr.length;
-                        for(j = 0; j < parts[i].width - origLength; ++j) {
-                            preSubStr = (parts[i].alignLeft === true) ?
-                                (preSubStr + parts[i].padding) :
-                                (parts[i].padding + preSubStr);
-                        }
-                    }
-                }
-
-                /*jshint -W083 */ // make function in loop
-                if (
-                    some([
-                        'b',
-                        'd',
-                        'o',
-                        'f',
-                        'x',
-                        'X'
-                    ], function(type) {
-                        return type === parts[i].type;
-                    })
-                ) {
-                    if (parts[i].negative === true) {
-                        preSubStr = '-' + preSubStr;
-                    } else if (parts[i].sign === true) {
-                        preSubStr = '+' + preSubStr;
-                    }
-                }
-                newString += preSubStr;
-            }
-
-            newString += format.substring(start, format.length);
-            return newString;
-        };
-
-    return pastry.sprintf = sprintf;
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/fmt/vsprintf', [
-    'pastry/pastry',
-    'pastry/fmt/sprintf'
-], function (
-    pastry,
-    sprintf
-) {
-    'use strict';
-    /*
-     * @author      : 绝云(wensen.lws@alibaba-inc.com)
-     * @date        : 2014-10-29
-     * @description : fmt 模块 - vsprintf
-     */
-    var vsprintf = function (fmt, argv) {
-        argv.unshift(fmt);
-        return sprintf.apply(null, argv);
-    };
-
-    return pastry.vsprintf = vsprintf;
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/fmt/camelCase', [
-    'pastry/pastry'
-], function(
-    pastry
-) {
-    'use strict';
-    /*
-     * @author      : 绝云（wensen.lws）
-     * @description : description
-     * @reference   : https://github.com/substack/camelize/blob/master/index.js
-     */
-
-    function camelise (str) {
-        return str
-            .replace(/^[_.\- ]+/, '')
-            .replace(/[_.-](\w|$)/g, function (_, x) {
-                return pastry.uc(x);
-            });
-    }
-    function uncamelise (str, separator) {
-        separator = separator || '_'; // default separator: _
-
-        return str.replace(/([a-z])([A-Z])/g, function(_, a, b) {
-            return a + separator + pastry.lc(b);
-        });
-    }
-    function walk (obj, isUncamelise, separator) {
-        /*
-         * @NOTE: only the key strings will be transformed
-         */
-        if (!obj || !pastry.isObject(obj)) {
-            return obj;
-        }
-        if (!obj || pastry.isDate(obj) || pastry.isRegExp(obj)) {
-            return obj;
-        }
-        if (pastry.isArray(obj)) {
-            return pastry.map(obj, function (value) {
-                return walk(value, isUncamelise, separator);
-            });
-        }
-        return pastry.reduce(pastry.keys(obj), function (acc, key) {
-            var camel = isUncamelise ? uncamelise(key, separator) : camelise(key);
-            acc[camel] = walk(obj[key], isUncamelise, separator);
-            return acc;
-        }, {});
-    }
-
-    return pastry.camelCase = {
-        camelise: function (str) {
-            if (pastry.isString(str)) {
-                return camelise(str);
-            }
-            if (pastry.isObject(str)) {
-                return walk(str);
-            }
-            return str;
-        },
-        uncamelise: function (str, separator) {
-            if (pastry.isString(str)) {
-                return uncamelise(str, separator);
-            }
-            if (pastry.isObject(str)) {
-                return walk(str, true, separator);
-            }
-            return str;
-        }
-    };
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/color/hexByName', [
-], function(
-) {
-    'use strict';
-    /*
-     * @author      : 绝云（wensen.lws）
-     * @description : 颜色 rgb 值列表
-     */
-
-    var named = {
-        "aliceblue"            : "#f0f8ff",
-        "antiquewhite"         : "#faebd7",
-        "aqua"                 : "#00ffff",
-        "aquamarine"           : "#7fffd4",
-        "azure"                : "#f0ffff",
-        "beige"                : "#f5f5dc",
-        "bisque"               : "#ffe4c4",
-        "black"                : "#000000",
-        "blanchedalmond"       : "#ffebcd",
-        "blue"                 : "#0000ff",
-        "blueviolet"           : "#8a2be2",
-        "brown"                : "#a52a2a",
-        "burlywood"            : "#deb887",
-        "burntsienna"          : "#ea7e5d",
-        "cadetblue"            : "#5f9ea0",
-        "chartreuse"           : "#7fff00",
-        "chocolate"            : "#d2691e",
-        "coral"                : "#ff7f50",
-        "cornflowerblue"       : "#6495ed",
-        "cornsilk"             : "#fff8dc",
-        "crimson"              : "#dc143c",
-        "cyan"                 : "#00ffff",
-        "darkblue"             : "#00008b",
-        "darkcyan"             : "#008b8b",
-        "darkgoldenrod"        : "#b8860b",
-        "darkgray"             : "#a9a9a9",
-        "darkgreen"            : "#006400",
-        "darkgrey"             : "#a9a9a9",
-        "darkkhaki"            : "#bdb76b",
-        "darkmagenta"          : "#8b008b",
-        "darkolivegreen"       : "#556b2f",
-        "darkorange"           : "#ff8c00",
-        "darkorchid"           : "#9932cc",
-        "darkred"              : "#8b0000",
-        "darksalmon"           : "#e9967a",
-        "darkseagreen"         : "#8fbc8f",
-        "darkslateblue"        : "#483d8b",
-        "darkslategray"        : "#2f4f4f",
-        "darkslategrey"        : "#2f4f4f",
-        "darkturquoise"        : "#00ced1",
-        "darkviolet"           : "#9400d3",
-        "deeppink"             : "#ff1493",
-        "deepskyblue"          : "#00bfff",
-        "dimgray"              : "#696969",
-        "dimgrey"              : "#696969",
-        "dodgerblue"           : "#1e90ff",
-        "firebrick"            : "#b22222",
-        "floralwhite"          : "#fffaf0",
-        "forestgreen"          : "#228b22",
-        "fuchsia"              : "#ff00ff",
-        "gainsboro"            : "#dcdcdc",
-        "ghostwhite"           : "#f8f8ff",
-        "gold"                 : "#ffd700",
-        "goldenrod"            : "#daa520",
-        "gray"                 : "#808080",
-        "green"                : "#008000",
-        "greenyellow"          : "#adff2f",
-        "grey"                 : "#808080",
-        "honeydew"             : "#f0fff0",
-        "hotpink"              : "#ff69b4",
-        "indianred"            : "#cd5c5c",
-        "indigo"               : "#4b0082",
-        "ivory"                : "#fffff0",
-        "khaki"                : "#f0e68c",
-        "lavender"             : "#e6e6fa",
-        "lavenderblush"        : "#fff0f5",
-        "lawngreen"            : "#7cfc00",
-        "lemonchiffon"         : "#fffacd",
-        "lightblue"            : "#add8e6",
-        "lightcoral"           : "#f08080",
-        "lightcyan"            : "#e0ffff",
-        "lightgoldenrodyellow" : "#fafad2",
-        "lightgray"            : "#d3d3d3",
-        "lightgreen"           : "#90ee90",
-        "lightgrey"            : "#d3d3d3",
-        "lightpink"            : "#ffb6c1",
-        "lightsalmon"          : "#ffa07a",
-        "lightseagreen"        : "#20b2aa",
-        "lightskyblue"         : "#87cefa",
-        "lightslategray"       : "#778899",
-        "lightslategrey"       : "#778899",
-        "lightsteelblue"       : "#b0c4de",
-        "lightyellow"          : "#ffffe0",
-        "lime"                 : "#00ff00",
-        "limegreen"            : "#32cd32",
-        "linen"                : "#faf0e6",
-        "magenta"              : "#ff00ff",
-        "maroon"               : "#800000",
-        "mediumaquamarine"     : "#66cdaa",
-        "mediumblue"           : "#0000cd",
-        "mediumorchid"         : "#ba55d3",
-        "mediumpurple"         : "#9370db",
-        "mediumseagreen"       : "#3cb371",
-        "mediumslateblue"      : "#7b68ee",
-        "mediumspringgreen"    : "#00fa9a",
-        "mediumturquoise"      : "#48d1cc",
-        "mediumvioletred"      : "#c71585",
-        "midnightblue"         : "#191970",
-        "mintcream"            : "#f5fffa",
-        "mistyrose"            : "#ffe4e1",
-        "moccasin"             : "#ffe4b5",
-        "navajowhite"          : "#ffdead",
-        "navy"                 : "#000080",
-        "oldlace"              : "#fdf5e6",
-        "olive"                : "#808000",
-        "olivedrab"            : "#6b8e23",
-        "orange"               : "#ffa500",
-        "orangered"            : "#ff4500",
-        "orchid"               : "#da70d6",
-        "palegoldenrod"        : "#eee8aa",
-        "palegreen"            : "#98fb98",
-        "paleturquoise"        : "#afeeee",
-        "palevioletred"        : "#db7093",
-        "papayawhip"           : "#ffefd5",
-        "peachpuff"            : "#ffdab9",
-        "peru"                 : "#cd853f",
-        "pink"                 : "#ffc0cb",
-        "plum"                 : "#dda0dd",
-        "powderblue"           : "#b0e0e6",
-        "purple"               : "#800080",
-        "rebeccapurple"        : "#663399",
-        "red"                  : "#ff0000",
-        "rosybrown"            : "#bc8f8f",
-        "royalblue"            : "#4169e1",
-        "saddlebrown"          : "#8b4513",
-        "salmon"               : "#fa8072",
-        "sandybrown"           : "#f4a460",
-        "seagreen"             : "#2e8b57",
-        "seashell"             : "#fff5ee",
-        "sienna"               : "#a0522d",
-        "silver"               : "#c0c0c0",
-        "skyblue"              : "#87ceeb",
-        "slateblue"            : "#6a5acd",
-        "slategray"            : "#708090",
-        "slategrey"            : "#708090",
-        "snow"                 : "#fffafa",
-        "springgreen"          : "#00ff7f",
-        "steelblue"            : "#4682b4",
-        "tan"                  : "#d2b48c",
-        "teal"                 : "#008080",
-        "thistle"              : "#d8bfd8",
-        "tomato"               : "#ff6347",
-        "turquoise"            : "#40e0d0",
-        "violet"               : "#ee82ee",
-        "wheat"                : "#f5deb3",
-        "white"                : "#ffffff",
-        "whitesmoke"           : "#f5f5f5",
-        "yellow"               : "#ffff00",
-        "yellowgreen"          : "#9acd32"
-    };
-
-    return named;
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/oop/c3mro', [
-    'pastry/pastry'
-], function(
-    pastry
-) {
-    'use strict';
-    /*
-     * @author      : 绝云（wensen.lws）
-     * @description : description
-     */
-    var indexOf = pastry.indexOf;
-
-    function cloneArray (arr) {
-        return arr.slice(0);
-    }
-    function isGoodHead (head, rest) {
-        var isGood = true;
-        pastry.some(rest, function (lin) {
-            if (indexOf(lin, head) > 0) {
-                isGood = false;
-            }
-        });
-
-        if (isGood) {
-            pastry.each(rest, function (lin) {
-                if (indexOf(lin, head) === 0) {
-                    lin.shift();
-                }
-            });
-        }
-        return isGood;
-    }
-    function eachHead (bases) {
-        var result = [],
-            badLinearization = 0;
-
-        while (bases.length) {
-            var base = bases.shift();
-            if (!base.length) {
-                continue;
-            }
-
-            if (isGoodHead(base[0], bases)) {
-                result.push(base.shift());
-                badLinearization = 0;
-            } else {
-                badLinearization += 1;
-                if (badLinearization === bases.length) {
-                    throw 'Bad Linearization';
-                }
-            }
-            if (base.length) {
-                bases.push(base);
-            }
-        }
-        return result;
-    }
-
-    return pastry.c3mroMerge = function () {
-        var bases = pastry.map(pastry.toArray(arguments), cloneArray);
-        return eachHead(bases);
-    };
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/oop/declare', [
-    'pastry/pastry',
-    'pastry/oop/c3mro'
-], function(
-    pastry,
-    c3mroMerge
-) {
-    'use strict';
-    /*
-     * @author      : 绝云（wensen.lws）
-     * @description : Class utils
-     */
-
-    return pastry.declare = function(/*name, superClasses, protoObj*/) {
-        var uberClass,
-            tempConstructor,
-            lin          = '_linearization',
-            args         = pastry.toArray(arguments),
-            name         = pastry.isString(args[0]) ? args.shift() : '',
-            superClasses = args.length > 1 ? args.shift() : [],
-            protoObj     = args[0] ? args.shift() : {},
-            bases        = [],
-            Tmp          = function () {},
-            hasCtor      = false,
-            ctor         = function () {};
-
-        superClasses = pastry.isArray(superClasses) ? superClasses : [superClasses];
-        pastry.each(superClasses, function(clazz) {
-            clazz[lin] = clazz[lin] || [clazz];
-            bases.push(clazz[lin]);
-        });
-
-        if (bases.length) {
-            bases.push(superClasses);
-            bases = c3mroMerge.apply(null, bases);
-        }
-
-        tempConstructor = protoObj.constructor;
-        if (tempConstructor !== Object.prototype.constructor) {
-            hasCtor = true;
-            ctor = tempConstructor;
-        }
-
-        ctor[lin]    = [ctor].concat(bases);
-        ctor.parents = bases.slice(0);
-
-        protoObj.constructor = ctor;
-        while ((uberClass = bases.shift())) {
-            protoObj = pastry.extend({}, uberClass.prototype, protoObj);
-            Tmp.prototype = protoObj;
-            if (!hasCtor) {
-                protoObj.constructor = ctor;
-            }
-            protoObj = new Tmp();
-        }
-
-        ctor.className = name;
-        ctor.prototype = protoObj;
-        ctor.prototype.constructor = ctor;
-
-        return ctor;
-    };
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/color/Color', [
-    'pastry/pastry',
-    'pastry/color/hexByName',
-    'pastry/oop/declare'
-], function(
-    pastry,
-    hexByName,
-    declare
-) {
-    'use strict';
-    /*
-     * @author      : 绝云
-     * @description : 颜色构造函数
-     * @note        : can be used in nodejs
-     */
-    var lc    = pastry.lc,
-        round = Math.round,
-
-        initProps = {
-            r: 255,
-            g: 255,
-            b: 255,
-            a: 1
-        },
-
-        Color = function (/*Array|String|Object*/ color) {
-            var instance = this;
-
-            if (color) {
-                instance.initialise(color);
-            }
-        },
-
-        classMaker;
-
-    pastry.extend(Color, {
-        hexByName: hexByName,
-
-        makeGrey: function (/*Number*/ g, /*Number?*/ a) {
-            return Color.fromArray([g, g, g, a]);
-        },
-
-        blendColors : function(/*Color*/ start, /*Color*/ end, /*Number*/ weight, /*Color?*/ obj){
-            var t = obj || new Color();
-            pastry.each(['r', 'g', 'b', 'a'], function(x){
-                t[x] = start[x] + (end[x] - start[x]) * weight;
-                if (x !== 'a') {
-                    t[x] = Math.round(t[x]);
-                }
-            });
-            return t.sanitize();
-        },
-
-        fromHex: function (/*String*/ color, /*Color?*/ obj) {
-            var result = obj || new Color(),
-                bits   = (color.length === 4) ? 4 : 8,
-                mask   = (1 << bits) - 1;
-
-            color = Number('0x' + color.substr(1));
-
-            if (pastry.isNaN(color)) {
-                return null;
-            }
-            pastry.each(['b', 'g', 'r'], function (x) {
-                var c = color & mask;
-                color >>= bits;
-                result[x] = bits === 4 ? 17 * c : c;
-            });
-            result.a = 1;
-            return result;
-        },
-        fromRgb: function (/*String*/ color, /*Color?*/ obj) {
-            var matches = lc(color).match(/^rgba?\(([\s\.,0-9]+)\)/);
-            return matches && Color.fromArray(matches[1].split(/\s*,\s*/), obj);
-        },
-        fromHsl: function (/*String*/ color, /*Color?*/ obj) {
-            var matches = lc(color).match(/^hsla?\(([\s\.,0-9]+)\)/);
-            if (matches) {
-                var c  = matches[2].split(/\s*,\s*/),
-                    l  = c.length,
-                    H  = ((parseFloat(c[0]) % 360) + 360) % 360 / 360,
-                    S  = parseFloat(c[1]) / 100,
-                    L  = parseFloat(c[2]) / 100,
-                    m2 = L <= 0.5 ? L * (S + 1) : L + S - L * S,
-                    m1 = 2 * L - m2,
-                    a  = [
-                        hue2rgb(m1, m2, H + 1 / 3) * 256,
-                        hue2rgb(m1, m2, H) * 256,
-                        hue2rgb(m1, m2, H - 1 / 3) * 256,
-                        1
-                    ];
-                if(l === 4){
-                    a[3] = c[3];
-                }
-                return Color.fromArray(a, obj);
-            }
-        },
-        fromArray: function (/*Array*/ arr, /*Color?*/ obj) {
-            var result = obj || new Color();
-            result.set(Number(arr[0]), Number(arr[1]), Number(arr[2]), Number(arr[3]));
-            if (isNaN(result.a)) {
-                result.a = 1;
-            }
-            return result.sanitize();
-        },
-        fromString: function (/*String*/ str, /*Color?*/ obj) {
-            var s = Color.hexByName[str];
-            return s && Color.fromHex(s, obj) ||
-                Color.fromRgb(str, obj) ||
-                Color.fromHex(str, obj) ||
-                Color.fromHsl(str, obj);
-        }
-    });
-
-
-    function confine (c, low, high) {
-        c = Number(c);
-        return pastry.isFinite(c) ? (c < low ? low : c > high ? high : c) : high;
-    }
-    function hue2rgb (m1, m2, h) {
-        if (h < 0) {
-            ++h;
-        }
-        if (h > 1) {
-            --h;
-        }
-        var h6 = 6 * h;
-        if (h6 < 1) {
-            return m1 + (m2 - m1) * h6;
-        }
-        if (2 * h < 1) {
-            return m2;
-        }
-        if (3 * h < 2) {
-            return m1 + (m2 - m1) * (2 / 3 - h) * 6;
-        }
-        return m1;
-    }
-    function rgb2hsl (r, g, b, a) {
-        var max = Math.max(r, g, b),
-            min = Math.min(r, g, b),
-            h, s,
-            l = (max + min) / 2;
-
-        if (max === min) {
-            h = s = 0;
-        } else {
-            var d = max - min;
-            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-            switch(max){
-                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-                case g: h = (b - r) / d + 2;               break;
-                case b: h = (r - g) / d + 4;               break;
-            }
-            h /= 6;
-        }
-        return [h, s, l, a];
-    }
-
-    classMaker = pastry.extend(initProps, {
-        constructor: Color,
-        initialise: function (color) {
-            var instance = this;
-            if (pastry.isString(color)) {
-                Color.fromString(color, this);
-            } else if (pastry.isArray(color)) {
-                Color.fromArray(color, this);
-            } else {
-                instance.set(color.r, color.g, color.b, color.a);
-                if (!(color instanceof Color)) {
-                    instance.sanitize();
-                }
-            }
-            return instance;
-        },
-        set: function(r, g, b, a){
-            var instance = this;
-            instance.r = r;
-            instance.g = g;
-            instance.b = b;
-            instance.a = a;
-            return instance;
-        },
-        sanitize: function () {
-            var instance = this;
-
-            instance.r = round(confine(instance.r, 0, 255));
-            instance.g = round(confine(instance.g, 0, 255));
-            instance.b = round(confine(instance.b, 0, 255));
-            instance.a = confine(instance.a, 0, 1);
-            return instance;
-        },
-        toRgba: function () {
-            var instance = this;
-            return [instance.r, instance.g, instance.b, instance.a];
-        },
-        toHsla: function () {
-            var instance = this;
-            return rgb2hsl(instance.r, instance.g, instance.b, instance.a);
-        },
-        toHex: function () {
-            var instance = this,
-                arr = pastry.map(['r', 'g', 'b'], function (x) {
-                    var str = instance[x].toString(16);
-                    return str.length < 2 ? '0' + str : str;
-                });
-            return '#' + arr.join('');
-        },
-        toCss: function (/*Boolean?*/ includeAlpha) {
-            var instance = this,
-                rgb = instance.r + ', ' + instance.g + ', ' + instance.b;
-            return (includeAlpha ? 'rgba(' + rgb + ',' + instance.a : 'rgb(' + rgb) + ')';
-        },
-        toString: function () {
-            return this.toCss(true);
-        },
-        toGrey: function () {
-            var instance = this,
-                g = round((instance.r + instance.g + instance.b) / 3);
-            return Color.makeGrey(g, instance.a);
-        },
-        destroy: function () {
-            pastry.destroy(this);
-        }
-    });
-
-    return pastry.Color = declare('pastry/color/Color', classMaker);
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/fmt/date', [
-    'pastry/pastry'
-], function (
-    pastry
-) {
-    'use strict';
-    /*
-     * @author      : 绝云(wensen.lws@alibaba-inc.com)
-     * @date        : 2014-10-07
-     * @description : fmt 模块 - date
-     */
-
-    function doubleDigit (n) {
-        return n < 10 ? '0' + n : n;
-    }
-    function lms (ms) {
-        var str = ms + '',
-            len = str.length;
-        return len === 3 ? str : len === 2 ? '0' + str : '00' + str;
-    }
-
-    return pastry.fmtDate = function (date, pattern) {
-        /*
-         * @reference   : https://github.com/dojo/dojo/blob/master/json.js#L105
-         * @description : return stringified date according to given pattern.
-         * @parameter*  : {date  } date, input Date object
-         * @parameter   : {string} pattern, defines pattern for stringify.
-         * @parameter   : {string} pattern, defines pattern for stringify.
-         * @return      : {string} result string.
-         * @syntax      : fmtDate(date, [pattern])
-         * @example     :
-         //    '{FullYear}-{Month}-{Date}T{Hours}:{Minutes}:{Seconds}.{Milliseconds}Z' => '2013-10-03T00:57::13.180Z'
-         */
-        if (pastry.isDate(date)) {
-            pattern = pattern || '{FullYear}-{Month}-{Date}T{Hours}:{Minutes}:{Seconds}Z';
-
-            return pattern.replace(/\{(\w+)\}/g, function (t, prop) {
-                var fullProp = 'get' + ((prop === 'Year') ? prop : ('UTC' + prop)),
-                    num = date[fullProp]() + ((prop === 'Month') ? 1 : 0);
-                return prop === 'Milliseconds' ? lms(num) : doubleDigit(num);
-            });
-        } else {
-            throw 'not a Date instance';
-        }
-    };
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/encoding/json', [
-    'pastry/pastry',
-    'pastry/fmt/date'
-], function (
-    pastry,
-    fmtDate
-) {
-    'use strict';
-    /*
-     * @author      : 绝云(wensen.lws@alibaba-inc.com)
-     * @date        : 2014-10-07
-     * @description : shim 模块 - JSON
-     * @reference   : https://github.com/dojo/dojo/blob/master/json.js
-     */
-    function exportJSON (obj) {
-        /*
-         * export JSON object
-         */
-        pastry.json = obj;
-        pastry.setGLOBAL('JSON', obj);
-        return obj;
-    }
-
-    // 注释掉这一段来测试shim代码 {
-        if (
-            typeof JSON !== 'undefined' && JSON &&
-            !!JSON.parse && !!JSON.stringify
-        ) {
-            return exportJSON(JSON);
-        }
-    // }
-
-    var D2JSON = Date.prototype.toJSON,
-        // saving codes {
-            isFunction = pastry.isFunction,
-            isString   = pastry.isString,
-            isNumber   = pastry.isNumber;
-        // }
-
-    // 补全基础数据类型的 toJSON 方法 {
-        if (!isFunction(D2JSON)) {
-            pastry.each([
-                String.prototype,
-                Number.prototype,
-                Boolean.prototype
-            ], function (p) {
-                p.toJSON = function () {
-                    return this.valueOf();
-                };
-            });
-            D2JSON = function () {
-                return isFinite(this.valueOf()) ? fmtDate(this) : null;
-            };
-        }
-    // }
-
-    var undef,
-        escapeString = function (/*String*/str) {
-            return ('"' + str.replace(/(["\\])/g, '\\$1') + '"')
-                .replace(/[\f]/g, '\\f')
-                .replace(/[\b]/g, '\\b')
-                .replace(/[\n]/g, '\\n')
-                .replace(/[\t]/g, '\\t')
-                .replace(/[\r]/g, '\\r');
-        },
-        shim = {
-            parse: function (str, strict) {
-                /*
-                 * @description: 从 JSON 字符串得到一个数据结构
-                 */
-                if (strict && !/^([\s\[\{]*(?:"(?:\\.|[^"])*"|-?\d[\d\.]*(?:[Ee][+-]?\d+)?|null|true|false|)[\s\]\}]*(?:,|:|$))+$/.test(str)) {
-                    throw 'Invalid characters in JSON';
-                }
-                /* jshint -W061 */
-                return eval('(' + str + ')');
-            },
-            stringify: function (value, replacer, spacer) {
-                /*
-                 * @description: 把内置数据类型转为 JSON 字符串
-                 */
-                if (isString(replacer)) {
-                    spacer = replacer;
-                    replacer = null;
-                }
-                function stringify (it, indent, key) {
-                    if (replacer) {
-                        it = replacer(key, it);
-                    }
-                    var val;
-                    if (isNumber(it)) {
-                        return isFinite(it) ? it + '' : 'null';
-                    }
-                    if (pastry.isBoolean(it)) {
-                        return it + '';
-                    }
-                    if (it === null) {
-                        return 'null';
-                    }
-                    if (isString(it)) {
-                        return escapeString(it);
-                    }
-                    if (isFunction(it) || !it) {
-                        return undef;
-                    }
-                    if (isFunction(it.toJSON)) {
-                        return stringify(it.toJSON(key), indent, key);
-                    }
-                    if (pastry.isDate(it)) {
-                        return fmtDate(it);
-                    }
-                    if (it.valueOf() !== it) {
-                        return stringify(it.valueOf(), indent, key);
-                    }
-                    var nextIndent= spacer ? (indent + spacer) : '',
-                        sep = spacer ? ' ' : '',
-                        newLine = spacer ? '\n' : '';
-
-                    if (pastry.isArray(it)) {
-                        var itl = it.length,
-                            res = [];
-                        for (key = 0; key < itl; key++) {
-                            var obj = it[key];
-                            val = stringify(obj, nextIndent, key);
-                            if (!isString(val)) {
-                                val = 'null';
-                            }
-                            res.push(newLine + nextIndent + val);
-                        }
-                        return '[' + res.join(',') + newLine + indent + ']';
-                    }
-                    var output = [];
-                    for (key in it) {
-                        var keyStr;
-                        if (it.hasOwnProperty(key)) {
-                            if (isNumber(key)) {
-                                keyStr = '"' + key + '"';
-                            } else if (isString(key)) {
-                                keyStr = escapeString(key);
-                            } else {
-                                continue;
-                            }
-                            val = stringify(it[key], nextIndent, key);
-                            if (!isString(val)) {
-                                continue;
-                            }
-                            output.push(newLine + nextIndent + keyStr + ':' + sep + val);
-                        }
-                    }
-                    return '{' + output.join(',') + newLine + indent + '}';
-                }
-                return stringify(value, '', '');
-            }
-        };
-
-    return exportJSON(shim);
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/encoding/cron', [
-    'pastry/pastry',
-    'pastry/fmt/sprintf',
-    'pastry/fmt/vsprintf'
-], function(
-    pastry,
-    sprintf,
-    vsprintf
-) {
-    'use strict';
-    /*
-     * @author: 绝云（wensen.lws）
-     * @description: cron expression parser/stringifier
-     * @note: accepted format
-     *   (*) * * * * *
-     *    |  | | | | |
-     *    |  | | | | --- day of week       (1 - 7 )
-     *    |  | | | ----- month             (1 - 12)
-     *    |  | | ------- day of month      (1 - 31)
-     *    |  | --------- hour              (0 - 23)
-     *    |  ----------- minute            (0 - 59)
-     *    -------------- (optional) second (0 - 59)
-     * @syntax:
-     *   cron.parse('1 * /5 1,2,3 3 2'); => {
-     *       second     : [1],
-     *       minute     : [*],
-     *       hour       : [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
-     *       dayOfMonth : [1, 2, 3],
-     *       month      : [3],
-     *       month      : [2],
-     *   }
-     *   cron.stringify({
-     *       second     : [1],
-     *       minute     : [*],
-     *       hour       : [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55],
-     *       dayOfMonth : [1, 2, 3],
-     *       month      : [3],
-     *       month      : [2],
-     *   }); => '1 * 0,5,10,15,20,25,30,35,40,45,50,55 1,2,3 3 2'
-     */
-
-    var
-        clone = pastry.clone,
-        each = pastry.each,
-        indexOf = pastry.indexOf,
-        isArray = pastry.isArray,
-        toInt = pastry.toInt,
-        uc = pastry.uc,
-        RANGE = {
-            second     : [0, 59],
-            minute     : [0, 59],
-            hour       : [0, 23],
-            dayOfMonth : [1, 31],
-            month      : [1, 12],
-            dayOfWeek  : [1, 7 ],
-        },
-        NAMES = [
-            'second',
-            'minute',
-            'hour',
-            'dayOfMonth',
-            'month',
-            'dayOfWeek'
-        ],
-        ALIAS = {
-            dayOfWeek: [
-                'MON',
-                'TUE',
-                'WED',
-                'THU',
-                'FRI',
-                'SAT',
-                'SUN'
-            ],
-            month: [
-                'JAN',
-                'FEB',
-                'MAR',
-                'APR',
-                'MAY',
-                'JUN',
-                'JUL',
-                'AUG',
-                'SEP',
-                'OCT',
-                'NOV',
-                'DEC'
-            ],
-        };
-
-    function alias2number(alias, name) {
-        var errorStr = sprintf('Invalid str: %s', alias);
-        alias = uc(alias);
-        if (isNaN(alias) && name !== 'month' && name !== 'dayOfWeek') {
-            throw errorStr;
-        }
-        if (isNaN(alias) && indexOf(ALIAS[name], alias) < 0) {
-            throw errorStr;
-        }
-        return isNaN(alias) ? indexOf(ALIAS[name], alias) + 1 : toInt(alias);
-    }
-    function isInRange(min, max, check) {
-        return min <= check && check <= max;
-    }
-
-    return pastry.cron = {
-        alias: ALIAS,
-        parse: function(expression) {
-            var parts = expression.split(' '),
-                length = parts.length,
-                partNames = clone(NAMES),
-                cronObj = {};
-
-            // check and pre-process
-            switch (length) {
-                case 5:
-                    pastry.remove(partNames, 0);
-                    break;
-                case 6:
-                    break;
-                default:
-                    throw sprintf('Invalid cron expression: %s', expression);
-            }
-
-            // parse
-            function parseRange(atom, name) {
-                var fromTo = atom.split('-'),
-                    from = alias2number(fromTo[0], name),
-                    to = alias2number(fromTo[1], name),
-                    minMax = RANGE[name],
-                    min = minMax[0],
-                    max = minMax[1];
-
-                if (!isInRange(min, max, from) || !isInRange(from, max, to)) {
-                    throw sprintf('%s: %s should be in range %s-%s', name, atom, min, max);
-                }
-
-                for (var i = from; i <= to; i++) {
-                    cronObj[name].push(i);
-                }
-
-            }
-            function parseStep(atom, name) {
-                var step = toInt(atom.split('/')[1]);
-                for (var i = 0; i < RANGE[name][1]; i++) {
-                    if (i % step === 0) {
-                        cronObj[name].push(i);
-                    }
-                }
-            }
-            function parseSingle(atom, name) {
-                atom = alias2number(atom, name);
-                var minMax = RANGE[name],
-                    min = minMax[0],
-                    max = minMax[1];
-                if (!isInRange(min, max, atom)) {
-                    throw sprintf('%s: %s should be in range %s-%s', name, atom, min, max);
-                }
-                cronObj[name].push(atom);
-            }
-            function parse(part, name) {
-                if (part === '*') {
-                    return cronObj[name].push(parts);
-                }
-                each(part.split(','), function(atom) {
-                    if (atom.indexOf('-') >= 0) {
-                        parseRange(atom, name);
-                    } else if (atom.indexOf('/') >= 0) {
-                        parseStep(atom, name);
-                    } else {
-                        parseSingle(atom, name);
-                    }
-                });
-            }
-
-            // process
-            each(partNames, function(name, index) {
-                cronObj[name] = [];
-                parse(parts[index], name);
-            });
-            return cronObj;
-        },
-        stringify: function(cronObj) {
-            var patterns = [],
-                args = [];
-            each(NAMES, function(name) {
-                var attrs = cronObj[name];
-                if (isArray(attrs)) {
-                    patterns.push('%s');
-                    args.push(attrs.join(','));
-                }
-            });
-            if (args.length !== 5 && args.length !== 6) {
-                throw 'Invalid cront object!';
-            }
-            return vsprintf(patterns.join(' '), args);
-        }
-    };
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('pastry/html/escape', [
-    'pastry/pastry'
-], function(
-    pastry
-) {
-    'use strict';
-    /*
-     * @author      : 绝云（wensen.lws）
-     * @description : utils for html
-     */
-    var escapeMap = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#x27;',
-            '`': '&#x60;'
-        },
-        unescapeMap = pastry.invert(escapeMap);
-
-    function createEscaper (map) {
-        // Regexes for identifying a key that needs to be escaped
-        var source        = '(?:' + pastry.keys(map).join('|') + ')',
-            testRegexp    = new RegExp(source),
-            replaceRegexp = new RegExp(source, 'g');
-
-        function escaper (match) {
-            return map[match];
-        }
-
-        return function (string) {
-            string = string === null ? '' : '' + string;
-            return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
-        };
-    }
-
-    return {
-        escape   : pastry.escape   = createEscaper(escapeMap),
-        unescape : pastry.unescape = createEscaper(unescapeMap)
-    };
-});
-
-
-/* jshint strict: true, undef: true */
-/* global define */
-
-define('pastry/text/template', [
-    'pastry/pastry',
-    'pastry/html/escape'
-], function(
-    pastry,
-    htmlEscape
-) {
-    'use strict';
-    /*
-     * @author      : 绝云（wensen.lws）
-     * @description : template engine
-     */
-    var template,
-        cache     = {},
-        helper    = {},
-
-        trim = pastry.trim,
-
-        RE_parser = /([\s'\\])(?!(?:[^{]|\{(?!%))*%\})|(?:\{%(=|#)([\s\S]+?)%\})|(?:(\{%)([\s\S]+?)(%\}))/g;
-        // defaultOpitons = {}; // TODO add grammar aliases, etc.
-
-    function replacer (s, p1, p2, p3, p4, p5, p6) {
-        if (p1) { // whitespace, quote and backspace in HTML context
-            return {
-                "\n": "\\n",
-                "\r": "\\r",
-                "\t": "\\t",
-                " " : " "
-            }[p1] || "\\" + p1;
-        }
-        if (p2) { // interpolation: {%=prop%}, or unescaped: {%#prop%}
-            p3 = trim(p3);
-            if (p2 === "=") {
-                return "'+_e(" + p3 + ")+'";
-            }
-            return "'+(" + p3 + "==null?'':" + p3 + ")+'";
-        }
-        if (p4 && p5 && p6) { // evaluation two matched tags: {% * %}
-            // COMMENT: this is for fixing bug mentioned in test/jasmine/text/template.spec.js
-            return "';" + trim(p5) + " _s+='";
-        }
-    }
-    function parse (str) {
-        return str
-            .replace(RE_parser, replacer)
-            .replace(/\\n\s*/g, ''); // 要是存在回车符号，会引起多解释一个 #text 对象的 bug
-    }
-
-    // add helpers to pastry to pass to compiled functions, can be extended {
-        pastry.extend(helper, htmlEscape);
-    // }
-
-    return pastry.template = template = {
-        helper : helper,
-        parse  : parse,
-        compile: function (str) {
-            if (!pastry.isString(str)) {
-                return str;
-            }
-
-            /*jshint -W054*/ // new Function()
-            return cache[str] || (cache[str] = new Function('obj', 'helper', 'ne',
-                    "var _e=ne?function(s){return s;}:helper.escape," +
-                        "print=function(s,e){" +
-                            "_s+=e?(s==null?'':s):_e(s);" +
-                        "};" +
-                    "obj=obj||{};" + // 当obj传空的时候
-                    "with(obj){" +
-                        // include helper {
-                            // "include = function (s, d) {" +
-                            //     "_s += tmpl(s, d);}" + "," +
-                        // }
-                        "_s='" +
-                        parse(str) +
-                        "';" +
-                    "}" +
-                    "return _s;"
-                )
-            );
-        },
-        render: function (str, data, option) {
-            option = option || {};
-            return template.compile(str)(data, template.helper, option.ne);
-        }
-    };
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define, Promise */
-
-define('pastry/promise/Promise', [
-    'pastry/pastry',
-    'pastry/oop/declare'
-], function(
-    pastry,
-    declare
-) {
-    'use strict';
-    /*
-     * @author      : 绝云（wensen.lws）
-     * @description : promise shim
-     */
-    function exportPromise (constructor) {
-        pastry.Promise = constructor;
-        pastry.setGLOBAL('Promise', constructor);
-        return constructor;
-    }
-
-    // 注释掉这一段来测试shim代码 {
-        if (
-            typeof Promise !== 'undefined' && Promise &&
-            !!Promise.resolve
-        ) {
-            return exportPromise(Promise);
-        }
-    // }
-
-    var extend = pastry.extend,
-        each = pastry.each,
-        isArray = pastry.isArray,
-        isFunction = pastry.isFunction,
-        isObject = pastry.isObject,
-        Resolver = declare('pastry/promise/Resolver', [], {
-            constructor: function() {
-                extend(this, {
-                    _callbacks: [],
-                    _errbacks: [],
-                    _status: 'pending',
-                    _result: null
-                });
-            },
-            fulfill: function (value) {
-                var me = this,
-                    status = me._status;
-
-                if (status === 'pending' || status === 'accepted') {
-                    me._result = value;
-                    me._status = 'fulfilled';
-                }
-
-                if (me._status === 'fulfilled') {
-                    me._notify(me._callbacks, me._result);
-                    me._callbacks = [];
-                    me._errbacks = null;
-                }
-            },
-            reject: function (reason) {
-                var me = this,
-                    status = me._status;
-
-                if (status === 'pending' || status === 'accepted') {
-                    me._result = reason;
-                    me._status = 'rejected';
-                }
-
-                if (me._status === 'rejected') {
-                    me._notify(me._errbacks, me._result);
-                    me._callbacks = null;
-                    me._errbacks = [];
-                }
-            },
-            resolve: function (value) {
-                var me = this;
-                if (me._status === 'pending') {
-                    me._status = 'accepted';
-                    me._value = value;
-
-                    if ((me._callbacks && me._callbacks.length) ||
-                        (me._errbacks && me._errbacks.length)) {
-                        me._unwrap(me._value);
-                    }
-                }
-            },
-            _unwrap: function (value) {
-                var me = this, unwrapped = false, then;
-
-                if (!value || (!isObject(value) && !isFunction(value))) {
-                    me.fulfill(value);
-                    return;
-                }
-
-                try {
-                    then = value.then;
-                    if (isFunction(then)) {
-                        then.call(value, function (value) {
-                            if (!unwrapped) {
-                                unwrapped = true;
-                                me._unwrap(value);
-                            }
-                        }, function (reason) {
-                            if (!unwrapped) {
-                                unwrapped = true;
-                                me.reject(reason);
-                            }
-                        });
-                    } else {
-                        me.fulfill(value);
-                    }
-                } catch (e) {
-                    if (!unwrapped) {
-                        me.reject(e);
-                    }
-                }
-            },
-            _addCallbacks: function (callback, errback) {
-                var me = this,
-                    callbackList = me._callbacks,
-                    errbackList = me._errbacks;
-
-                if (callbackList) {
-                    callbackList.push(callback);
-                }
-                if (errbackList) {
-                    errbackList.push(errback);
-                }
-                switch (me._status) {
-                    case 'accepted':
-                        me._unwrap(me._value);
-                        break;
-                    case 'fulfilled':
-                        me.fulfill(me._result);
-                        break;
-                    case 'rejected':
-                        me.reject(me._result);
-                        break;
-                }
-            },
-            _notify: function (subs, result) {
-                if (subs.length) {
-                    Constructor.async(function () {
-                        each(subs, function(sub) {
-                            sub(result);
-                        });
-                    });
-                }
-            }
-        });
-
-    function Constructor(fn) {
-        var me = this;
-        if (!isFunction(fn)) {
-            throw 'Promise resolver ' + fn + ' is not a function';
-        }
-
-        var resolver = me._resolver = new Resolver();
-
-        try {
-            fn(function (value) {
-                resolver.resolve(value);
-            }, function (reason) {
-                resolver.reject(reason);
-            });
-        } catch (e) {
-            resolver.reject(e);
-        }
-    }
-
-    pastry.extend(Constructor, {
-        Resolver: Resolver,
-        resolve: function(value) {
-            if (value && value.constructor === this) {
-                return value;
-            }
-            return new this(function (resolve) {
-                resolve(value);
-            });
-        },
-        reject: function(reason) {
-            var promise = new this(function () {});
-
-            promise._resolver._result = reason;
-            promise._resolver._status = 'rejected';
-            return promise;
-        },
-        all: function(values) {
-            return new Constructor(function (resolve, reject) {
-                if (!isArray(values)) {
-                    reject(new Error('Promise.all expects an array of values or promises'));
-                    return;
-                }
-
-                var remaining = values.length,
-                    i = 0,
-                    length = values.length,
-                    results = [];
-
-                function oneDone(index) {
-                    return function (value) {
-                        results[index] = value;
-
-                        remaining--;
-
-                        if (!remaining) {
-                            resolve(results);
-                        }
-                    };
-                }
-                if (length < 1) {
-                    return resolve(results);
-                }
-                for (; i < length; i++) {
-                    Constructor.resolve(values[i]).then(oneDone(i), reject);
-                }
-            });
-        },
-        race: function(values) {
-            return new Constructor(function (resolve, reject) {
-                if (!isArray(values)) {
-                    reject(new Error('Promise.race expects an array of values or promises'));
-                    return;
-                }
-                each(values, function(value) {
-                    Constructor.resolve(value).then(resolve, reject);
-                });
-            });
-        },
-        async: pastry.getAny(
-            function() { if (setImmediate) { return function (fn) {setImmediate(fn);}; } },
-            function() { return process.nextTick; },
-            function() { return function (fn) {setTimeout(fn, 0);}; }
-        ),
-        _makeCallback: function(promise, resolve, reject, fn) {
-            return function (valueOrReason) {
-                var result;
-
-                try {
-                    result = fn(valueOrReason);
-                } catch (e) {
-                    reject(e);
-                    return;
-                }
-                if (result === promise) {
-                    reject(new Error('Cannot resolve a promise with itself'));
-                    return;
-                }
-                resolve(result);
-            };
-        }
-    });
-
-    return exportPromise(declare('pastry/promise/Promise', [], {
-        constructor: Constructor,
-        then: function(callback, errback) {
-            var resolve, reject,
-                promise = new Constructor(function (res, rej) {
-                    resolve = res;
-                    reject = rej;
-                });
-
-            this._resolver._addCallbacks(
-                isFunction(callback) ?
-                    Constructor._makeCallback(promise, resolve, reject, callback) :
-                    resolve,
-                isFunction(errback) ?
-                    Constructor._makeCallback(promise, resolve, reject, errback) :
-                    reject
-            );
-            return promise;
-        },
-        'catch': function(errback) {
-            return this.then(undefined, errback);
-        }
-    }));
-});
-
-
-/* jshint strict: true, undef: true, unused: true */
-/* global define */
-
-define('all-nodejs-modules',[
-    // formatting {
-        'pastry/fmt/vsprintf',
-        'pastry/fmt/camelCase',
-    // }
-    // Color {
-        'pastry/color/Color',
-    // }
-    // encoding {
-        'pastry/encoding/json',
-        'pastry/encoding/cron',
-    // }
-    // text {
-        // i18n TODO {
-            //'pastry/locale/en_us',
-            //'pastry/text/i18n',
-        // }
-        'pastry/text/template',
-    // }
-    // declare {
-        'pastry/oop/declare',
-    // }
-    // html {
-        'pastry/html/escape',
-    // }
-    // promise {
-        'pastry/promise/Promise',
-    // }
-], function() {
-    /*
-     * @author      : 绝云（wensen.lws）
-     * @description : for building an amd-debug version of pastry
-     */
-});
-
-
-
-}).call(this,require('_process'))
-},{"_process":5}],69:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 function DOMParser(options){
 	this.options = options ||{locator:{}};
 	
@@ -15564,6 +12695,7 @@ DOMParser.prototype.parseFromString = function(source,mimeType){
 		entityMap.copy = '\xa9';
 		defaultNSMap['']= 'http://www.w3.org/1999/xhtml';
 	}
+	defaultNSMap.xml = defaultNSMap.xml || 'http://www.w3.org/XML/1998/namespace';
 	if(source){
 		sax.parse(source,defaultNSMap,entityMap);
 	}else{
@@ -15583,27 +12715,20 @@ function buildErrorHandler(errorImpl,domBuilder,locator){
 	locator = locator||{}
 	function build(key){
 		var fn = errorImpl[key];
-		if(!fn){
-			if(isCallback){
-				fn = errorImpl.length == 2?function(msg){errorImpl(key,msg)}:errorImpl;
-			}else{
-				var i=arguments.length;
-				while(--i){
-					if(fn = errorImpl[arguments[i]]){
-						break;
-					}
-				}
-			}
+		if(!fn && isCallback){
+			fn = errorImpl.length == 2?function(msg){errorImpl(key,msg)}:errorImpl;
 		}
 		errorHandler[key] = fn && function(msg){
-			fn(msg+_locator(locator));
+			fn('[xmldom '+key+']\t'+msg+_locator(locator));
 		}||function(){};
 	}
-	build('warning','warn');
-	build('error','warn','warning');
-	build('fatalError','warn','warning','error');
+	build('warning');
+	build('error');
+	build('fatalError');
 	return errorHandler;
 }
+
+//console.log('#\n\n\n\n\n\n\n####')
 /**
  * +ContentHandler+ErrorHandler
  * +LexicalHandler+EntityResolver2
@@ -15720,13 +12845,13 @@ DOMHandler.prototype = {
 	 * @link http://www.saxproject.org/apidoc/org/xml/sax/ErrorHandler.html
 	 */
 	warning:function(error) {
-		console.warn(error,_locator(this.locator));
+		console.warn('[xmldom warning]\t'+error,_locator(this.locator));
 	},
 	error:function(error) {
-		console.error(error,_locator(this.locator));
+		console.error('[xmldom error]\t'+error,_locator(this.locator));
 	},
 	fatalError:function(error) {
-		console.error(error,_locator(this.locator));
+		console.error('[xmldom fatalError]\t'+error,_locator(this.locator));
 	    throw error;
 	}
 }
@@ -15797,7 +12922,7 @@ if(typeof require == 'function'){
 	exports.DOMParser = DOMParser;
 }
 
-},{"./dom":70,"./sax":71}],70:[function(require,module,exports){
+},{"./dom":68,"./sax":69}],68:[function(require,module,exports){
 /*
  * DOM Level 2
  * Object DOMException
@@ -15909,6 +13034,12 @@ NodeList.prototype = {
 	 */
 	item: function(index) {
 		return this[index] || null;
+	},
+	toString:function(){
+		for(var buf = [], i = 0;i<this.length;i++){
+			serializeToString(this[i],buf);
+		}
+		return buf.join('');
 	}
 };
 function LiveNodeList(node,refresh){
@@ -16067,12 +13198,12 @@ DOMImplementation.prototype = {
 	// Introduced in DOM Level 2:
 	createDocument:function(namespaceURI,  qualifiedName, doctype){// raises:INVALID_CHARACTER_ERR,NAMESPACE_ERR,WRONG_DOCUMENT_ERR
 		var doc = new Document();
+		doc.implementation = this;
+		doc.childNodes = new NodeList();
 		doc.doctype = doctype;
 		if(doctype){
 			doc.appendChild(doctype);
 		}
-		doc.implementation = this;
-		doc.childNodes = new NodeList();
 		if(qualifiedName){
 			var root = doc.createElementNS(namespaceURI,qualifiedName);
 			doc.appendChild(root);
@@ -16559,7 +13690,7 @@ Element.prototype = {
 	},
 	setAttributeNS : function(namespaceURI, qualifiedName, value){
 		var attr = this.ownerDocument.createAttributeNS(namespaceURI, qualifiedName);
-		attr.value = attr.nodeValue = value;
+		attr.value = attr.nodeValue = "" + value;
 		this.setAttributeNode(attr)
 	},
 	getAttributeNodeNS : function(namespaceURI, localName){
@@ -16581,7 +13712,7 @@ Element.prototype = {
 		return new LiveNodeList(this,function(base){
 			var ls = [];
 			_visitNode(base,function(node){
-				if(node !== base && node.nodeType === ELEMENT_NODE && node.namespaceURI === namespaceURI && (localName === '*' || node.localName == localName)){
+				if(node !== base && node.nodeType === ELEMENT_NODE && (namespaceURI === '*' || node.namespaceURI === namespaceURI) && (localName === '*' || node.localName == localName)){
 					ls.push(node);
 				}
 			});
@@ -16702,27 +13833,30 @@ function ProcessingInstruction() {
 ProcessingInstruction.prototype.nodeType = PROCESSING_INSTRUCTION_NODE;
 _extends(ProcessingInstruction,Node);
 function XMLSerializer(){}
-XMLSerializer.prototype.serializeToString = function(node){
+XMLSerializer.prototype.serializeToString = function(node,attributeSorter){
+	return node.toString(attributeSorter);
+}
+Node.prototype.toString =function(attributeSorter){
 	var buf = [];
-	serializeToString(node,buf);
+	serializeToString(this,buf,attributeSorter);
 	return buf.join('');
 }
-Node.prototype.toString =function(){
-	return XMLSerializer.prototype.serializeToString(this);
-}
-function serializeToString(node,buf){
+function serializeToString(node,buf,attributeSorter,isHTML){
 	switch(node.nodeType){
 	case ELEMENT_NODE:
 		var attrs = node.attributes;
 		var len = attrs.length;
 		var child = node.firstChild;
 		var nodeName = node.tagName;
-		var isHTML = htmlns === node.namespaceURI
+		isHTML =  (htmlns === node.namespaceURI) ||isHTML 
 		buf.push('<',nodeName);
-		for(var i=0;i<len;i++){
-			serializeToString(attrs.item(i),buf,isHTML);
+		if(attributeSorter){
+			buf.sort.apply(attrs, attributeSorter);
 		}
-		if(child || isHTML && !/^(?:meta|link|img|br|hr|input)$/i.test(nodeName)){
+		for(var i=0;i<len;i++){
+			serializeToString(attrs.item(i),buf,attributeSorter,isHTML);
+		}
+		if(child || isHTML && !/^(?:meta|link|img|br|hr|input|button)$/i.test(nodeName)){
 			buf.push('>');
 			//if is cdata child node
 			if(isHTML && /^script$/i.test(nodeName)){
@@ -16731,7 +13865,7 @@ function serializeToString(node,buf){
 				}
 			}else{
 				while(child){
-					serializeToString(child,buf);
+					serializeToString(child,buf,attributeSorter,isHTML);
 					child = child.nextSibling;
 				}
 			}
@@ -16744,7 +13878,7 @@ function serializeToString(node,buf){
 	case DOCUMENT_FRAGMENT_NODE:
 		var child = node.firstChild;
 		while(child){
-			serializeToString(child,buf);
+			serializeToString(child,buf,attributeSorter,isHTML);
 			child = child.nextSibling;
 		}
 		return;
@@ -16937,12 +14071,12 @@ if(typeof require == 'function'){
 	exports.XMLSerializer = XMLSerializer;
 }
 
-},{}],71:[function(require,module,exports){
+},{}],69:[function(require,module,exports){
 //[4]   	NameStartChar	   ::=   	":" | [A-Z] | "_" | [a-z] | [#xC0-#xD6] | [#xD8-#xF6] | [#xF8-#x2FF] | [#x370-#x37D] | [#x37F-#x1FFF] | [#x200C-#x200D] | [#x2070-#x218F] | [#x2C00-#x2FEF] | [#x3001-#xD7FF] | [#xF900-#xFDCF] | [#xFDF0-#xFFFD] | [#x10000-#xEFFFF]
 //[4a]   	NameChar	   ::=   	NameStartChar | "-" | "." | [0-9] | #xB7 | [#x0300-#x036F] | [#x203F-#x2040]
 //[5]   	Name	   ::=   	NameStartChar (NameChar)*
 var nameStartChar = /[A-Z_a-z\xC0-\xD6\xD8-\xF6\u00F8-\u02FF\u0370-\u037D\u037F-\u1FFF\u200C-\u200D\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD]///\u10000-\uEFFFF
-var nameChar = new RegExp("[\\-\\.0-9"+nameStartChar.source.slice(1,-1)+"\u00B7\u0300-\u036F\\ux203F-\u2040]");
+var nameChar = new RegExp("[\\-\\.0-9"+nameStartChar.source.slice(1,-1)+"\u00B7\u0300-\u036F\\u203F-\u2040]");
 var tagNamePattern = new RegExp('^'+nameStartChar.source+nameChar.source+'*(?:\:'+nameStartChar.source+nameChar.source+'*)?$');
 //var tagNamePattern = /^[a-zA-Z_][\w\-\.]*(?:\:[a-zA-Z_][\w\-\.]*)?$/
 //var handlers = 'resolveEntity,getExternalSubset,characters,endDocument,endElement,endPrefixMapping,ignorableWhitespace,processingInstruction,setDocumentLocator,skippedEntity,startDocument,startElement,startPrefixMapping,notationDecl,unparsedEntityDecl,error,fatalError,warning,attributeDecl,elementDecl,externalEntityDecl,internalEntityDecl,comment,endCDATA,endDTD,endEntity,startCDATA,startDTD,startEntity'.split(',')
@@ -16998,22 +14132,24 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 		}
 	}
 	function appendText(end){//has some bugs
-		var xt = source.substring(start,end).replace(/&#?\w+;/g,entityReplacer);
-		locator&&position(start);
-		domBuilder.characters(xt,0,end-start);
-		start = end
+		if(end>start){
+			var xt = source.substring(start,end).replace(/&#?\w+;/g,entityReplacer);
+			locator&&position(start);
+			domBuilder.characters(xt,0,end-start);
+			start = end
+		}
 	}
-	function position(start,m){
-		while(start>=endPos && (m = linePattern.exec(source))){
-			startPos = m.index;
-			endPos = startPos + m[0].length;
+	function position(p,m){
+		while(p>=lineEnd && (m = linePattern.exec(source))){
+			lineStart = m.index;
+			lineEnd = lineStart + m[0].length;
 			locator.lineNumber++;
 			//console.log('line++:',locator,startPos,endPos)
 		}
-		locator.columnNumber = start-startPos+1;
+		locator.columnNumber = p-lineStart+1;
 	}
-	var startPos = 0;
-	var endPos = 0;
+	var lineStart = 0;
+	var lineEnd = 0;
 	var linePattern = /.+(?:\r\n?|\n)|.*$/g
 	var locator = domBuilder.locator;
 	
@@ -17021,64 +14157,66 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 	var closeMap = {};
 	var start = 0;
 	while(true){
-		var i = source.indexOf('<',start);
-		if(i<0){
-			if(!source.substr(start).match(/^\s*$/)){
-				var doc = domBuilder.document;
-    			var text = doc.createTextNode(source.substr(start));
-    			doc.appendChild(text);
-    			domBuilder.currentElement = text;
-			}
-			return;
-		}
-		if(i>start){
-			appendText(i);
-		}
-		switch(source.charAt(i+1)){
-		case '/':
-			var end = source.indexOf('>',i+3);
-			var tagName = source.substring(i+2,end);
-			var config = parseStack.pop();
-			var localNSMap = config.localNSMap;
-			
-	        if(config.tagName != tagName){
-	            errorHandler.fatalError("end tag name: "+tagName+' is not match the current start tagName:'+config.tagName );
-	        }
-			domBuilder.endElement(config.uri,config.localName,tagName);
-			if(localNSMap){
-				for(var prefix in localNSMap){
-					domBuilder.endPrefixMapping(prefix) ;
+		try{
+			var tagStart = source.indexOf('<',start);
+			if(tagStart<0){
+				if(!source.substr(start).match(/^\s*$/)){
+					var doc = domBuilder.document;
+	    			var text = doc.createTextNode(source.substr(start));
+	    			doc.appendChild(text);
+	    			domBuilder.currentElement = text;
 				}
+				return;
 			}
-			end++;
-			break;
-			// end elment
-		case '?':// <?...?>
-			locator&&position(i);
-			end = parseInstruction(source,i,domBuilder);
-			break;
-		case '!':// <!doctype,<![CDATA,<!--
-			locator&&position(i);
-			end = parseDCC(source,i,domBuilder,errorHandler);
-			break;
-		default:
-			try{
-				locator&&position(i);
+			if(tagStart>start){
+				appendText(tagStart);
+			}
+			switch(source.charAt(tagStart+1)){
+			case '/':
+				var end = source.indexOf('>',tagStart+3);
+				var tagName = source.substring(tagStart+2,end);
+				var config = parseStack.pop();
+				var localNSMap = config.localNSMap;
+		        if(config.tagName != tagName){
+		            errorHandler.fatalError("end tag name: "+tagName+' is not match the current start tagName:'+config.tagName );
+		        }
+				domBuilder.endElement(config.uri,config.localName,tagName);
+				if(localNSMap){
+					for(var prefix in localNSMap){
+						domBuilder.endPrefixMapping(prefix) ;
+					}
+				}
+				end++;
+				break;
+				// end elment
+			case '?':// <?...?>
+				locator&&position(tagStart);
+				end = parseInstruction(source,tagStart,domBuilder);
+				break;
+			case '!':// <!doctype,<![CDATA,<!--
+				locator&&position(tagStart);
+				end = parseDCC(source,tagStart,domBuilder,errorHandler);
+				break;
+			default:
+			
+				locator&&position(tagStart);
 				
 				var el = new ElementAttributes();
 				
 				//elStartEnd
-				var end = parseElementStartPart(source,i,el,entityReplacer,errorHandler);
+				var end = parseElementStartPart(source,tagStart,el,entityReplacer,errorHandler);
 				var len = el.length;
-				//position fixed
-				if(len && locator){
-					var backup = copyLocator(locator,{});
-					for(var i = 0;i<len;i++){
-						var a = el[i];
-						position(a.offset);
-						a.offset = copyLocator(locator,{});
+				
+				if(locator){
+					if(len){
+						//attribute position fixed
+						for(var i = 0;i<len;i++){
+							var a = el[i];
+							position(a.offset);
+							a.offset = copyLocator(locator,{});
+						}
 					}
-					copyLocator(backup,locator);
+					position(end);
 				}
 				if(!el.closed && fixSelfClosed(source,end,el.tagName,closeMap)){
 					el.closed = true;
@@ -17094,17 +14232,16 @@ function parse(source,defaultNSMapCopy,entityMap,domBuilder,errorHandler){
 				}else{
 					end++;
 				}
-			}catch(e){
-				errorHandler.error('element parse error: '+e);
-				end = -1;
 			}
-
+		}catch(e){
+			errorHandler.error('element parse error: '+e);
+			end = -1;
 		}
-		if(end<0){
-			//TODO: 这里有可能sax回退，有位置错误风险
-			appendText(i+1);
-		}else{
+		if(end>start){
 			start = end;
+		}else{
+			//TODO: 这里有可能sax回退，有位置错误风险
+			appendText(Math.max(tagStart,start)+1);
 		}
 	}
 }
@@ -17112,7 +14249,6 @@ function copyLocator(f,t){
 	t.lineNumber = f.lineNumber;
 	t.columnNumber = f.columnNumber;
 	return t;
-	
 }
 
 /**
@@ -17523,4 +14659,974 @@ if(typeof require == 'function'){
 }
 
 
-},{}]},{},[6]);
+},{}],70:[function(require,module,exports){
+'use strict';
+
+/* jshint esnext: true, loopfunc: true */
+
+module.exports = function () {
+    var prefix = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+    return prefix + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c === 'x' ? r : r & 0x3 | 0x8,
+            result = v.toString(16);
+        return result;
+    });
+};
+},{}],71:[function(require,module,exports){
+'use strict';
+
+/* jshint node: true, esnext: true, loopfunc: true, undef: true, unused: true */
+
+var arrayUtils = require('zero-lang/array');
+var checkType = require('zero-lang/type');
+var fmtDate = require('zero-fmt/date');
+
+var D2JSON = Date.prototype.toJSON;
+
+if (!checkType.isFunction(D2JSON)) {
+    arrayUtils.each([String.prototype, Number.prototype, Boolean.prototype], function (p) {
+        p.toJSON = function () {
+            return this.valueOf();
+        };
+    });
+    D2JSON = function () {
+        return isFinite(this.valueOf()) ? fmtDate(this) : null;
+    };
+}
+
+var undef = undefined;
+var escapeString = function escapeString( /*String*/str) {
+    return ('"' + str.replace(/(["\\])/g, '\\$1') + '"').replace(/[\f]/g, '\\f').replace(/[\b]/g, '\\b').replace(/[\n]/g, '\\n').replace(/[\t]/g, '\\t').replace(/[\r]/g, '\\r');
+};
+
+var json = {
+    parse: function parse(str, strict) {
+        /*
+         * @description: 从 JSON 字符串得到一个数据结构
+         */
+        if (strict && !/^([\s\[\{]*(?:"(?:\\.|[^"])*"|-?\d[\d\.]*(?:[Ee][+-]?\d+)?|null|true|false|)[\s\]\}]*(?:,|:|$))+$/.test(str)) {
+            throw 'Invalid characters in JSON';
+        }
+        /* jshint -W061 */
+        return eval('(' + str + ')');
+    },
+    stringify: function stringify(value, replacer, spacer) {
+        /*
+         * @description: 把内置数据类型转为 JSON 字符串
+         */
+        if (checkType.isString(replacer)) {
+            spacer = replacer;
+            replacer = null;
+        }
+        function stringify(it, indent, key) {
+            if (replacer) {
+                it = replacer(key, it);
+            }
+            var val = undefined;
+            if (checkType.isNumber(it)) {
+                return isFinite(it) ? it + '' : 'null';
+            }
+            if (checkType.isBoolean(it)) {
+                return it + '';
+            }
+            if (it === null) {
+                return 'null';
+            }
+            if (checkType.isString(it)) {
+                return escapeString(it);
+            }
+            if (checkType.isFunction(it) || !it) {
+                return undef;
+            }
+            if (checkType.isFunction(it.toJSON)) {
+                return stringify(it.toJSON(key), indent, key);
+            }
+            if (checkType.isDate(it)) {
+                return fmtDate(it);
+            }
+            if (it.valueOf() !== it) {
+                return stringify(it.valueOf(), indent, key);
+            }
+            var nextIndent = spacer ? indent + spacer : '';
+            var sep = spacer ? ' ' : '';
+            var newLine = spacer ? '\n' : '';
+
+            if (checkType.isArray(it)) {
+                var itl = it.length;
+                var res = [];
+                for (key = 0; key < itl; key++) {
+                    var obj = it[key];
+                    val = stringify(obj, nextIndent, key);
+                    if (!checkType.isString(val)) {
+                        val = 'null';
+                    }
+                    res.push(newLine + nextIndent + val);
+                }
+                return '[' + res.join(',') + newLine + indent + ']';
+            }
+            var output = [];
+            for (key in it) {
+                var keyStr = undefined;
+                if (it.hasOwnProperty(key)) {
+                    if (checkType.isNumber(key)) {
+                        keyStr = '"' + key + '"';
+                    } else if (checkType.isString(key)) {
+                        keyStr = escapeString(key);
+                    } else {
+                        continue;
+                    }
+                    val = stringify(it[key], nextIndent, key);
+                    if (!checkType.isString(val)) {
+                        continue;
+                    }
+                    output.push(newLine + nextIndent + keyStr + ':' + sep + val);
+                }
+            }
+            return '{' + output.join(',') + newLine + indent + '}';
+        }
+        return stringify(value, '', '');
+    }
+};
+
+// comment this code block to test {
+if (typeof JSON !== 'undefined' && JSON && !!JSON.parse && !!JSON.stringify) {
+    json = JSON;
+}
+// }
+
+module.exports = json;
+},{"zero-fmt/date":72,"zero-lang/array":74,"zero-lang/type":80}],72:[function(require,module,exports){
+'use strict';
+
+/* jshint node: true, esnext: true, loopfunc: true, undef: true, unused: true */
+
+var checkType = require('zero-lang/type');
+
+var doubleDigit = function doubleDigit(n) {
+    return n < 10 ? '0' + n : n;
+};
+var lms = function lms(ms) {
+    var str = ms + '';
+    var len = str.length;
+    return len === 3 ? str : len === 2 ? '0' + str : '00' + str;
+};
+
+module.exports = function (date, pattern) {
+    /*
+     * @reference   : https://github.com/dojo/dojo/blob/master/json.js#L105
+     * @description : return stringified date according to given pattern.
+     * @parameter*  : {date  } date, input Date object
+     * @parameter   : {string} pattern, defines pattern for stringify.
+     * @parameter   : {string} pattern, defines pattern for stringify.
+     * @return      : {string} result string.
+     * @syntax      : fmtDate(date, [pattern])
+     * @example     :
+     //    '{FullYear}-{Month}-{Date}T{Hours}:{Minutes}:{Seconds}.{Milliseconds}Z' => '2013-10-03T00:57::13.180Z'
+     */
+    if (checkType.isDate(date)) {
+        pattern = pattern || '{FullYear}-{Month}-{Date}T{Hours}:{Minutes}:{Seconds}Z';
+
+        return pattern.replace(/\{(\w+)\}/g, function (t, prop) {
+            var fullProp = 'get' + (prop === 'Year' ? prop : 'UTC' + prop);
+            var num = date[fullProp]() + (prop === 'Month' ? 1 : 0);
+            return prop === 'Milliseconds' ? lms(num) : doubleDigit(num);
+        });
+    } else {
+        throw 'not a Date instance';
+    }
+};
+},{"zero-lang/type":80}],73:[function(require,module,exports){
+'use strict';
+
+/* jshint node: true, esnext: true, loopfunc: true, undef: true, unused: true, boss: true */
+
+var lang = require('zero-lang');
+var abs = Math.abs;
+
+module.exports = function (format) {
+    if (!lang.isString(format)) {
+        throw 'sprintf: The first arguments need to be a valid format string.';
+    }
+
+    var reg = /%(\+)?([0 ]|'(.))?(-)?([0-9]+)?(\.([0-9]+))?([%bcdfosxX])/g;
+    var part = undefined;
+    var parts = [];
+    var paramIndex = 1;
+    var args = lang.toArray(arguments);
+
+    while (part = reg.exec(format)) {
+        if (paramIndex >= args.length && part[8] !== '%') {
+            throw 'sprintf: At least one argument was missing.';
+        }
+
+        parts[parts.length] = {
+            begin: part.index,
+            end: part.index + part[0].length,
+            sign: part[1] === '+',
+            negative: parseFloat(args[paramIndex]) < 0 ? true : false,
+            padding: lang.isUndefined(part[2]) ? ' ' : part[2].substring(0, 1) === "'" ? part[3] : part[2],
+            alignLeft: part[4] === '-',
+            width: !lang.isUndefined(part[5]) ? part[5] : false,
+            precision: !lang.isUndefined(part[7]) ? part[7] : false,
+            type: part[8],
+            data: part[8] !== '%' ? String(args[paramIndex++]) : false
+        };
+    }
+
+    var i,
+        j,
+        preSubStr,
+        origLength,
+        newString = '',
+        start = 0;
+
+    for (i = 0; i < parts.length; i++) {
+        newString += format.substring(start, parts[i].begin);
+
+        start = parts[i].end;
+
+        preSubStr = '';
+        switch (parts[i].type) {
+            case '%':
+                preSubStr = '%';
+                break;
+            case 'b':
+                preSubStr = abs(lang.toInteger(parts[i].data)).toString(2);
+                break;
+            case 'c':
+                preSubStr = String.fromCharCode(abs(lang.toInteger(parts[i].data)));
+                break;
+            case 'd':
+                preSubStr = String(abs(lang.toInteger(parts[i].data)));
+                break;
+            case 'f':
+                preSubStr = parts[i].precision === false ? String(abs(parseFloat(parts[i].data))) : abs(parseFloat(parts[i].data)).toFixed(parts[i].precision);
+                break;
+            case 'o':
+                preSubStr = abs(lang.toInteger(parts[i].data)).toString(8);
+                break;
+            case 's':
+                preSubStr = parts[i].data.substring(0, parts[i].precision ? parts[i].precision : parts[i].data.length);
+                break;
+            case 'x':
+                preSubStr = lang.lc(abs(lang.toInteger(parts[i].data)).toString(16));
+                break;
+            case 'X':
+                preSubStr = lang.uc(abs(lang.toInteger(parts[i].data)).toString(16));
+                break;
+            default:
+                throw 'sprintf: Unknown type "' + parts[i].type + '" detected. This should never happen. Maybe the regex is wrong.';
+        }
+
+        if (parts[i].type === '%') {
+            newString += preSubStr;
+            continue;
+        }
+
+        if (parts[i].width !== false) {
+            if (parts[i].width > preSubStr.length) {
+                origLength = preSubStr.length;
+                for (j = 0; j < parts[i].width - origLength; ++j) {
+                    preSubStr = parts[i].alignLeft === true ? preSubStr + parts[i].padding : parts[i].padding + preSubStr;
+                }
+            }
+        }
+
+        /*jshint -W083 */ // make function in loop
+        if (lang.some(['b', 'd', 'o', 'f', 'x', 'X'], function (type) {
+            return type === parts[i].type;
+        })) {
+            if (parts[i].negative === true) {
+                preSubStr = '-' + preSubStr;
+            } else if (parts[i].sign === true) {
+                preSubStr = '+' + preSubStr;
+            }
+        }
+        newString += preSubStr;
+    }
+
+    newString += format.substring(start, format.length);
+    return newString;
+};
+},{"zero-lang":76}],74:[function(require,module,exports){
+'use strict';
+
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+/* jshint esnext: true, loopfunc: true */
+
+var checkType = require('./type');
+var numberUtils = require('./number');
+
+var isArray = checkType.isArray;
+var AP = Array.prototype;
+var slice = AP.slice;
+
+function isArrayLike(arr) {
+    return (typeof arr === 'undefined' ? 'undefined' : _typeof(arr)) === 'object' && numberUtils.isFinite(arr.length);
+}
+function toArray(arr) {
+    return isArrayLike(arr) ? slice.call(arr) : [];
+}
+
+function arrayFromSecondElement(arr) {
+    return slice.call(arr, 1);
+}
+function applyNativeFunction(nativeFunction, target, args) {
+    return nativeFunction.apply(target, arrayFromSecondElement(args));
+}
+
+// index
+var index = function index(up) {
+    return function (arr, searchElement, fromIndex) {
+        var i = undefined;
+        var len = arr.length >>> 0;
+        if (len === 0) {
+            return -1;
+        }
+        if (!fromIndex) {
+            fromIndex = up ? 0 : arr.length;
+        } else if (fromIndex < 0) {
+            fromIndex = Math.max(0, arr.length + fromIndex);
+        }
+        if (up) {
+            for (i = fromIndex; i < arr.length; i++) {
+                if (arr[i] === searchElement) {
+                    return i;
+                }
+            }
+        } else {
+            for (i = fromIndex; i >= 0; i--) {
+                if (arr[i] === searchElement) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    };
+};
+var indexOf = AP.indexOf ? function (arr) {
+    return applyNativeFunction(AP.indexOf, arr, arguments);
+} : index(true);
+var lastIndexOf = AP.lastIndexOf ? function (arr) {
+    return applyNativeFunction(AP.lastIndexOf, arr, arguments);
+} : index();
+
+// each
+var each = AP.forEach ? function (arr, callback, thisObj) {
+    applyNativeFunction(AP.forEach, arr, arguments);
+} : function (arr, callback, thisObj) {
+    var a = toArray(arr);
+    for (var i = 0; i < a.length; i++) {
+        callback.call(thisObj, a[i], i, arr);
+    }
+};
+
+// every
+var every = AP.every ? function (arr) {
+    return applyNativeFunction(AP.every, arr, arguments);
+} : function (arr, callback, thisObj) {
+    a = toArray(arr);
+    for (var i = 0; i < a.length; i++) {
+        if (!callback.call(thisObj, a[i], i, arr)) {
+            return false;
+        }
+    }
+    return true;
+};
+
+// filter
+var filter = AP.filter ? function (arr) {
+    return applyNativeFunction(AP.filter, arr, arguments);
+} : function (arr, callback, thisObj) {
+    var res = [];
+    each(arr, function (element, key) {
+        if (callback.call(thisObj, element, key, arr)) {
+            res.push(element);
+        }
+    });
+    return res;
+};
+
+// map
+var map = AP.map ? function (arr) {
+    return applyNativeFunction(AP.map, arr, arguments);
+} : function (arr, callback, thisObj) {
+    var res = [];
+    each(arr, function (element, key) {
+        res.push(callback.call(thisObj, element, key, arr));
+    });
+    return res;
+};
+
+// some
+var some = AP.some ? function (arr) {
+    return applyNativeFunction(AP.some, arr, arguments);
+} : function (arr, callback, thisObj) {
+    var i = undefined;
+    for (i = 0; i < arr.length; i++) {
+        if (callback.call(thisObj, arr[i], i, arr)) {
+            return true;
+        }
+    }
+    return false;
+};
+
+// reduce
+var reduce = AP.reduce ? function (arr) {
+    return applyNativeFunction(AP.reduce, arr, arguments);
+} : function (arr, callback, thisObj) {
+    var value = undefined;
+    if (thisObj) {
+        value = thisObj;
+    }
+    for (var i = 0; i < arr.length; i++) {
+        if (value) {
+            value = callback(value, arr[i], i, arr);
+        } else {
+            value = arr[i];
+        }
+    }
+    return value;
+};
+
+// reduceRight
+var reduceRight = AP.reduceRight ? function (arr) {
+    return applyNativeFunction(AP.reduceRight, arr, arguments);
+} : function (arr, callback, thisObj) {
+    var value = undefined;
+    if (thisObj) {
+        value = thisObj;
+    }
+    for (var i = arr.length - 1; i >= 0; i--) {
+        if (value) {
+            value = callback(value, arr[i], i, arr);
+        } else {
+            value = arr[i];
+        }
+    }
+    return value;
+};
+
+// contains
+function contains(arr, value) {
+    return indexOf(toArray(arr), value) > -1;
+}
+
+// uniq
+function uniq(arr) {
+    var resultArr = [];
+    each(arr, function (element) {
+        if (!contains(resultArr, element)) {
+            resultArr.push(element);
+        }
+    });
+    return resultArr;
+}
+
+// flatten
+function flatten(arr) {
+    var a = toArray(arr);
+    var r = [];
+    for (var i = 0, l = a.length; i < l; ++i) {
+        if (isArrayLike(a[i])) {
+            r = r.concat(a[i]);
+        } else {
+            r[r.length] = a[i];
+        }
+    }
+    return r;
+}
+
+var arrayUtils = {
+    contains: contains,
+    each: each,
+    every: every,
+    filter: filter,
+    flatten: flatten,
+    forEach: each,
+    index: index,
+    indexOf: indexOf,
+    isArray: isArray,
+    isArrayLike: isArrayLike,
+    lastIndexOf: lastIndexOf,
+    map: map,
+    reduce: reduce,
+    reduceRight: reduceRight,
+    some: some,
+    toArray: toArray,
+    uniq: uniq,
+    difference: function difference(arr) {
+        var rest = flatten(arrayFromSecondElement(arguments));
+        return filter(arr, function (value) {
+            return !contains(rest, value);
+        });
+    },
+    eachReverse: function eachReverse(arr, callback, thisObj) {
+        var a = toArray(arr);
+        var i = a.length - 1;
+        for (; i > -1; i -= 1) {
+            callback.call(thisObj, a[i], i, arr);
+        }
+    },
+    intersect: function intersect(a, b) {
+        var result = [];
+        each(a, function (value) {
+            if (contains(b, value)) {
+                result.push(value);
+            }
+        });
+        return result;
+    },
+    range: function range() {
+        var start = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+        var stop = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+        var step = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+
+        var length = Math.max(Math.ceil((stop - start) / step), 0);
+        var range = new Array(length);
+        for (var i = 0; i < length; i++, start += step) {
+            range[i] = start;
+        }
+        return range;
+    },
+    remove: function remove(arr, fromIndex, toIndex) {
+        var rest = undefined;
+        var len = arr.length;
+        if (!numberUtils.isNumber(fromIndex)) {
+            return arr;
+        }
+        rest = arr.slice((toIndex || fromIndex) + 1 || len);
+        arr.length = fromIndex < 0 ? len + fromIndex : fromIndex;
+        return arr.push.apply(arr, rest);
+    },
+    union: function union() {
+        var resultArr = [];
+        var sourceArrs = toArray(arguments);
+        each(sourceArrs, function (arr) {
+            resultArr = resultArr.concat(arr);
+        });
+        return uniq(resultArr);
+    }
+};
+
+module.exports = arrayUtils;
+},{"./number":77,"./type":80}],75:[function(require,module,exports){
+(function (global){
+'use strict';
+
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+/* jshint node: true, esnext: true, loopfunc: true, undef: true, unused: true */
+/* global window, global, self */
+
+var undefStr = 'undefined';
+
+module.exports = (typeof window === 'undefined' ? 'undefined' : _typeof(window)) !== undefStr ? window : (typeof global === 'undefined' ? 'undefined' : _typeof(global)) !== undefStr ? global : (typeof self === 'undefined' ? 'undefined' : _typeof(self)) !== undefStr ? self : {};
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],76:[function(require,module,exports){
+'use strict';
+
+/* jshint esnext: true, loopfunc: true */
+
+var objectUtils = require('./object');
+
+module.exports = objectUtils.extend({
+        global: require('./global')
+}, objectUtils, require('./array'), require('./number'), require('./string'), require('./type'));
+},{"./array":74,"./global":75,"./number":77,"./object":78,"./string":79,"./type":80}],77:[function(require,module,exports){
+'use strict';
+
+/* jshint esnext: true, loopfunc: true */
+
+var checkType = require('./type');
+
+var isNumber = checkType.isNumber;
+var nativeMin = Math.min;
+var nativeMax = Math.max;
+
+var numberUtils = {
+    isDecimal: function isDecimal(num) {
+        return isNumber(num) && num % 1 !== 0;
+    },
+    isEven: function isEven(num) {
+        return isNumber(num) && num % 2 === 0;
+    },
+    isFinite: isFinite,
+    isInteger: Number.isInteger ? Number.isInteger : function (num) {
+        return isNumber(num) && num % 1 === 0;
+    },
+    isNaN: isNaN,
+    isNegative: function isNegative(num) {
+        return isNumber(num) && num < 0;
+    },
+    isNumber: isNumber,
+    isOdd: function isOdd(num) {
+        return isNumber(num) && num % 2 !== 0;
+    },
+    isPositive: function isPositive(num) {
+        return isNumber(num) && num > 0;
+    },
+    toFloat: function toFloat(str) {
+        return parseFloat(str);
+    },
+    toInteger: function toInteger(str, radix) {
+        return parseInt(str, radix || 10);
+    },
+    isInRange: function isInRange(value, start, end) {
+        start = +start || 0;
+        if (end === undefined) {
+            end = start;
+            start = 0;
+        } else {
+            end = +end || 0;
+        }
+        return value >= nativeMin(start, end) && value < nativeMax(start, end);
+    }
+};
+
+numberUtils.isInFinite = function (num) {
+    return !numberUtils.isFinite(num);
+};
+
+module.exports = numberUtils;
+},{"./type":80}],78:[function(require,module,exports){
+'use strict';
+
+/* jshint node: true, esnext: true, loopfunc: true, undef: true, unused: true */
+
+var checkType = require('./type');
+var getType = checkType.getType;
+var isFunction = checkType.isFunction;
+var isObject = checkType.isObject;
+var isPlainObject = checkType.isPlainObject;
+
+var arrayUtils = require('./array');
+var contains = arrayUtils.contains;
+var each = arrayUtils.each;
+var isArrayLike = arrayUtils.isArrayLike;
+var toArray = arrayUtils.toArray;
+
+function toPlainObject(obj) {
+    return isPlainObject(obj) ? obj : {};
+}
+function forIn(obj, callback, thisObj) {
+    var plainObj = toPlainObject(obj);
+    for (var key in plainObj) {
+        callback.call(thisObj, plainObj[key], key, obj);
+    }
+}
+
+var keys = Object.keys ? function (obj) {
+    return Object.keys(obj);
+} : function (obj) {
+    var result = [];
+    forIn(obj, function (value, key) {
+        if (!(isFunction(obj) && key === 'prototype')) {
+            result.push(key);
+        }
+    });
+    return result;
+};
+
+function values(obj) {
+    var result = [];
+    forIn(obj, function (value) {
+        return result.push(value);
+    });
+    return result;
+}
+
+function extend(dest) {
+    dest = dest || {};
+    each(toArray(arguments).slice(1), function (source) {
+        if (source) {
+            for (var prop in source) {
+                dest[prop] = source[prop];
+            }
+        }
+    });
+    return dest;
+}
+
+function merge(dest) {
+    dest = dest || {};
+    each(toArray(arguments).slice(1), function (source) {
+        for (var prop in source) {
+            if (getType(source[prop]) !== getType(dest[prop])) {
+                if (isPlainObject(source[prop])) {
+                    dest[prop] = {};
+                    merge(dest[prop], source[prop]);
+                } else {
+                    dest[prop] = source[prop];
+                }
+            } else {
+                if (isPlainObject(source[prop])) {
+                    merge(dest[prop], source[prop]);
+                } else {
+                    dest[prop] = source[prop];
+                }
+            }
+        }
+    });
+    return dest;
+}
+
+var objectUtils = {
+    assign: extend,
+    forIn: forIn,
+    extend: extend,
+    hasKey: function hasKey(obj, key) {
+        return obj.hasOwnProperty(key);
+    },
+    hasValue: function hasValue(obj, value) {
+        return contains(values(obj), value);
+    },
+    isObject: isObject,
+    isPlainObject: isPlainObject,
+    keys: keys,
+    merge: merge,
+    values: values,
+    invert: function invert(obj) {
+        var result = {};
+        forIn(obj, function (value, key) {
+            result[value] = key;
+        });
+        return result;
+    },
+    clone: function clone(obj) {
+        if (isArrayLike(obj)) {
+            return toArray(obj);
+        }
+        if (isPlainObject(obj)) {
+            return merge({}, obj);
+        }
+        return obj;
+    },
+    destroy: function destroy(obj) {
+        for (var p in obj) {
+            delete obj[p];
+        }
+        obj.prototype = null;
+        obj = null;
+    }
+};
+
+module.exports = objectUtils;
+},{"./array":74,"./type":80}],79:[function(require,module,exports){
+'use strict';
+
+/* jshint esnext: true, loopfunc: true */
+
+var checkType = require('./type');
+
+var isString = checkType.isString;
+var stringPrototype = String.prototype;
+
+function toString(a) {
+    return a.toString();
+}
+
+var stringUtils = {
+    isString: isString,
+    trim: function trim(str) {
+        str = toString(str);
+        return stringPrototype.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
+    },
+    trimLeft: function trimLeft(str) {
+        str = toString(str);
+        return stringPrototype.trimLeft ? str.trimLeft() : str.replace(/^\s+/g, '');
+    },
+    trimRight: function trimRight(str) {
+        str = toString(str);
+        return stringPrototype.trimRight ? str.trimRight() : str.replace(/^\s+/g, '');
+    },
+    lc: function lc(str) {
+        return toString(str).toLowerCase();
+    },
+    uc: function uc(str) {
+        return toString(str).toUpperCase();
+    },
+    hasSubString: function hasSubString(str, subStr) {
+        return toString(str).indexOf(toString(subStr)) > -1;
+    }
+};
+
+module.exports = stringUtils;
+},{"./type":80}],80:[function(require,module,exports){
+'use strict';
+
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+/* jshint esnext: true, loopfunc: true */
+
+var toString = ({}).toString;
+var isType = function isType(obj, type) {
+    return toString.call(obj) === '[object ' + type + ']';
+};
+
+var checkType = {
+    isArguments: function isArguments(obj) {
+        return isType(obj, 'Arguments');
+    },
+    isArray: Array.isArray ? Array.isArray : function (obj) {
+        return isType(obj, 'Array');
+    },
+    isArrayLike: function isArrayLike(obj) {
+        return (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object' && isFinite(obj.length);
+    },
+    isBoolean: function isBoolean(obj) {
+        return isType(obj, 'Boolean');
+    },
+    isDate: function isDate(obj) {
+        return isType(obj, 'Date');
+    },
+    isError: function isError(obj) {
+        return isType(obj, 'Error');
+    },
+    isFunction: function isFunction(obj) {
+        return isType(obj, 'Function');
+    },
+    isNull: function isNull(obj) {
+        return obj === null;
+    },
+    isNumber: function isNumber(obj) {
+        return isType(obj, 'Number');
+    },
+    isPlainObject: function isPlainObject(obj) {
+        return isType(obj, 'Object');
+    },
+    isRegExp: function isRegExp(obj) {
+        return isType(obj, 'RegExp');
+    },
+    isString: function isString(obj) {
+        return isType(obj, 'String');
+    },
+    isType: isType,
+    isUndefined: function isUndefined(obj) {
+        return obj === undefined;
+    },
+    getType: function getType(obj) {
+        var typeStr = toString.call(obj);
+        return typeStr.replace(/^\[object /, '').replace(/\]$/, '');
+    },
+    isObject: function isObject(obj) {
+        var type = typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+        return type === 'function' || type === 'object' && !!obj;
+    }
+};
+
+module.exports = checkType;
+},{}],81:[function(require,module,exports){
+'use strict';
+
+/* jshint node: true, esnext: true, loopfunc: true, undef: true, unused: true */
+
+var arrayUtils = require('zero-lang/array');
+
+function isGoodHead(head, rest) {
+    var isGood = true;
+    arrayUtils.some(rest, function (lin) {
+        if (arrayUtils.indexOf(lin, head) > 0) {
+            isGood = false;
+        }
+    });
+
+    if (isGood) {
+        arrayUtils.each(rest, function (lin) {
+            if (arrayUtils.indexOf(lin, head) === 0) {
+                lin.shift();
+            }
+        });
+    }
+    return isGood;
+}
+
+function eachHead(bases) {
+    var result = [];
+    var badLinearization = 0;
+
+    while (bases.length) {
+        var base = bases.shift();
+        if (!base.length) {
+            continue;
+        }
+
+        if (isGoodHead(base[0], bases)) {
+            result.push(base.shift());
+            badLinearization = 0;
+        } else {
+            badLinearization += 1;
+            if (badLinearization === bases.length) {
+                throw 'Bad Linearization';
+            }
+        }
+        if (base.length) {
+            bases.push(base);
+        }
+    }
+    return result;
+}
+
+module.exports = function () {
+    return eachHead(arrayUtils.map(arrayUtils.toArray(arguments), arrayUtils.toArray));
+};
+},{"zero-lang/array":74}],82:[function(require,module,exports){
+'use strict';
+
+/* jshint node: true, esnext: true, loopfunc: true, undef: true, unused: true */
+
+var lang = require('zero-lang');
+var c3mroMerge = require('./c3mro');
+
+module.exports = function () /*name, superClasses, protoObj*/{
+    var uberClass = undefined;
+    var tempConstructor = undefined;
+    var lin = '_linearization';
+    var args = lang.toArray(arguments);
+    var name = lang.isString(args[0]) ? args.shift() : '';
+    var superClasses = args.length > 1 ? args.shift() : [];
+    var protoObj = args[0] ? args.shift() : {};
+    var bases = [];
+    var hasCtor = false;
+    var Tmp = function Tmp() {};
+    var ctor = function ctor() {};
+
+    superClasses = lang.isArray(superClasses) ? superClasses : [superClasses];
+    lang.each(superClasses, function (clazz) {
+        clazz[lin] = clazz[lin] || [clazz];
+        bases.push(clazz[lin]);
+    });
+
+    if (bases.length) {
+        bases.push(superClasses);
+        bases = c3mroMerge.apply(null, bases);
+    }
+
+    tempConstructor = protoObj.constructor;
+    if (tempConstructor !== Object.prototype.constructor) {
+        hasCtor = true;
+        ctor = tempConstructor;
+    }
+
+    ctor[lin] = [ctor].concat(bases);
+    ctor.parents = lang.toArray(bases);
+
+    protoObj.constructor = ctor;
+    while (uberClass = bases.shift()) {
+        protoObj = lang.extend({}, uberClass.prototype, protoObj);
+        Tmp.prototype = protoObj;
+        if (!hasCtor) {
+            protoObj.constructor = ctor;
+        }
+        protoObj = new Tmp();
+    }
+
+    ctor.className = name;
+    ctor.prototype = protoObj;
+    ctor.prototype.constructor = ctor;
+
+    return ctor;
+};
+},{"./c3mro":81,"zero-lang":76}]},{},[1]);
