@@ -4,24 +4,31 @@
     <meta charset="UTF-8">
     <title>xmind</title>
     <style>
-textarea {
-    width: 100%;
-    height: 200px;
-}
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
     </style>
 </head>
 <body>
-    <textarea id="code-to-run">
+<textarea id="code-to-run">
 var workbook = new xmind.Workbook();
+var primarySheet = workbook.getPrimarySheet();
+var rootTopic = primarySheet.getRootTopic();
+rootTopic.setTitle('test another title');
+var secondTopic = rootTopic.addChild({
+    id: 'secondTopic',
+    title: 'second topic'
+});
 xmind.save(workbook, 'test.xmind');
     </textarea>
-    <button onclick="runCode();">Run!</button>
-    <script src="../../dist/xmind-browser.min.js"></script>
-    <script>
-function runCode() {
-    var codeElem = document.getElementById('code-to-run');
-    eval(codeElem.value);
-}
-    </script>
+<button onclick="runCode();">Run!</button>
+<script src="../../dist/xmind-browser.min.js"></script>
+<script>
+    function runCode() {
+        var codeElem = document.getElementById('code-to-run');
+        eval(codeElem.value);
+    }
+</script>
 </body>
 </html>
