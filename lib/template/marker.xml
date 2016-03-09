@@ -1,1 +1,1 @@
-<marker-ref marker-id="{%= id %}"/>
+<marker-ref marker-id="{%= data.id %}"/>

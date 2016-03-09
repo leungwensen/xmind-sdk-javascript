@@ -1,5 +1,5 @@
 <marker-refs>
-    {% helper.each(markers, function(marker){ %}
+    {% helper.each(data.markers, function(marker){ %}
         <marker-ref marker-id="{%= marker %}"/>
     {% }); %}
 </marker-refs>

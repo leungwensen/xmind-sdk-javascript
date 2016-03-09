@@ -1,5 +1,5 @@
 <labels>
-    {% helper.each(labels, function(label){ %}
+    {% helper.each(data.labels, function(label){ %}
         <label>{%= label %}</label>
     {% }); %}
 </labels>

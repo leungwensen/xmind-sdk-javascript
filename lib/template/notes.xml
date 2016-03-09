@@ -1,6 +1,6 @@
 <notes>
     <html>
-        {% helper.each(lines, function(line){ %}
+        {% helper.each(data.lines, function(line){ %}
             <xhtml:p>{%= line %}</xhtml:p>
         {% }); %}
         <!--styles are not supported yet {-->
@@ -9,5 +9,5 @@
             <!--</xhtml:p>-->
         <!--}-->
     </html>
-    <plain>{%= plainNotes %}</plain>
+    <plain>{%= data.plainNotes %}</plain>
 </notes>
