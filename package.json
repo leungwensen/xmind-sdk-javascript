@@ -3,7 +3,7 @@
 	"title": "xmind-sdk-javascript",
 	"description": "XMind SDK for Node.",
 	"homepage": "https://github.com/leungwensen/xmind-sdk-javascript",
-	"version": "0.1.20151013",
+	"version": "0.1.20160309",
 	"main": "index.js",
 	"author": {
 		"description": "team of xmind-sdk-javascript",
@@ -20,17 +20,21 @@
 	"dependencies": {
 		"jszip": "^2.5.0",
 		"xmldom": "^0.1.22",
-		"zero-crypto": "*",
-        "zero-fmt": "*",
+		"filesaver.js": "^0.2.0",
+		"zero-crypto": "^0.0.20151202",
+		"zero-encoding": "^0.0.20151202",
+		"zero-fmt": "^0.0.20151202",
 		"zero-lang": "^0.0.20151202",
-		"zero-oop": "*",
-		"zero-text": "*"
+		"zero-oop": "^0.0.20151202",
+		"zero-text": "^0.0.20160127"
 	},
 	"devDependencies": {
-		"grunt": "^0.4.5",
-		"grunt-contrib-watch": "^0.6.1",
-		"grunt-mocha-test": "^0.12.7",
-		"load-grunt-config": "^0.19.1"
+		"browserify": "^13.0.0",
+		"gulp": "^3.9.1",
+		"gulp-ztpl-compiler": "^0.0.20160310",
+		"gulp-mocha": "^2.2.0",
+		"require-dir": "^0.3.0",
+		"uglify-js": "^2.6.2"
 	},
 	"engines": {
 		"node": ">=0.8.0"
