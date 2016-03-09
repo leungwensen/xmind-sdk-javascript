@@ -1,4 +1,0 @@
-options:
-    reporter: spec
-src:
-    - test/mocha/**/*.js

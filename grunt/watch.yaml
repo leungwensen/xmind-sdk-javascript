@@ -1,9 +1,0 @@
-options:
-    spawn: false
-templates:
-    files:
-        - lib/template/*.html
-        - lib/template/*.ptmpl
-        - lib/template/*.xml
-    tasks:
-        - compileTemplates

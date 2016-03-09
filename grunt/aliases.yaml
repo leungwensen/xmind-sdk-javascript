@@ -1,6 +1,0 @@
-dev:
-    - watch
-default:
-    - dev
-test:
-    - mochaTest
