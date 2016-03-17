@@ -6,3 +6,9 @@ to compile xml files into js modules in this folder:
 $ gulp template
 ```
 
+to detect file changes in this folder and compile automatically:
+
+```shell
+$ gulp watch
+```
+
