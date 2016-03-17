@@ -36,6 +36,7 @@
 		"gulp": "^3.9.1",
 		"gulp-ztpl-compiler": "^0.0.20160310",
 		"gulp-mocha": "^2.2.0",
+		"gulp-watch": "^4.3.5",
 		"require-dir": "^0.3.0",
 		"uglify-js": "^2.6.2"
 	},
