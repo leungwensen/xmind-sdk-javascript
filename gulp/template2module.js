@@ -60,7 +60,7 @@ function renderTemplates() {
       const content = underscoreEngine.render(templateContent, file.path, 'commonjs')
         .replace(', helper', '')
         .replace('helper = helper || {};', '');
-      file.contents = new Buffer(`/* eslint-disable */\nconst lang = require('zero-lang');\n${content}`);
+      file.contents = new Buffer(`const lang = require('zero-lang');\n${content}`);
     } catch (err) {
       this.emit('error', new gutil.PluginError('template2module', err.toString()));
     }

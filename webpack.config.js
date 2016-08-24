@@ -61,6 +61,7 @@ module.exports = {
         warnings: false
       }
     }),
+    // new webpack.BannerPlugin('eslint-disable\n'),
     new webpack.optimize.DedupePlugin(),
     new OptimizeCssAssetsPlugin({
       assetNameRegExp: /\.optimize\.css$/g,
