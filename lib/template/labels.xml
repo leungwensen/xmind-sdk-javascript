@@ -1,5 +1,5 @@
 <labels>
-    {% helper.each(data.labels, function(label){ %}
-        <label>{%= label %}</label>
-    {% }); %}
+  <% lang.each(labels, function(label){ %>
+  <label><%= label %></label>
+  <% }); %>
 </labels>

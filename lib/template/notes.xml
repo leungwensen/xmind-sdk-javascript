@@ -1,13 +1,13 @@
 <notes>
     <html>
-        {% helper.each(data.lines, function(line){ %}
-            <xhtml:p>{%= line %}</xhtml:p>
-        {% }); %}
+        <% lang.each(lines, function(line){ %>
+            <xhtml:p><%= line %></xhtml:p>
+        <% }); %>
         <!--styles are not supported yet {-->
             <!--<xhtml:p>-->
               <!--<xhtml:span style-id="67gllifq4r1g91gks0tdif9dou">what</xhtml:span>-->
             <!--</xhtml:p>-->
         <!--}-->
     </html>
-    <plain>{%= data.plainNotes %}</plain>
+    <plain><%= plainNotes %></plain>
 </notes>

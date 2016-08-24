@@ -1,6 +1,6 @@
 <marker-refs>
-    {% helper.each(data.markers, function(marker){ %}
-        <marker-ref marker-id="{%= marker %}"/>
-    {% }); %}
+    <% lang.each(markers, function(marker){ %>
+        <marker-ref marker-id="<%= marker %>"/>
+    <% }); %>
 </marker-refs>
 

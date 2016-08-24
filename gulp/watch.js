@@ -1,18 +1,10 @@
-/**
- * Created by liangwensen on 3/17/16.
- */
+const gulp = require('gulp');
+const lang = require('zero-lang');
+const path = require('path');
+const config = require('./config');
 
-var gulp = require('gulp');
-var watch = require('gulp-watch');
-var path = require('path');
-
-gulp.task('watch', function (done) {
-    watch([
-        path.resolve(__dirname, '../lib/**/*.html'),
-        path.resolve(__dirname, '../lib/**/*.xml'),
-        path.resolve(__dirname, '../lib/**/*.ztpl'),
-    ], function () {
-        gulp.start('ztpl');
-    });
+gulp.task('watch', () => {
+  lang.each(config.templateDirs, (dir) => {
+    gulp.watch(path.resolve(__dirname, `../${dir}/**/*.xml`), [`template2module-${dir}`]);
+  });
 });
-

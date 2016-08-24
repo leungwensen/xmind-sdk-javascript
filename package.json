@@ -1,62 +1,77 @@
 {
-	"name": "xmind",
-	"title": "xmind-sdk-javascript",
-	"description": "XMind SDK for Node.",
-	"homepage": "https://github.com/leungwensen/xmind-sdk-javascript",
-	"version": "0.1.20160310",
-	"main": "index.js",
-	"author": {
-		"description": "team of xmind-sdk-javascript",
-		"url": "https://github.com/leungwensen/xmind-sdk-javascript/graphs/contributors"
-	},
-	"bugs": {
-		"url": "https://github.com/leungwensen/xmind-sdk-javascript/issues"
-	},
-	"files": [
-		"dist",
-		"doc",
-		"index-browser.js",
-		"index.js",
-		"lib",
-		"package.json"
-	],
-	"dependencies": {
-		"jszip": "^2.5.0",
-		"xmldom": "^0.1.22",
-		"filesaver.js": "^0.2.0",
-		"zero-crypto": "^0.0.20151202",
-		"zero-encoding": "^0.0.20151202",
-		"zero-fmt": "^0.0.20151202",
-		"zero-lang": "^0.0.20151202",
-		"zero-oop": "^0.0.20151202",
-		"zero-text": "^0.0.20160127"
-	},
-	"devDependencies": {
-		"browserify": "^13.0.0",
-		"gulp": "^3.9.1",
-		"gulp-ztpl-compiler": "^0.0.20160310",
-		"gulp-mocha": "^2.2.0",
-		"gulp-watch": "^4.3.5",
-		"require-dir": "^0.3.0",
-		"uglify-js": "^2.6.2"
-	},
-	"engines": {
-		"node": ">=0.8.0"
-	},
-	"keywords": [
-		"XMind",
-		"SDK"
-	],
-	"license": "MIT",
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "https://github.com/leungwensen/xmind-sdk-javascript/blob/master/LICENSE.md"
-		}
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/leungwensen/xmind-sdk-javascript.git"
-	},
-	"scripts": {}
+  "name": "xmind",
+  "title": "xmind-sdk-javascript",
+  "description": "XMind SDK for javascript(works in both Node.js and Browsers).",
+  "homepage": "https://github.com/leungwensen/xmind-sdk-javascript",
+  "version": "0.2.0",
+  "main": "lib/index.js",
+  "author": {
+    "description": "team of xmind-sdk-javascript",
+    "url": "https://github.com/leungwensen/xmind-sdk-javascript/graphs/contributors"
+  },
+  "bugs": {
+    "url": "https://github.com/leungwensen/xmind-sdk-javascript/issues"
+  },
+  "dependencies": {
+    "filesaver.js": "^0.2.0",
+    "jszip": "^3.1.2",
+    "xmldom": "^0.1.22",
+    "zero-lang": "^0.1.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.13.2",
+    "chai": "^3.5.0",
+    "css-loader": "^0.23.1",
+    "cssnano": "^3.7.4",
+    "eslint": "^3.3.1",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.1.0",
+    "eslint-plugin-react": "^6.1.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1",
+    "gulp-htmlhint": "^0.3.1",
+    "gulp-if": "^2.0.1",
+    "gulp-jsdoc3": "^0.3.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.5.2",
+    "gulp-util": "^3.0.7",
+    "jquery": "^3.1.0",
+    "json-loader": "^0.5.4",
+    "lebab": "^2.3.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "mocha": "^3.0.2",
+    "optimize-css-assets-webpack-plugin": "^1.3.0",
+    "pre-commit": "^1.1.3",
+    "ranma": "^0.5.0",
+    "require-dir": "^0.3.0",
+    "style-loader": "^0.13.1",
+    "template2module": "^0.1.0",
+    "through2": "^2.0.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.0"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "keywords": [
+    "XMind",
+    "SDK",
+    "xmind-sdk-javascript"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leungwensen/xmind-sdk-javascript.git"
+  },
+  "scripts": {}
 }

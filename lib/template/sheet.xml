@@ -1,3 +1,3 @@
-<sheet id="{%= data.id %}" {% if(data.theme) { %}theme="{%= data.theme %}"{% } %}>
-    <title>{%= data.title %}</title>
+<sheet id="<%= id %>" <% if(theme) { %>theme="<%= theme %>"<% } %>>
+    <title><%= title %></title>
 </sheet>

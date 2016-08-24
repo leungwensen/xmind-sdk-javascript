@@ -1,0 +1,44 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": [
+    "eslint-config-airbnb"
+  ],
+  "globals": {
+    "chai": true,
+    "smartCharts": true
+  },
+  "rules": {
+    "comma-dangle": 0,
+    "func-names": 0,
+    "global-require": 1,
+    "import/no-unresolved": 1,
+    "key-spacing": 0,
+    "new-cap": 1,
+    "no-cond-assign": 1,
+    "no-fallthrough": 1,
+    "no-param-reassign": 1,
+    "no-restricted-syntax": 0,
+    "no-underscore-dangle": 0,
+    "object-curly-spacing": 0,
+    "prefer-rest-params": 0,
+    "strict": 0,
+    "max-len": [
+      2,
+      120,
+      4,
+      {
+        "ignoreUrls": true
+      }
+    ],
+    "id-length": [
+      2,
+      {
+        "min": 1
+      }
+    ]
+  }
+}
