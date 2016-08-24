@@ -1,7 +1,6 @@
 // ports
 module.exports.ports = {
-  dev: 1024,
-  test: 2048
+  dev: 1026,
 };
 
 // for linting
