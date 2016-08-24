@@ -9,7 +9,9 @@ describe('Workbook', () => {
     firstSheetName: 'sheet 1',
     rootTopicName: 'root topic',
   };
-  let workbook, sheet, rootTopic;
+  let workbook;
+  let sheet;
+  let rootTopic;
 
   it('new Workbook(options)', () => {
     assert.doesNotThrow(() => {

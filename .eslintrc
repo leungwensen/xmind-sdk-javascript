@@ -9,17 +9,20 @@
   ],
   "globals": {
     "chai": true,
-    "smartCharts": true
+    "xmind": true
   },
   "rules": {
     "comma-dangle": 0,
     "func-names": 0,
     "global-require": 1,
+    "import/no-extraneous-dependencies": 1,
     "import/no-unresolved": 1,
     "key-spacing": 0,
     "new-cap": 1,
     "no-cond-assign": 1,
     "no-fallthrough": 1,
+    "no-mixed-operators": 1,
+    "no-new": 1,
     "no-param-reassign": 1,
     "no-restricted-syntax": 0,
     "no-underscore-dangle": 0,

@@ -15,7 +15,7 @@ const transformOptions = [
   'for-of',
   'includes',
   'let',
-  //'multi-var',
+  // 'multi-var',
   'no-strict',
   'obj-method',
   'obj-shorthand',

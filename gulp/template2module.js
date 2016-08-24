@@ -7,9 +7,9 @@ const plumber = require('gulp-plumber');
 const rename = require('gulp-rename');
 const through = require('through2');
 const tpl2mod = require('template2module');
-const underscoreEngine = tpl2mod.engines.underscore;
 const config = require('./config');
 
+const underscoreEngine = tpl2mod.engines.underscore;
 underscoreEngine.outerScopeVars.JSON = true;
 underscoreEngine.outerScopeVars.lang = true;
 
@@ -20,7 +20,7 @@ const REGEXP = {
   spaces: />[\s|\r|\n]*</g,
 };
 
-const svgSprite = '';//fs.readFileSync(path.resolve(__dirname, '../dist/zfinder/svg-symbols.svg'), 'utf8');
+const svgSprite = ''; // fs.readFileSync(path.resolve(__dirname, '../dist/zfinder/svg-symbols.svg'), 'utf8');
 
 function parsingSvgSprite(content) {
   return content.replace(REGEXP.svgSpriteTag, svgSprite);

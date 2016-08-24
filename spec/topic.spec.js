@@ -78,7 +78,7 @@ describe('Topic', () => {
       'topic.setBranchFolded() not working: branch is not correct'
     );
   });
-  //it('topic.moveChild(fromIndex, toIndex)', function() {});
+  // it('topic.moveChild(fromIndex, toIndex)', function() {});
   it('topic.getNotes()', () => {
     assert.equal(
       topic.getNotes(),
