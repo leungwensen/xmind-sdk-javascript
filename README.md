@@ -1,4 +1,5 @@
-# xmind-sdk-javascript
+xmind-sdk-javascript
+====================
 
 XMind SDK for javascript (IN BOTH NODE.JS & BROWSERS)
 
