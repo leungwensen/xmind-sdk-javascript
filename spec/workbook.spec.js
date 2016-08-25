@@ -1,5 +1,4 @@
 const assert = chai.assert;
-
 const Workbook = xmind.Workbook;
 
 describe('Workbook', () => {
@@ -182,6 +181,21 @@ describe('Workbook', () => {
         !workbook.sheetById[secondSheetOptions.id],
         'workbook.removeSheet(index) not working: workbook.sheetById did not changed'
       );
+    });
+    it('Workbook.load(data) & workbook.save(filename)', (done) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', './fixtures/simple.xmind', true);
+      xhr.responseType = 'arraybuffer';
+      xhr.onload = function onload() {
+        if (this.status === 200) {
+          const responseArray = new Uint8Array(this.response);
+          workbook = Workbook.load(responseArray);
+          console.log(workbook);
+          workbook.save('test.xmind');
+          done();
+        }
+      };
+      xhr.send();
     });
   });
 });

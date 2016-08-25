@@ -1,10 +1,8 @@
 const assert = chai.assert;
-
 const Workbook = xmind.Workbook;
 const Legend = xmind.Legend;
 const CONST = xmind.CONST;
 const utils = xmind.utils;
-
 const options = {
   firstSheetId: 'firstSheet',
   rootTopicId: 'rootTopic',

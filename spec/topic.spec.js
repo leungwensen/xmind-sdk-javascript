@@ -3,7 +3,6 @@ const Workbook = xmind.Workbook;
 const Topic = xmind.Topic;
 const CONST = xmind.CONST;
 const utils = xmind.utils;
-
 const options = {
   firstSheetId: 'firstSheet',
   rootTopicId: 'rootTopic',

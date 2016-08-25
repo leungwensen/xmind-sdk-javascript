@@ -1,7 +1,5 @@
 const assert = chai.assert;
-
 const Workbook = xmind.Workbook;
-
 const options = {
   firstSheetId: 'firstSheet',
   rootTopicId: 'rootTopic',
@@ -11,19 +9,16 @@ const options = {
 const workbook = new Workbook(options); // first sheet added
 const sheet = workbook.getPrimarySheet();
 const rootTopic = sheet.rootTopic;
-
 const secondTopicOptions = {
   id: 'secondTopic',
   title: 'second topic'
 };
 rootTopic.addChild(secondTopicOptions);
-
 const thirdTopicOptions = {
   id: 'thirdTopic',
   title: 'third topic'
 };
 rootTopic.addChild(thirdTopicOptions);
-
 const relationship = sheet.addRelationship({
   sourceId: options.rootTopicId,
   targetId: secondTopicOptions.id
