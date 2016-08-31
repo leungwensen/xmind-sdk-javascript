@@ -1,0 +1,1624 @@
+<svg id="kity_svg_6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+     width="2285" height="2093" style="display: inline; background: rgb(251, 251, 251);" viewBox="0 0 2285 2093">
+  <defs id="kity_defs_7">
+    <linearGradient id="kity_linearGradient_17" x1="0" y1="0" x2="0" y2="1">
+      <stop id="kity_stop_18" offset="0" stop-color="rgb(255, 255, 255)"></stop>
+      <stop id="kity_stop_19" offset="1" stop-color="rgb(204, 204, 204)"></stop>
+    </linearGradient>
+    <marker id="kity_marker_2" orient="auto" refX="6" refY="0" viewBox="-7 -7 14 14" markerWidth="7" markerHeight="7"
+            markerUnits="userSpaceOnUse">
+      <path id="kity_path_3" fill="rgb(115, 161, 191)" stroke="none" d="M6,0A6,6,0,1,1,-6,0A6,6,0,1,1,6,0"></path>
+    </marker>
+  </defs>
+  <g id="kity_g_8">
+    <g id="minder1" text-rendering="geometricPrecision">
+      <g id="minder_connect_group1">
+        <path id="kity_path_31" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M983,1177.5A232.5,467,0,0,1,1215.5,710.5"></path>
+        <path id="kity_path_33" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1354.5,710.5C1369.5,710.5,1369.5,555.5,1384.5,555.5L1442.5,555.5"></path>
+        <path id="kity_path_35" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1442.5,555.5C1457.5,555.5,1457.5,529.5,1472.5,529.5L1694.5,529.5"></path>
+        <path id="kity_path_37" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1442.5,555.5C1457.5,555.5,1457.5,581.5,1472.5,581.5L1612.5,581.5"></path>
+        <path id="kity_path_39" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1354.5,710.5C1369.5,710.5,1369.5,633.5,1384.5,633.5L1444.5,633.5"></path>
+        <path id="kity_path_41" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1444.5,633.5C1459.5,633.5,1459.5,633.5,1474.5,633.5L1686.5,633.5"></path>
+        <path id="kity_path_43" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1354.5,710.5C1369.5,710.5,1369.5,685.5,1384.5,685.5L1449.5,685.5"></path>
+        <path id="kity_path_45" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1449.5,685.5C1464.5,685.5,1464.5,685.5,1479.5,685.5L1770.5,685.5"></path>
+        <path id="kity_path_47" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1354.5,710.5C1369.5,710.5,1369.5,737.5,1384.5,737.5L1465.5,737.5"></path>
+        <path id="kity_path_49" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1465.5,737.5C1480.5,737.5,1480.5,737.5,1495.5,737.5L1755.5,737.5"></path>
+        <path id="kity_path_51" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1755.5,737.5C1770.5,737.5,1770.5,737.5,1785.5,737.5L1917.5,737.5"></path>
+        <path id="kity_path_53" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1354.5,710.5C1369.5,710.5,1369.5,893.5,1384.5,893.5L1461.5,893.5"></path>
+        <path id="kity_path_55" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1461.5,893.5C1476.5,893.5,1476.5,893.5,1491.5,893.5L1623.5,893.5"></path>
+        <path id="kity_path_57" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1623.5,893.5C1638.5,893.5,1638.5,789.5,1653.5,789.5L1743.5,789.5"></path>
+        <path id="kity_path_59" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1623.5,893.5C1638.5,893.5,1638.5,841.5,1653.5,841.5L1708.5,841.5"></path>
+        <path id="kity_path_61" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1623.5,893.5C1638.5,893.5,1638.5,893.5,1653.5,893.5L1720.5,893.5"></path>
+        <path id="kity_path_63" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1623.5,893.5C1638.5,893.5,1638.5,945.5,1653.5,945.5L1714.5,945.5"></path>
+        <path id="kity_path_65" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1623.5,893.5C1638.5,893.5,1638.5,997.5,1653.5,997.5L1706.5,997.5"></path>
+        <path id="kity_path_67" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M983,1177.5A232.5,28,0,0,1,1215.5,1149.5"></path>
+        <path id="kity_path_69" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1356.5,1149.5C1371.5,1149.5,1371.5,1059.5,1386.5,1059.5L1440.5,1059.5"></path>
+        <path id="kity_path_71" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1440.5,1059.5C1455.5,1059.5,1455.5,1059.5,1470.5,1059.5L1648.5,1059.5"></path>
+        <path id="kity_path_73" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1356.5,1149.5C1371.5,1149.5,1371.5,1137.5,1386.5,1137.5L1480.5,1137.5"></path>
+        <path id="kity_path_75" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1480.5,1137.5C1495.5,1137.5,1495.5,1111.5,1510.5,1111.5L1771.5,1111.5"></path>
+        <path id="kity_path_77" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1480.5,1137.5C1495.5,1137.5,1495.5,1163.5,1510.5,1163.5L1724.5,1163.5"></path>
+        <path id="kity_path_79" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1356.5,1149.5C1371.5,1149.5,1371.5,1215.5,1386.5,1215.5L1456.5,1215.5"></path>
+        <path id="kity_path_81" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1456.5,1215.5C1471.5,1215.5,1471.5,1215.5,1486.5,1215.5L1573.5,1215.5"></path>
+        <path id="kity_path_83" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1356.5,1149.5C1371.5,1149.5,1371.5,1267.5,1386.5,1267.5L1474.5,1267.5"></path>
+        <path id="kity_path_85" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1474.5,1267.5C1489.5,1267.5,1489.5,1267.5,1504.5,1267.5L1668.5,1267.5"></path>
+        <path id="kity_path_87" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M983,1177.5A232.5,467,0,0,0,1215.5,1644.5"></path>
+        <path id="kity_path_89" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1348.5,1644.5C1363.5,1644.5,1363.5,1355.5,1378.5,1355.5L1462.5,1355.5"></path>
+        <path id="kity_path_91" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1462.5,1355.5C1477.5,1355.5,1477.5,1329.5,1492.5,1329.5L1857.5,1329.5"></path>
+        <path id="kity_path_93" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1462.5,1355.5C1477.5,1355.5,1477.5,1381.5,1492.5,1381.5L1805.5,1381.5"></path>
+        <path id="kity_path_95" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1348.5,1644.5C1363.5,1644.5,1363.5,1459.5,1378.5,1459.5L1478.5,1459.5"></path>
+        <path id="kity_path_97" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1478.5,1459.5C1493.5,1459.5,1493.5,1433.5,1508.5,1433.5L1829.5,1433.5"></path>
+        <path id="kity_path_99" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1478.5,1459.5C1493.5,1459.5,1493.5,1485.5,1508.5,1485.5L1801.5,1485.5"></path>
+        <path id="kity_path_101" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1348.5,1644.5C1363.5,1644.5,1363.5,1563.5,1378.5,1563.5L1464.5,1563.5"></path>
+        <path id="kity_path_103" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1464.5,1563.5C1479.5,1563.5,1479.5,1537.5,1494.5,1537.5L1685.5,1537.5"></path>
+        <path id="kity_path_105" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1464.5,1563.5C1479.5,1563.5,1479.5,1589.5,1494.5,1589.5L1857.5,1589.5"></path>
+        <path id="kity_path_107" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1348.5,1644.5C1363.5,1644.5,1363.5,1641.5,1378.5,1641.5L1440.5,1641.5"></path>
+        <path id="kity_path_109" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1440.5,1641.5C1455.5,1641.5,1455.5,1641.5,1470.5,1641.5L1768.5,1641.5"></path>
+        <path id="kity_path_111" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1348.5,1644.5C1363.5,1644.5,1363.5,1745.5,1378.5,1745.5L1465.5,1745.5"></path>
+        <path id="kity_path_113" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1465.5,1745.5C1480.5,1745.5,1480.5,1745.5,1495.5,1745.5L1666.5,1745.5"></path>
+        <path id="kity_path_115" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1666.5,1745.5C1681.5,1745.5,1681.5,1693.5,1696.5,1693.5L1951.5,1693.5"></path>
+        <path id="kity_path_117" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1666.5,1745.5C1681.5,1745.5,1681.5,1745.5,1696.5,1745.5L2229.5,1745.5"></path>
+        <path id="kity_path_119" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1666.5,1745.5C1681.5,1745.5,1681.5,1797.5,1696.5,1797.5L2265.5,1797.5"></path>
+        <path id="kity_path_121" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1348.5,1644.5C1363.5,1644.5,1363.5,1961.5,1378.5,1961.5L1448.5,1961.5"></path>
+        <path id="kity_path_123" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1448.5,1961.5C1463.5,1961.5,1463.5,1965.5,1478.5,1965.5L1672.5,1965.5"></path>
+        <path id="kity_path_125" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1672.5,1965.5C1687.5,1965.5,1687.5,1857.5,1702.5,1857.5L1794.5,1857.5"></path>
+        <path id="kity_path_127" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1672.5,1965.5C1687.5,1965.5,1687.5,1909.5,1702.5,1909.5L1768.5,1909.5"></path>
+        <path id="kity_path_129" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1672.5,1965.5C1687.5,1965.5,1687.5,1969.5,1702.5,1969.5L1843.5,1969.5"></path>
+        <path id="kity_path_131" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1672.5,1965.5C1687.5,1965.5,1687.5,2021.5,1702.5,2021.5L1759.5,2021.5"></path>
+        <path id="kity_path_133" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M1672.5,1965.5C1687.5,1965.5,1687.5,2073.5,1702.5,2073.5L1780.5,2073.5"></path>
+        <path id="kity_path_135" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M983,1177.5A232.5,464,0,0,0,750.5,713.5"></path>
+        <path id="kity_path_137" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M616.5,713.5C601.5,713.5,601.5,474.5,586.5,474.5L520.5,474.5"></path>
+        <path id="kity_path_139" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M520.5,474.5C505.5,474.5,505.5,123.5,490.5,123.5L368.5,123.5"></path>
+        <path id="kity_path_141" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M368.5,123.5C353.5,123.5,353.5,45.5,338.5,45.5L257.5,45.5"></path>
+        <path id="kity_path_143" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M368.5,123.5C353.5,123.5,353.5,97.5,338.5,97.5L258.5,97.5"></path>
+        <path id="kity_path_145" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M368.5,123.5C353.5,123.5,353.5,149.5,338.5,149.5L269.5,149.5"></path>
+        <path id="kity_path_147" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M368.5,123.5C353.5,123.5,353.5,201.5,338.5,201.5L247.5,201.5"></path>
+        <path id="kity_path_149" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M520.5,474.5C505.5,474.5,505.5,305.5,490.5,305.5L387.5,305.5"></path>
+        <path id="kity_path_151" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M387.5,305.5C372.5,305.5,372.5,253.5,357.5,253.5L205.5,253.5"></path>
+        <path id="kity_path_153" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M387.5,305.5C372.5,305.5,372.5,305.5,357.5,305.5L156.5,305.5"></path>
+        <path id="kity_path_155" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M387.5,305.5C372.5,305.5,372.5,357.5,357.5,357.5L154.5,357.5"></path>
+        <path id="kity_path_157" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M520.5,474.5C505.5,474.5,505.5,461.5,490.5,461.5L398.5,461.5"></path>
+        <path id="kity_path_159" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M398.5,461.5C383.5,461.5,383.5,409.5,368.5,409.5L316.5,409.5"></path>
+        <path id="kity_path_161" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M398.5,461.5C383.5,461.5,383.5,461.5,368.5,461.5L320.5,461.5"></path>
+        <path id="kity_path_163" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M398.5,461.5C383.5,461.5,383.5,513.5,368.5,513.5L314.5,513.5"></path>
+        <path id="kity_path_165" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M520.5,474.5C505.5,474.5,505.5,617.5,490.5,617.5L422.5,617.5"></path>
+        <path id="kity_path_167" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M422.5,617.5C407.5,617.5,407.5,565.5,392.5,565.5L324.5,565.5"></path>
+        <path id="kity_path_169" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M422.5,617.5C407.5,617.5,407.5,617.5,392.5,617.5L310.5,617.5"></path>
+        <path id="kity_path_171" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M422.5,617.5C407.5,617.5,407.5,669.5,392.5,669.5L337.5,669.5"></path>
+        <path id="kity_path_173" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M520.5,474.5C505.5,474.5,505.5,721.5,490.5,721.5L436.5,721.5"></path>
+        <path id="kity_path_175" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M520.5,474.5C505.5,474.5,505.5,825.5,490.5,825.5L321.5,825.5"></path>
+        <path id="kity_path_177" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M321.5,825.5C306.5,825.5,306.5,773.5,291.5,773.5L207.5,773.5"></path>
+        <path id="kity_path_179" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M321.5,825.5C306.5,825.5,306.5,825.5,291.5,825.5L132.5,825.5"></path>
+        <path id="kity_path_181" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M321.5,825.5C306.5,825.5,306.5,877.5,291.5,877.5L133.5,877.5"></path>
+        <path id="kity_path_183" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M616.5,713.5C601.5,713.5,601.5,981.5,586.5,981.5L518.5,981.5"></path>
+        <path id="kity_path_185" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M518.5,981.5C503.5,981.5,503.5,929.5,488.5,929.5L404.5,929.5"></path>
+        <path id="kity_path_187" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M518.5,981.5C503.5,981.5,503.5,981.5,488.5,981.5L329.5,981.5"></path>
+        <path id="kity_path_189" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M518.5,981.5C503.5,981.5,503.5,1033.5,488.5,1033.5L290.5,1033.5"></path>
+        <path id="kity_path_191" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M983,1177.5A232.5,46,0,0,1,750.5,1223.5"></path>
+        <path id="kity_path_193" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M533.5,1223.5C518.5,1223.5,518.5,1120.5,503.5,1120.5L363.5,1120.5"></path>
+        <path id="kity_path_195" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M363.5,1120.5C348.5,1120.5,348.5,1094.5,333.5,1094.5L131.5,1094.5"></path>
+        <path id="kity_path_197" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M363.5,1120.5C348.5,1120.5,348.5,1146.5,333.5,1146.5L20.5,1146.5"></path>
+        <path id="kity_path_199" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M533.5,1223.5C518.5,1223.5,518.5,1198.5,503.5,1198.5L386.5,1198.5"></path>
+        <path id="kity_path_201" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M533.5,1223.5C518.5,1223.5,518.5,1276.5,503.5,1276.5L413.5,1276.5"></path>
+        <path id="kity_path_203" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M413.5,1276.5C398.5,1276.5,398.5,1250.5,383.5,1250.5L154.5,1250.5"></path>
+        <path id="kity_path_205" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M413.5,1276.5C398.5,1276.5,398.5,1302.5,383.5,1302.5L87.5,1302.5"></path>
+        <path id="kity_path_207" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M533.5,1223.5C518.5,1223.5,518.5,1354.5,503.5,1354.5L417.5,1354.5"></path>
+        <path id="kity_path_209" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M417.5,1354.5C402.5,1354.5,402.5,1354.5,387.5,1354.5L264.5,1354.5"></path>
+        <path id="kity_path_211" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M983,1177.5A232.5,433.5,0,0,1,750.5,1611"></path>
+        <path id="kity_path_213" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M601.5,1611C586.5,1611,586.5,1417.5,571.5,1417.5L463.5,1417.5"></path>
+        <path id="kity_path_215" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M601.5,1611C586.5,1611,586.5,1469.5,571.5,1469.5L469.5,1469.5"></path>
+        <path id="kity_path_217" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M601.5,1611C586.5,1611,586.5,1521.5,571.5,1521.5L471.5,1521.5"></path>
+        <path id="kity_path_219" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M601.5,1611C586.5,1611,586.5,1573.5,571.5,1573.5L493.5,1573.5"></path>
+        <path id="kity_path_221" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M601.5,1611C586.5,1611,586.5,1625.5,571.5,1625.5L478.5,1625.5"></path>
+        <path id="kity_path_223" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M601.5,1611C586.5,1611,586.5,1677.5,571.5,1677.5L449.5,1677.5"></path>
+        <path id="kity_path_225" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M601.5,1611C586.5,1611,586.5,1729.5,571.5,1729.5L463.5,1729.5"></path>
+        <path id="kity_path_227" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M601.5,1611C586.5,1611,586.5,1781.5,571.5,1781.5L450.5,1781.5"></path>
+        <path id="kity_path_229" fill="none" stroke="rgb(115, 161, 191)" stroke-width="1"
+              d="M601.5,1611C586.5,1611,586.5,1833.5,571.5,1833.5L412.5,1833.5"></path>
+      </g>
+      <g id="minder_node1">
+        <path id="node_outline1" fill="rgb(115, 161, 191)" stroke="rgb(115, 161, 191)"
+              d="M873.5,1154.5h219a5,5,0,0,1,5,5v36a5,5,0,0,1,-5,5h-219a5,5,0,0,1,-5,-5v-36a5,5,0,0,1,5,-5z"
+              stroke-width="3"></path>
+        <g id="node_text1" fill="white">
+          <text id="kity_text_22" text-rendering="inherit" font-size="16" dy=".8em" y="1169.5" x="892.5">Welcome to
+            XMind
+          </text>
+        </g>
+        <a id="kity_a_458" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.xmind.net" target="_blank"
+           xlink:title="http://www.xmind.net" style="cursor: pointer;">
+          <path id="kity_path_460" fill="rgba(255, 255, 255, 0)" stroke="none"
+                d="M1053.5,1166.5h16a4,4,0,0,1,4,4v14a4,4,0,0,1,-4,4h-16a4,4,0,0,1,-4,-4v-14a4,4,0,0,1,4,-4z"></path>
+          <path id="kity_path_459" fill="#666" stroke="none"
+                d="M1068.114,1182.724h-1.278c-1.668,0,-3.07,-1.07,-3.599,-2.556h4.877c0.707,0,1.278,-0.571,1.278,-1.278V1176.334c0,-0.707,-0.571,-1.278,-1.278,-1.278h-4.877C1063.766,1173.571,1065.168,1172.5,1066.836,1172.5h1.278c2.116,0,3.834,1.716,3.834,3.834V1178.89C1071.948,1181.008,1070.23,1182.724,1068.114,1182.724zM1056.612,1177.612c0,-0.707,0.573,-1.278,1.278,-1.278h7.668c0.707,0,1.278,0.571,1.278,1.278S1066.265,1178.89,1065.558,1178.89H1057.89C1057.185,1178.89,1056.612,1178.319,1056.612,1177.612zM1054.056,1176.334V1178.89c0,0.707,0.573,1.278,1.278,1.278h4.877c-0.528,1.486,-1.932,2.556,-3.599,2.556H1055.334C1053.216,1182.724,1051.5,1181.008,1051.5,1178.89V1176.334C1051.5,1174.216,1053.216,1172.5,1055.334,1172.5h1.278c1.667,0,3.071,1.071,3.599,2.556H1055.334C1054.629,1175.056,1054.056,1175.627,1054.056,1176.334z"></path>
+        </a>
+      </g>
+      <g id="kity_g_12">
+        <path id="kity_path_13" fill="none" stroke="none" d="M892.5,1177.5h0v0h0z"></path>
+      </g>
+      <g id="kity_g_14">
+        <path id="kity_path_15" fill="none" stroke="none" d="M892.5,1177.5h0v0h0z"></path>
+        <path id="kity_path_16" fill="none" stroke="none"></path>
+      </g>
+      <g id="minder_node2">
+        <g id="node_expander18" style="cursor: pointer;">
+          <path id="kity_path_613" fill="white" stroke="gray"
+                d="M1216.5,710.5A6,6,0,1,1,1204.5,710.5A6,6,0,1,1,1216.5,710.5"></path>
+          <path id="kity_path_614" fill="none" stroke="gray" d="M1206,710.5L1215,710.5"></path>
+        </g>
+        <path id="node_outline19" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)"
+              d="M1220.5,697.5h131a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-131a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
+              stroke-width="1"></path>
+        <g id="node_text19" fill="black">
+          <text id="kity_text_265" text-rendering="inherit" font-size="14" dy=".8em" y="703.5" x="1237.5">How to Map？
+          </text>
+        </g>
+      </g>
+      <g id="minder_node3">
+        <g id="node_expander3" style="cursor: pointer;">
+          <path id="kity_path_568" fill="white" stroke="gray"
+                d="M1394.5,541.5A6,6,0,1,1,1382.5,541.5A6,6,0,1,1,1394.5,541.5"></path>
+          <path id="kity_path_569" fill="none" stroke="gray" d="M1384,541.5L1393,541.5"></path>
+        </g>
+        <path id="node_outline4" fill="none" stroke="none"
+              d="M1399.5,530.5h38a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-38a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text4" fill="black">
+          <text id="kity_text_235" text-rendering="inherit" font-size="12" dy=".8em" y="535.5" x="1404.5">Press</text>
+        </g>
+      </g>
+      <g id="minder_node4">
+        <g id="node_expander1" display="none" style="cursor: pointer;">
+          <path id="kity_path_562" fill="white" stroke="gray"
+                d="M1482.5,515.5A6,6,0,1,1,1470.5,515.5A6,6,0,1,1,1482.5,515.5"></path>
+          <path id="kity_path_563" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline2" fill="none" stroke="none"
+              d="M1487.5,504.5h202a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-202a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text2" fill="black">
+          <text id="kity_text_231" text-rendering="inherit" font-size="12" dy=".8em" y="509.5" x="1492.5">To create
+            Topic at the same level
+          </text>
+        </g>
+      </g>
+      <g id="minder_node5">
+        <g id="node_expander2" display="none" style="cursor: pointer;">
+          <path id="kity_path_565" fill="white" stroke="gray"
+                d="M1482.5,567.5A6,6,0,1,1,1470.5,567.5A6,6,0,1,1,1482.5,567.5"></path>
+          <path id="kity_path_566" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline3" fill="none" stroke="none"
+              d="M1487.5,556.5h120a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-120a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text3" fill="black">
+          <text id="kity_text_233" text-rendering="inherit" font-size="12" dy=".8em" y="561.5" x="1492.5">To create
+            Subtopic
+          </text>
+        </g>
+      </g>
+      <g id="minder_node6">
+        <g id="node_expander5" style="cursor: pointer;">
+          <path id="kity_path_574" fill="white" stroke="gray"
+                d="M1394.5,619.5A6,6,0,1,1,1382.5,619.5A6,6,0,1,1,1394.5,619.5"></path>
+          <path id="kity_path_575" fill="none" stroke="gray" d="M1384,619.5L1393,619.5"></path>
+        </g>
+        <path id="node_outline6" fill="none" stroke="none"
+              d="M1399.5,608.5h40a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-40a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text6" fill="black">
+          <text id="kity_text_239" text-rendering="inherit" font-size="12" dy=".8em" y="613.5" x="1404.5">Input</text>
+        </g>
+      </g>
+      <g id="minder_node7">
+        <g id="node_expander4" display="none" style="cursor: pointer;">
+          <path id="kity_path_571" fill="white" stroke="gray"
+                d="M1484.5,619.5A6,6,0,1,1,1472.5,619.5A6,6,0,1,1,1484.5,619.5"></path>
+          <path id="kity_path_572" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline5" fill="none" stroke="none"
+              d="M1489.5,608.5h192a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-192a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text5" fill="black">
+          <text id="kity_text_237" text-rendering="inherit" font-size="12" dy=".8em" y="613.5" x="1494.5">Double click /
+            Press "Space" key
+          </text>
+        </g>
+      </g>
+      <g id="minder_node8">
+        <g id="node_expander7" style="cursor: pointer;">
+          <path id="kity_path_580" fill="white" stroke="gray"
+                d="M1394.5,671.5A6,6,0,1,1,1382.5,671.5A6,6,0,1,1,1394.5,671.5"></path>
+          <path id="kity_path_581" fill="none" stroke="gray" d="M1384,671.5L1393,671.5"></path>
+        </g>
+        <path id="node_outline8" fill="none" stroke="none"
+              d="M1399.5,660.5h45a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-45a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text8" fill="black">
+          <text id="kity_text_243" text-rendering="inherit" font-size="12" dy=".8em" y="665.5" x="1404.5">Enrich</text>
+        </g>
+      </g>
+      <g id="minder_node9">
+        <g id="node_expander6" display="none" style="cursor: pointer;">
+          <path id="kity_path_577" fill="white" stroke="gray"
+                d="M1489.5,671.5A6,6,0,1,1,1477.5,671.5A6,6,0,1,1,1489.5,671.5"></path>
+          <path id="kity_path_578" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline7" fill="none" stroke="none"
+              d="M1494.5,660.5h271a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-271a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text7" fill="black">
+          <text id="kity_text_241" text-rendering="inherit" font-size="12" dy=".8em" y="665.5" x="1499.5">Drag your
+            document/pic directly to this topic
+          </text>
+        </g>
+      </g>
+      <g id="minder_node10">
+        <g id="node_expander10" style="cursor: pointer;">
+          <path id="kity_path_589" fill="white" stroke="gray"
+                d="M1394.5,723.5A6,6,0,1,1,1382.5,723.5A6,6,0,1,1,1394.5,723.5"></path>
+          <path id="kity_path_590" fill="none" stroke="gray" d="M1384,723.5L1393,723.5"></path>
+        </g>
+        <path id="node_outline11" fill="none" stroke="none"
+              d="M1399.5,712.5h61a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-61a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text11" fill="black">
+          <text id="kity_text_249" text-rendering="inherit" font-size="12" dy=".8em" y="717.5" x="1404.5">Structure
+          </text>
+        </g>
+      </g>
+      <g id="minder_node11">
+        <g id="node_expander9" style="cursor: pointer;">
+          <path id="kity_path_586" fill="white" stroke="gray"
+                d="M1505.5,723.5A6,6,0,1,1,1493.5,723.5A6,6,0,1,1,1505.5,723.5"></path>
+          <path id="kity_path_587" fill="none" stroke="gray" d="M1495,723.5L1504,723.5"></path>
+        </g>
+        <path id="node_outline10" fill="none" stroke="none"
+              d="M1510.5,712.5h240a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-240a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text10" fill="black">
+          <text id="kity_text_247" text-rendering="inherit" font-size="12" dy=".8em" y="717.5" x="1515.5">12 different
+            kinds of structures to choose
+          </text>
+        </g>
+      </g>
+      <g id="minder_node12">
+        <g id="node_expander8" display="none" style="cursor: pointer;">
+          <path id="kity_path_583" fill="white" stroke="gray"
+                d="M1795.5,723.5A6,6,0,1,1,1783.5,723.5A6,6,0,1,1,1795.5,723.5"></path>
+          <path id="kity_path_584" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline9" fill="none" stroke="none"
+              d="M1800.5,712.5h112a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-112a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text9" fill="black">
+          <text id="kity_text_245" text-rendering="inherit" font-size="12" dy=".8em" y="717.5" x="1805.5">@ Properties
+            View
+          </text>
+        </g>
+      </g>
+      <g id="minder_node13">
+        <g id="node_expander17" style="cursor: pointer;">
+          <path id="kity_path_610" fill="white" stroke="gray"
+                d="M1394.5,879.5A6,6,0,1,1,1382.5,879.5A6,6,0,1,1,1394.5,879.5"></path>
+          <path id="kity_path_611" fill="none" stroke="gray" d="M1384,879.5L1393,879.5"></path>
+        </g>
+        <path id="node_outline18" fill="none" stroke="none"
+              d="M1399.5,868.5h57a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-57a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text18" fill="black">
+          <text id="kity_text_263" text-rendering="inherit" font-size="12" dy=".8em" y="873.5" x="1404.5">Beautify
+          </text>
+        </g>
+      </g>
+      <g id="minder_node14">
+        <g id="node_expander16" style="cursor: pointer;">
+          <path id="kity_path_607" fill="white" stroke="gray"
+                d="M1501.5,879.5A6,6,0,1,1,1489.5,879.5A6,6,0,1,1,1501.5,879.5"></path>
+          <path id="kity_path_608" fill="none" stroke="gray" d="M1491,879.5L1500,879.5"></path>
+        </g>
+        <path id="node_outline17" fill="none" stroke="none"
+              d="M1506.5,868.5h112a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-112a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text17" fill="black">
+          <text id="kity_text_261" text-rendering="inherit" font-size="12" dy=".8em" y="873.5" x="1511.5">@ Properties
+            View
+          </text>
+        </g>
+      </g>
+      <g id="minder_node15">
+        <g id="node_expander11" display="none" style="cursor: pointer;">
+          <path id="kity_path_592" fill="white" stroke="gray"
+                d="M1663.5,775.5A6,6,0,1,1,1651.5,775.5A6,6,0,1,1,1663.5,775.5"></path>
+          <path id="kity_path_593" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline12" fill="none" stroke="none"
+              d="M1668.5,764.5h70a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-70a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text12" fill="black">
+          <text id="kity_text_251" text-rendering="inherit" font-size="12" dy=".8em" y="769.5" x="1673.5">Wallpaper
+          </text>
+        </g>
+      </g>
+      <g id="minder_node16">
+        <g id="node_expander12" display="none" style="cursor: pointer;">
+          <path id="kity_path_595" fill="white" stroke="gray"
+                d="M1663.5,827.5A6,6,0,1,1,1651.5,827.5A6,6,0,1,1,1663.5,827.5"></path>
+          <path id="kity_path_596" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline13" fill="none" stroke="none"
+              d="M1668.5,816.5h35a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-35a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text13" fill="black">
+          <text id="kity_text_253" text-rendering="inherit" font-size="12" dy=".8em" y="821.5" x="1673.5">Font</text>
+        </g>
+      </g>
+      <g id="minder_node17">
+        <g id="node_expander13" display="none" style="cursor: pointer;">
+          <path id="kity_path_598" fill="white" stroke="gray"
+                d="M1663.5,879.5A6,6,0,1,1,1651.5,879.5A6,6,0,1,1,1663.5,879.5"></path>
+          <path id="kity_path_599" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline14" fill="none" stroke="none"
+              d="M1668.5,868.5h47a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-47a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text14" fill="black">
+          <text id="kity_text_255" text-rendering="inherit" font-size="12" dy=".8em" y="873.5" x="1673.5">Shape</text>
+        </g>
+      </g>
+      <g id="minder_node18">
+        <g id="node_expander14" display="none" style="cursor: pointer;">
+          <path id="kity_path_601" fill="white" stroke="gray"
+                d="M1663.5,931.5A6,6,0,1,1,1651.5,931.5A6,6,0,1,1,1663.5,931.5"></path>
+          <path id="kity_path_602" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline15" fill="none" stroke="none"
+              d="M1668.5,920.5h41a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-41a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text15" fill="black">
+          <text id="kity_text_257" text-rendering="inherit" font-size="12" dy=".8em" y="925.5" x="1673.5">Color</text>
+        </g>
+      </g>
+      <g id="minder_node19">
+        <g id="node_expander15" display="none" style="cursor: pointer;">
+          <path id="kity_path_604" fill="white" stroke="gray"
+                d="M1663.5,983.5A6,6,0,1,1,1651.5,983.5A6,6,0,1,1,1663.5,983.5"></path>
+          <path id="kity_path_605" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline16" fill="none" stroke="none"
+              d="M1668.5,972.5h33a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-33a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text16" fill="black">
+          <text id="kity_text_259" text-rendering="inherit" font-size="12" dy=".8em" y="977.5" x="1673.5">Line</text>
+        </g>
+      </g>
+      <g id="minder_node20">
+        <g id="node_expander28" style="cursor: pointer;">
+          <path id="kity_path_643" fill="white" stroke="gray"
+                d="M1216.5,1149.5A6,6,0,1,1,1204.5,1149.5A6,6,0,1,1,1216.5,1149.5"></path>
+          <path id="kity_path_644" fill="none" stroke="gray" d="M1206,1149.5L1215,1149.5"></path>
+        </g>
+        <path id="node_outline29" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)"
+              d="M1220.5,1136.5h133a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-133a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
+              stroke-width="1"></path>
+        <g id="node_text29" fill="black">
+          <text id="kity_text_285" text-rendering="inherit" font-size="14" dy=".8em" y="1142.5" x="1237.5">Useful
+            Shortcut
+          </text>
+        </g>
+      </g>
+      <g id="minder_node21">
+        <g id="node_expander20" style="cursor: pointer;">
+          <path id="kity_path_619" fill="white" stroke="gray"
+                d="M1396.5,1045.5A6,6,0,1,1,1384.5,1045.5A6,6,0,1,1,1396.5,1045.5"></path>
+          <path id="kity_path_620" fill="none" stroke="gray" d="M1386,1045.5L1395,1045.5"></path>
+        </g>
+        <path id="node_outline21" fill="none" stroke="none"
+              d="M1401.5,1034.5h34a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-34a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text21" fill="black">
+          <text id="kity_text_269" text-rendering="inherit" font-size="12" dy=".8em" y="1039.5" x="1406.5">Shift</text>
+        </g>
+      </g>
+      <g id="minder_node22">
+        <g id="node_expander19" display="none" style="cursor: pointer;">
+          <path id="kity_path_616" fill="white" stroke="gray"
+                d="M1480.5,1045.5A6,6,0,1,1,1468.5,1045.5A6,6,0,1,1,1480.5,1045.5"></path>
+          <path id="kity_path_617" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline20" fill="none" stroke="none"
+              d="M1485.5,1034.5h158a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-158a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text20" fill="black">
+          <text id="kity_text_267" text-rendering="inherit" font-size="12" dy=".8em" y="1039.5" x="1490.5">Keep it as a
+            floating topic
+          </text>
+        </g>
+      </g>
+      <g id="minder_node23">
+        <g id="node_expander23" style="cursor: pointer;">
+          <path id="kity_path_628" fill="white" stroke="gray"
+                d="M1396.5,1123.5A6,6,0,1,1,1384.5,1123.5A6,6,0,1,1,1396.5,1123.5"></path>
+          <path id="kity_path_629" fill="none" stroke="gray" d="M1386,1123.5L1395,1123.5"></path>
+        </g>
+        <path id="node_outline24" fill="none" stroke="none"
+              d="M1401.5,1112.5h74a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-74a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text24" fill="black">
+          <text id="kity_text_275" text-rendering="inherit" font-size="12" dy=".8em" y="1117.5" x="1406.5">Command
+          </text>
+        </g>
+      </g>
+      <g id="minder_node24">
+        <g id="node_expander21" display="none" style="cursor: pointer;">
+          <path id="kity_path_622" fill="white" stroke="gray"
+                d="M1520.5,1097.5A6,6,0,1,1,1508.5,1097.5A6,6,0,1,1,1520.5,1097.5"></path>
+          <path id="kity_path_623" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline22" fill="none" stroke="none"
+              d="M1525.5,1086.5h241a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-241a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text22" fill="black">
+          <text id="kity_text_271" text-rendering="inherit" font-size="12" dy=".8em" y="1091.5" x="1530.5">Move Main
+            Topic to the place you want
+          </text>
+        </g>
+      </g>
+      <g id="minder_node25">
+        <g id="node_expander22" display="none" style="cursor: pointer;">
+          <path id="kity_path_625" fill="white" stroke="gray"
+                d="M1520.5,1149.5A6,6,0,1,1,1508.5,1149.5A6,6,0,1,1,1520.5,1149.5"></path>
+          <path id="kity_path_626" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline23" fill="none" stroke="none"
+              d="M1525.5,1138.5h194a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-194a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text23" fill="black">
+          <text id="kity_text_273" text-rendering="inherit" font-size="12" dy=".8em" y="1143.5" x="1530.5">valid while
+            the structure is "Map"
+          </text>
+        </g>
+      </g>
+      <g id="minder_node26">
+        <g id="node_expander25" style="cursor: pointer;">
+          <path id="kity_path_634" fill="white" stroke="gray"
+                d="M1396.5,1201.5A6,6,0,1,1,1384.5,1201.5A6,6,0,1,1,1396.5,1201.5"></path>
+          <path id="kity_path_635" fill="none" stroke="gray" d="M1386,1201.5L1395,1201.5"></path>
+        </g>
+        <path id="node_outline26" fill="none" stroke="none"
+              d="M1401.5,1190.5h50a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-50a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text26" fill="black">
+          <text id="kity_text_279" text-rendering="inherit" font-size="12" dy=".8em" y="1195.5" x="1406.5">Option</text>
+        </g>
+      </g>
+      <g id="minder_node27">
+        <g id="node_expander24" display="none" style="cursor: pointer;">
+          <path id="kity_path_631" fill="white" stroke="gray"
+                d="M1496.5,1201.5A6,6,0,1,1,1484.5,1201.5A6,6,0,1,1,1496.5,1201.5"></path>
+          <path id="kity_path_632" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline25" fill="none" stroke="none"
+              d="M1501.5,1190.5h67a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-67a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text25" fill="black">
+          <text id="kity_text_277" text-rendering="inherit" font-size="12" dy=".8em" y="1195.5" x="1506.5">Duplicate
+          </text>
+        </g>
+      </g>
+      <g id="minder_node28">
+        <g id="node_expander27" style="cursor: pointer;">
+          <path id="kity_path_640" fill="white" stroke="gray"
+                d="M1396.5,1253.5A6,6,0,1,1,1384.5,1253.5A6,6,0,1,1,1396.5,1253.5"></path>
+          <path id="kity_path_641" fill="none" stroke="gray" d="M1386,1253.5L1395,1253.5"></path>
+        </g>
+        <path id="node_outline28" fill="none" stroke="none"
+              d="M1401.5,1242.5h68a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-68a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text28" fill="black">
+          <text id="kity_text_283" text-rendering="inherit" font-size="12" dy=".8em" y="1247.5" x="1406.5">Try "/" &amp;
+            "*"
+          </text>
+        </g>
+      </g>
+      <g id="minder_node29">
+        <g id="node_expander26" display="none" style="cursor: pointer;">
+          <path id="kity_path_637" fill="white" stroke="gray"
+                d="M1514.5,1253.5A6,6,0,1,1,1502.5,1253.5A6,6,0,1,1,1514.5,1253.5"></path>
+          <path id="kity_path_638" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline27" fill="none" stroke="none"
+              d="M1519.5,1242.5h144a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-144a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text27" fill="black">
+          <text id="kity_text_281" text-rendering="inherit" font-size="12" dy=".8em" y="1247.5" x="1524.5">Extend all /
+            Collapse all
+          </text>
+        </g>
+      </g>
+      <g id="minder_node30">
+        <g id="node_expander52" style="cursor: pointer;">
+          <path id="kity_path_715" fill="white" stroke="gray"
+                d="M1216.5,1644.5A6,6,0,1,1,1204.5,1644.5A6,6,0,1,1,1216.5,1644.5"></path>
+          <path id="kity_path_716" fill="none" stroke="gray" d="M1206,1644.5L1215,1644.5"></path>
+        </g>
+        <path id="node_outline53" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)"
+              d="M1220.5,1631.5h125a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-125a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
+              stroke-width="1"></path>
+        <g id="node_text53" fill="black">
+          <text id="kity_text_333" text-rendering="inherit" font-size="14" dy=".8em" y="1637.5" x="1237.5">Basic
+            Toolbox
+          </text>
+        </g>
+      </g>
+      <g id="minder_node31">
+        <g id="node_expander31" style="cursor: pointer;">
+          <path id="kity_path_652" fill="white" stroke="gray"
+                d="M1388.5,1341.5A6,6,0,1,1,1376.5,1341.5A6,6,0,1,1,1388.5,1341.5"></path>
+          <path id="kity_path_653" fill="none" stroke="gray" d="M1378,1341.5L1387,1341.5"></path>
+        </g>
+        <path id="node_outline32" fill="none" stroke="none"
+              d="M1393.5,1330.5h64a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-64a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text32" fill="black">
+          <text id="kity_text_291" text-rendering="inherit" font-size="12" dy=".8em" y="1335.5" x="1398.5">Summary
+          </text>
+        </g>
+      </g>
+      <g id="minder_node32">
+        <g id="node_expander29" display="none" style="cursor: pointer;">
+          <path id="kity_path_646" fill="white" stroke="gray"
+                d="M1502.5,1315.5A6,6,0,1,1,1490.5,1315.5A6,6,0,1,1,1502.5,1315.5"></path>
+          <path id="kity_path_647" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline30" fill="none" stroke="none"
+              d="M1507.5,1304.5h345a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-345a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text30" fill="black">
+          <text id="kity_text_287" text-rendering="inherit" font-size="12" dy=".8em" y="1309.5" x="1512.5">a brief
+            description and is used to highlight the major points
+          </text>
+        </g>
+      </g>
+      <g id="minder_node33">
+        <g id="node_expander30" display="none" style="cursor: pointer;">
+          <path id="kity_path_649" fill="white" stroke="gray"
+                d="M1502.5,1367.5A6,6,0,1,1,1490.5,1367.5A6,6,0,1,1,1502.5,1367.5"></path>
+          <path id="kity_path_650" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline31" fill="none" stroke="none"
+              d="M1507.5,1356.5h293a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-293a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text31" fill="black">
+          <text id="kity_text_289" text-rendering="inherit" font-size="12" dy=".8em" y="1361.5" x="1512.5">help quickly
+            grasp the purpose of the map topics
+          </text>
+        </g>
+      </g>
+      <g id="minder_node34">
+        <g id="node_expander34" style="cursor: pointer;">
+          <path id="kity_path_661" fill="white" stroke="gray"
+                d="M1388.5,1445.5A6,6,0,1,1,1376.5,1445.5A6,6,0,1,1,1388.5,1445.5"></path>
+          <path id="kity_path_662" fill="none" stroke="gray" d="M1378,1445.5L1387,1445.5"></path>
+        </g>
+        <path id="node_outline35" fill="none" stroke="none"
+              d="M1393.5,1434.5h80a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-80a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text35" fill="black">
+          <text id="kity_text_297" text-rendering="inherit" font-size="12" dy=".8em" y="1439.5" x="1398.5">
+            Relationship
+          </text>
+        </g>
+      </g>
+      <g id="minder_node35">
+        <g id="node_expander32" display="none" style="cursor: pointer;">
+          <path id="kity_path_655" fill="white" stroke="gray"
+                d="M1518.5,1419.5A6,6,0,1,1,1506.5,1419.5A6,6,0,1,1,1518.5,1419.5"></path>
+          <path id="kity_path_656" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline33" fill="none" stroke="none"
+              d="M1523.5,1408.5h301a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-301a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text33" fill="black">
+          <text id="kity_text_293" text-rendering="inherit" font-size="12" dy=".8em" y="1413.5" x="1528.5">customized
+            line between two topics or boundaries
+          </text>
+        </g>
+      </g>
+      <g id="minder_node36">
+        <g id="node_expander33" display="none" style="cursor: pointer;">
+          <path id="kity_path_658" fill="white" stroke="gray"
+                d="M1518.5,1471.5A6,6,0,1,1,1506.5,1471.5A6,6,0,1,1,1518.5,1471.5"></path>
+          <path id="kity_path_659" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline34" fill="none" stroke="none"
+              d="M1523.5,1460.5h273a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-273a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text34" fill="black">
+          <text id="kity_text_295" text-rendering="inherit" font-size="12" dy=".8em" y="1465.5" x="1528.5">to show they
+            have relationships to each other
+          </text>
+        </g>
+      </g>
+      <g id="minder_node37">
+        <g id="node_expander37" style="cursor: pointer;">
+          <path id="kity_path_670" fill="white" stroke="gray"
+                d="M1388.5,1549.5A6,6,0,1,1,1376.5,1549.5A6,6,0,1,1,1388.5,1549.5"></path>
+          <path id="kity_path_671" fill="none" stroke="gray" d="M1378,1549.5L1387,1549.5"></path>
+        </g>
+        <path id="node_outline38" fill="none" stroke="none"
+              d="M1393.5,1538.5h66a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-66a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text38" fill="black">
+          <text id="kity_text_303" text-rendering="inherit" font-size="12" dy=".8em" y="1543.5" x="1398.5">Boundary
+          </text>
+        </g>
+      </g>
+      <g id="minder_node38">
+        <g id="node_expander35" display="none" style="cursor: pointer;">
+          <path id="kity_path_664" fill="white" stroke="gray"
+                d="M1504.5,1523.5A6,6,0,1,1,1492.5,1523.5A6,6,0,1,1,1504.5,1523.5"></path>
+          <path id="kity_path_665" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline36" fill="none" stroke="none"
+              d="M1509.5,1512.5h171a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-171a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text36" fill="black">
+          <text id="kity_text_299" text-rendering="inherit" font-size="12" dy=".8em" y="1517.5" x="1514.5">to emphasize
+            some content
+          </text>
+        </g>
+      </g>
+      <g id="minder_node39">
+        <g id="node_expander36" display="none" style="cursor: pointer;">
+          <path id="kity_path_667" fill="white" stroke="gray"
+                d="M1504.5,1575.5A6,6,0,1,1,1492.5,1575.5A6,6,0,1,1,1504.5,1575.5"></path>
+          <path id="kity_path_668" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline37" fill="none" stroke="none"
+              d="M1509.5,1564.5h343a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-343a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text37" fill="black">
+          <text id="kity_text_301" text-rendering="inherit" font-size="12" dy=".8em" y="1569.5" x="1514.5">double click
+            the boundary to add direct word description
+          </text>
+        </g>
+      </g>
+      <g id="minder_node40">
+        <g id="node_expander39" style="cursor: pointer;">
+          <path id="kity_path_676" fill="white" stroke="gray"
+                d="M1388.5,1627.5A6,6,0,1,1,1376.5,1627.5A6,6,0,1,1,1388.5,1627.5"></path>
+          <path id="kity_path_677" fill="none" stroke="gray" d="M1378,1627.5L1387,1627.5"></path>
+        </g>
+        <path id="node_outline40" fill="none" stroke="none"
+              d="M1393.5,1616.5h42a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-42a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text40" fill="black">
+          <text id="kity_text_307" text-rendering="inherit" font-size="12" dy=".8em" y="1621.5" x="1398.5">Label</text>
+        </g>
+      </g>
+      <g id="minder_node41">
+        <g id="node_expander38" display="none" style="cursor: pointer;">
+          <path id="kity_path_673" fill="white" stroke="gray"
+                d="M1480.5,1627.5A6,6,0,1,1,1468.5,1627.5A6,6,0,1,1,1480.5,1627.5"></path>
+          <path id="kity_path_674" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline39" fill="none" stroke="none"
+              d="M1485.5,1616.5h278a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-278a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text39" fill="black">
+          <text id="kity_text_305" text-rendering="inherit" font-size="12" dy=".8em" y="1621.5" x="1490.5">used for
+            simple annotation and categorization
+          </text>
+        </g>
+      </g>
+      <g id="minder_node42">
+        <g id="node_expander44" style="cursor: pointer;">
+          <path id="kity_path_691" fill="white" stroke="gray"
+                d="M1388.5,1731.5A6,6,0,1,1,1376.5,1731.5A6,6,0,1,1,1388.5,1731.5"></path>
+          <path id="kity_path_692" fill="none" stroke="gray" d="M1378,1731.5L1387,1731.5"></path>
+        </g>
+        <path id="node_outline45" fill="none" stroke="none"
+              d="M1393.5,1720.5h67a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-67a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text45" fill="black">
+          <text id="kity_text_317" text-rendering="inherit" font-size="12" dy=".8em" y="1725.5" x="1398.5">Drill Down
+          </text>
+        </g>
+      </g>
+      <g id="minder_node43">
+        <g id="node_expander43" style="cursor: pointer;">
+          <path id="kity_path_688" fill="white" stroke="gray"
+                d="M1505.5,1731.5A6,6,0,1,1,1493.5,1731.5A6,6,0,1,1,1505.5,1731.5"></path>
+          <path id="kity_path_689" fill="none" stroke="gray" d="M1495,1731.5L1504,1731.5"></path>
+        </g>
+        <path id="node_outline44" fill="none" stroke="none"
+              d="M1510.5,1720.5h151a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-151a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text44" fill="black">
+          <text id="kity_text_315" text-rendering="inherit" font-size="12" dy=".8em" y="1725.5" x="1515.5">Press this
+            little green icon
+          </text>
+        </g>
+      </g>
+      <g id="minder_node44">
+        <g id="node_expander40" display="none" style="cursor: pointer;">
+          <path id="kity_path_679" fill="white" stroke="gray"
+                d="M1706.5,1679.5A6,6,0,1,1,1694.5,1679.5A6,6,0,1,1,1706.5,1679.5"></path>
+          <path id="kity_path_680" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline41" fill="none" stroke="none"
+              d="M1711.5,1668.5h235a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-235a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text41" fill="black">
+          <text id="kity_text_309" text-rendering="inherit" font-size="12" dy=".8em" y="1673.5" x="1716.5">Make you can
+            Focus on only one topic
+          </text>
+        </g>
+      </g>
+      <g id="minder_node45">
+        <g id="node_expander41" display="none" style="cursor: pointer;">
+          <path id="kity_path_682" fill="white" stroke="gray"
+                d="M1706.5,1731.5A6,6,0,1,1,1694.5,1731.5A6,6,0,1,1,1706.5,1731.5"></path>
+          <path id="kity_path_683" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline42" fill="none" stroke="none"
+              d="M1711.5,1720.5h513a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-513a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text42" fill="black">
+          <text id="kity_text_311" text-rendering="inherit" font-size="12" dy=".8em" y="1725.5" x="1716.5">Enable
+            viewers to see the topic's details without being distracted by the rest of the map
+          </text>
+        </g>
+      </g>
+      <g id="minder_node46">
+        <g id="node_expander42" display="none" style="cursor: pointer;">
+          <path id="kity_path_685" fill="white" stroke="gray"
+                d="M1706.5,1783.5A6,6,0,1,1,1694.5,1783.5A6,6,0,1,1,1706.5,1783.5"></path>
+          <path id="kity_path_686" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline43" fill="none" stroke="none"
+              d="M1711.5,1772.5h549a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-549a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text43" fill="black">
+          <text id="kity_text_313" text-rendering="inherit" font-size="12" dy=".8em" y="1777.5" x="1716.5">When you
+            drill down, the focused branch will be displayed as the central branch on the map.
+          </text>
+        </g>
+      </g>
+      <g id="minder_node47">
+        <g id="node_expander51" style="cursor: pointer;">
+          <path id="kity_path_712" fill="white" stroke="gray"
+                d="M1388.5,1947.5A6,6,0,1,1,1376.5,1947.5A6,6,0,1,1,1388.5,1947.5"></path>
+          <path id="kity_path_713" fill="none" stroke="gray" d="M1378,1947.5L1387,1947.5"></path>
+        </g>
+        <path id="node_outline52" fill="none" stroke="none"
+              d="M1393.5,1936.5h50a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-50a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text52" fill="black">
+          <text id="kity_text_331" text-rendering="inherit" font-size="12" dy=".8em" y="1941.5" x="1398.5">Marker</text>
+        </g>
+      </g>
+      <g id="minder_node48">
+        <g id="node_expander50" style="cursor: pointer;">
+          <path id="kity_path_709" fill="white" stroke="gray"
+                d="M1488.5,1947.5A6,6,0,1,1,1476.5,1947.5A6,6,0,1,1,1488.5,1947.5"></path>
+          <path id="kity_path_710" fill="none" stroke="gray" d="M1478,1947.5L1487,1947.5"></path>
+        </g>
+        <path id="node_outline51" fill="none" stroke="none"
+              d="M1493.5,1932.5h174a5,5,0,0,1,5,5v20a5,5,0,0,1,-5,5h-174a5,5,0,0,1,-5,-5v-20a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text51" fill="black">
+          <text id="kity_text_329" text-rendering="inherit" font-size="12" dy=".8em" y="1941.5" x="1548.5">Spice up your
+            maps
+          </text>
+        </g>
+        <g id="node_priority2">
+          <path id="kity_path_440" fill="#840023" stroke="none"
+                d="M1524,1951c0,3.866,3.134,7,7,7h6c3.866,0,7,-3.134,7,-7V1945H1524V1951z"></path>
+          <path id="kity_path_441" fill="#FF1200" stroke="none"
+                d="M1544,1948c0,3.866,-3.134,7,-7,7H1531c-3.866,0,-7,-3.134,-7,-7V1945c0,-3.866,3.134,-7,7,-7h6c3.866,0,7,3.134,7,7V1948z"
+                opacity="0.8"></path>
+          <text id="kity_text_442" text-rendering="geometricPrecision" x="1533" y="1947.5" text-anchor="middle"
+                font-style="italic" font-size="12" fill="white" dy="4">1
+          </text>
+        </g>
+        <g id="node_progress2">
+          <path id="kity_path_450" fill="#FFED83" stroke="none"
+                d="M1518,1948A9,9,0,1,1,1500,1948A9,9,0,1,1,1518,1948"></path>
+          <path id="kity_path_451" fill="#43BC00" stroke="none" d="M1509,1948"></path>
+          <path id="kity_path_452" fill="#8E8E8E" stroke="none"
+                d="M1509,1941c4.418,0,8,3.582,8,8h1c0,-5.523,-3.477,-10,-9,-10S1500,1943.477,1500,1949h1C1501,1944.582,1504.582,1941,1509,1941z"></path>
+          <path id="kity_path_454" fill="#EEE" stroke="none"
+                d="M1514.812,1945.896l-6.75,6.75l-4.5,-4.5L1505.25,1946.459l2.812,2.803l5.062,-5.053L1514.812,1945.896z"
+                display="none"></path>
+          <path id="kity_path_453" fill="url(#kity_linearGradient_17)" stroke="none"
+                d="M1509,1938C1503.477,1938,1499,1942.477,1499,1948c0,5.523,4.477,10,10,10s10,-4.477,10,-10C1519,1942.477,1514.523,1938,1509,1938zM1509,1956c-4.418,0,-8,-3.582,-8,-8s3.582,-8,8,-8s8,3.582,8,8S1513.418,1956,1509,1956z"></path>
+        </g>
+      </g>
+      <g id="minder_node49">
+        <g id="node_expander45" display="none" style="cursor: pointer;">
+          <path id="kity_path_694" fill="white" stroke="gray"
+                d="M1712.5,1839.5A6,6,0,1,1,1700.5,1839.5A6,6,0,1,1,1712.5,1839.5"></path>
+          <path id="kity_path_695" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline46" fill="none" stroke="none"
+              d="M1717.5,1824.5h72a5,5,0,0,1,5,5v20a5,5,0,0,1,-5,5h-72a5,5,0,0,1,-5,-5v-20a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text46" fill="black">
+          <text id="kity_text_319" text-rendering="inherit" font-size="12" dy=".8em" y="1833.5" x="1747.5">Priority
+          </text>
+        </g>
+        <g id="node_priority1">
+          <path id="kity_path_435" fill="#B25000" stroke="none"
+                d="M1723,1843c0,3.866,3.134,7,7,7h6c3.866,0,7,-3.134,7,-7V1837H1723V1843z"></path>
+          <path id="kity_path_436" fill="#FF962E" stroke="none"
+                d="M1743,1840c0,3.866,-3.134,7,-7,7H1730c-3.866,0,-7,-3.134,-7,-7V1837c0,-3.866,3.134,-7,7,-7h6c3.866,0,7,3.134,7,7V1840z"
+                opacity="0.8"></path>
+          <text id="kity_text_437" text-rendering="geometricPrecision" x="1732" y="1839.5" text-anchor="middle"
+                font-style="italic" font-size="12" fill="white" dy="4">4
+          </text>
+        </g>
+      </g>
+      <g id="minder_node50">
+        <g id="node_expander46" display="none" style="cursor: pointer;">
+          <path id="kity_path_697" fill="white" stroke="gray"
+                d="M1712.5,1895.5A6,6,0,1,1,1700.5,1895.5A6,6,0,1,1,1712.5,1895.5"></path>
+          <path id="kity_path_698" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline47" fill="none" stroke="none"
+              d="M1717.5,1884.5h46a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-46a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text47" fill="black">
+          <text id="kity_text_321" text-rendering="inherit" font-size="12" dy=".8em" y="1889.5" x="1722.5">Smiley</text>
+        </g>
+      </g>
+      <g id="minder_node51">
+        <g id="node_expander47" display="none" style="cursor: pointer;">
+          <path id="kity_path_700" fill="white" stroke="gray"
+                d="M1712.5,1951.5A6,6,0,1,1,1700.5,1951.5A6,6,0,1,1,1712.5,1951.5"></path>
+          <path id="kity_path_701" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline48" fill="none" stroke="none"
+              d="M1717.5,1936.5h121a5,5,0,0,1,5,5v20a5,5,0,0,1,-5,5h-121a5,5,0,0,1,-5,-5v-20a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text48" fill="black">
+          <text id="kity_text_323" text-rendering="inherit" font-size="12" dy=".8em" y="1945.5" x="1747.5">Task
+            Complete
+          </text>
+        </g>
+        <g id="node_progress1">
+          <path id="kity_path_444" fill="#FFED83" stroke="none"
+                d="M1742,1952A9,9,0,1,1,1724,1952A9,9,0,1,1,1742,1952"></path>
+          <path id="kity_path_445" fill="#43BC00" stroke="none" d="M1733,1952"></path>
+          <path id="kity_path_446" fill="#8E8E8E" stroke="none"
+                d="M1733,1945c4.418,0,8,3.582,8,8h1c0,-5.523,-3.477,-10,-9,-10S1724,1947.477,1724,1953h1C1725,1948.582,1728.582,1945,1733,1945z"></path>
+          <path id="kity_path_448" fill="#EEE" stroke="none"
+                d="M1738.812,1949.896l-6.75,6.75l-4.5,-4.5L1729.25,1950.459l2.812,2.803l5.062,-5.053L1738.812,1949.896z"
+                display="none"></path>
+          <path id="kity_path_447" fill="url(#kity_linearGradient_17)" stroke="none"
+                d="M1733,1942C1727.477,1942,1723,1946.477,1723,1952c0,5.523,4.477,10,10,10s10,-4.477,10,-10C1743,1946.477,1738.523,1942,1733,1942zM1733,1960c-4.418,0,-8,-3.582,-8,-8s3.582,-8,8,-8s8,3.582,8,8S1737.418,1960,1733,1960z"></path>
+        </g>
+      </g>
+      <g id="minder_node52">
+        <g id="node_expander48" display="none" style="cursor: pointer;">
+          <path id="kity_path_703" fill="white" stroke="gray"
+                d="M1712.5,2007.5A6,6,0,1,1,1700.5,2007.5A6,6,0,1,1,1712.5,2007.5"></path>
+          <path id="kity_path_704" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline49" fill="none" stroke="none"
+              d="M1717.5,1996.5h37a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-37a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text49" fill="black">
+          <text id="kity_text_325" text-rendering="inherit" font-size="12" dy=".8em" y="2001.5" x="1722.5">Stars</text>
+        </g>
+      </g>
+      <g id="minder_node53">
+        <g id="node_expander49" display="none" style="cursor: pointer;">
+          <path id="kity_path_706" fill="white" stroke="gray"
+                d="M1712.5,2059.5A6,6,0,1,1,1700.5,2059.5A6,6,0,1,1,1712.5,2059.5"></path>
+          <path id="kity_path_707" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline50" fill="none" stroke="none"
+              d="M1717.5,2048.5h58a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-58a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text50" fill="black">
+          <text id="kity_text_327" text-rendering="inherit" font-size="12" dy=".8em" y="2053.5" x="1722.5">…………</text>
+        </g>
+      </g>
+      <g id="minder_node54">
+        <g id="node_expander80" style="cursor: pointer;">
+          <path id="kity_path_799" fill="white" stroke="gray"
+                d="M761.5,713.5A6,6,0,1,1,749.5,713.5A6,6,0,1,1,761.5,713.5"></path>
+          <path id="kity_path_800" fill="none" stroke="gray" d="M751,713.5L760,713.5"></path>
+        </g>
+        <path id="node_outline81" fill="rgb(238, 243, 246)" stroke="rgb(57, 80, 96)"
+              d="M619.5,700.5h126a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-126a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
+              stroke-width="3"></path>
+        <g id="node_text81" fill="black">
+          <text id="kity_text_389" text-rendering="inherit" font-size="14" dy=".8em" y="706.5" x="636.5">Import/Export
+          </text>
+        </g>
+      </g>
+      <g id="minder_node55">
+        <g id="node_expander75" style="cursor: pointer;">
+          <path id="kity_path_784" fill="white" stroke="gray"
+                d="M588.5,460.5A6,6,0,1,1,576.5,460.5A6,6,0,1,1,588.5,460.5"></path>
+          <path id="kity_path_785" fill="none" stroke="gray" d="M578,460.5L587,460.5"></path>
+        </g>
+        <path id="node_outline76" fill="none" stroke="none"
+              d="M525.5,449.5h46a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-46a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text76" fill="black">
+          <text id="kity_text_379" text-rendering="inherit" font-size="12" dy=".8em" y="454.5" x="530.5">Export</text>
+        </g>
+      </g>
+      <g id="minder_node56">
+        <g id="node_expander57" style="cursor: pointer;">
+          <path id="kity_path_730" fill="white" stroke="gray"
+                d="M492.5,109.5A6,6,0,1,1,480.5,109.5A6,6,0,1,1,492.5,109.5"></path>
+          <path id="kity_path_731" fill="none" stroke="gray" d="M482,109.5L491,109.5"></path>
+        </g>
+        <path id="node_outline58" fill="none" stroke="none"
+              d="M373.5,98.5h102a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-102a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text58" fill="black">
+          <text id="kity_text_343" text-rendering="inherit" font-size="12" dy=".8em" y="103.5" x="378.5">Microsoft
+            Office
+          </text>
+        </g>
+      </g>
+      <g id="minder_node57">
+        <g id="node_expander53" display="none" style="cursor: pointer;">
+          <path id="kity_path_718" fill="white" stroke="gray"
+                d="M340.5,31.5A6,6,0,1,1,328.5,31.5A6,6,0,1,1,340.5,31.5"></path>
+          <path id="kity_path_719" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline54" fill="none" stroke="none"
+              d="M262.5,20.5h61a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-61a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text54" fill="black">
+          <text id="kity_text_335" text-rendering="inherit" font-size="12" dy=".8em" y="25.5" x="267.5">MS Word</text>
+        </g>
+      </g>
+      <g id="minder_node58">
+        <g id="node_expander54" display="none" style="cursor: pointer;">
+          <path id="kity_path_721" fill="white" stroke="gray"
+                d="M340.5,83.5A6,6,0,1,1,328.5,83.5A6,6,0,1,1,340.5,83.5"></path>
+          <path id="kity_path_722" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline55" fill="none" stroke="none"
+              d="M263.5,72.5h60a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-60a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text55" fill="black">
+          <text id="kity_text_337" text-rendering="inherit" font-size="12" dy=".8em" y="77.5" x="268.5">MS Excel</text>
+        </g>
+      </g>
+      <g id="minder_node59">
+        <g id="node_expander55" display="none" style="cursor: pointer;">
+          <path id="kity_path_724" fill="white" stroke="gray"
+                d="M340.5,135.5A6,6,0,1,1,328.5,135.5A6,6,0,1,1,340.5,135.5"></path>
+          <path id="kity_path_725" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline56" fill="none" stroke="none"
+              d="M274.5,124.5h49a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-49a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text56" fill="black">
+          <text id="kity_text_339" text-rendering="inherit" font-size="12" dy=".8em" y="129.5" x="279.5">MS PPT</text>
+        </g>
+      </g>
+      <g id="minder_node60">
+        <g id="node_expander56" display="none" style="cursor: pointer;">
+          <path id="kity_path_727" fill="white" stroke="gray"
+                d="M340.5,187.5A6,6,0,1,1,328.5,187.5A6,6,0,1,1,340.5,187.5"></path>
+          <path id="kity_path_728" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline57" fill="none" stroke="none"
+              d="M252.5,176.5h71a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-71a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text57" fill="black">
+          <text id="kity_text_341" text-rendering="inherit" font-size="12" dy=".8em" y="181.5" x="257.5">MS Project
+          </text>
+        </g>
+      </g>
+      <g id="minder_node61">
+        <g id="node_expander61" style="cursor: pointer;">
+          <path id="kity_path_742" fill="white" stroke="gray"
+                d="M492.5,291.5A6,6,0,1,1,480.5,291.5A6,6,0,1,1,492.5,291.5"></path>
+          <path id="kity_path_743" fill="none" stroke="gray" d="M482,291.5L491,291.5"></path>
+        </g>
+        <path id="node_outline62" fill="none" stroke="none"
+              d="M392.5,280.5h83a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-83a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text62" fill="black">
+          <text id="kity_text_351" text-rendering="inherit" font-size="12" dy=".8em" y="285.5" x="397.5">Open Office
+          </text>
+        </g>
+      </g>
+      <g id="minder_node62">
+        <g id="node_expander58" display="none" style="cursor: pointer;">
+          <path id="kity_path_733" fill="white" stroke="gray"
+                d="M359.5,239.5A6,6,0,1,1,347.5,239.5A6,6,0,1,1,359.5,239.5"></path>
+          <path id="kity_path_734" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline59" fill="none" stroke="none"
+              d="M210.5,228.5h132a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-132a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text59" fill="black">
+          <text id="kity_text_345" text-rendering="inherit" font-size="12" dy=".8em" y="233.5" x="215.5">OpenDocument
+            Text
+          </text>
+        </g>
+      </g>
+      <g id="minder_node63">
+        <g id="node_expander59" display="none" style="cursor: pointer;">
+          <path id="kity_path_736" fill="white" stroke="gray"
+                d="M359.5,291.5A6,6,0,1,1,347.5,291.5A6,6,0,1,1,359.5,291.5"></path>
+          <path id="kity_path_737" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline60" fill="none" stroke="none"
+              d="M161.5,280.5h181a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-181a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text60" fill="black">
+          <text id="kity_text_347" text-rendering="inherit" font-size="12" dy=".8em" y="285.5" x="166.5">OpenDocument
+            Presentation
+          </text>
+        </g>
+      </g>
+      <g id="minder_node64">
+        <g id="node_expander60" display="none" style="cursor: pointer;">
+          <path id="kity_path_739" fill="white" stroke="gray"
+                d="M359.5,343.5A6,6,0,1,1,347.5,343.5A6,6,0,1,1,359.5,343.5"></path>
+          <path id="kity_path_740" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline61" fill="none" stroke="none"
+              d="M159.5,332.5h183a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-183a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text61" fill="black">
+          <text id="kity_text_349" text-rendering="inherit" font-size="12" dy=".8em" y="337.5" x="164.5">OpenDocument
+            Spreadsheet
+          </text>
+        </g>
+      </g>
+      <g id="minder_node65">
+        <g id="node_expander65" style="cursor: pointer;">
+          <path id="kity_path_754" fill="white" stroke="gray"
+                d="M492.5,447.5A6,6,0,1,1,480.5,447.5A6,6,0,1,1,492.5,447.5"></path>
+          <path id="kity_path_755" fill="none" stroke="gray" d="M482,447.5L491,447.5"></path>
+        </g>
+        <path id="node_outline66" fill="none" stroke="none"
+              d="M403.5,436.5h72a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-72a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text66" fill="black">
+          <text id="kity_text_359" text-rendering="inherit" font-size="12" dy=".8em" y="441.5" x="408.5">Document</text>
+        </g>
+      </g>
+      <g id="minder_node66">
+        <g id="node_expander62" display="none" style="cursor: pointer;">
+          <path id="kity_path_745" fill="white" stroke="gray"
+                d="M370.5,395.5A6,6,0,1,1,358.5,395.5A6,6,0,1,1,370.5,395.5"></path>
+          <path id="kity_path_746" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline63" fill="none" stroke="none"
+              d="M321.5,384.5h32a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-32a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text63" fill="black">
+          <text id="kity_text_353" text-rendering="inherit" font-size="12" dy=".8em" y="389.5" x="326.5">PDF</text>
+        </g>
+      </g>
+      <g id="minder_node67">
+        <g id="node_expander63" display="none" style="cursor: pointer;">
+          <path id="kity_path_748" fill="white" stroke="gray"
+                d="M370.5,447.5A6,6,0,1,1,358.5,447.5A6,6,0,1,1,370.5,447.5"></path>
+          <path id="kity_path_749" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline64" fill="none" stroke="none"
+              d="M325.5,436.5h28a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-28a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text64" fill="black">
+          <text id="kity_text_355" text-rendering="inherit" font-size="12" dy=".8em" y="441.5" x="330.5">RTF</text>
+        </g>
+      </g>
+      <g id="minder_node68">
+        <g id="node_expander64" display="none" style="cursor: pointer;">
+          <path id="kity_path_751" fill="white" stroke="gray"
+                d="M370.5,499.5A6,6,0,1,1,358.5,499.5A6,6,0,1,1,370.5,499.5"></path>
+          <path id="kity_path_752" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline65" fill="none" stroke="none"
+              d="M319.5,488.5h34a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-34a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text65" fill="black">
+          <text id="kity_text_357" text-rendering="inherit" font-size="12" dy=".8em" y="493.5" x="324.5">TEXT</text>
+        </g>
+      </g>
+      <g id="minder_node69">
+        <g id="node_expander69" style="cursor: pointer;">
+          <path id="kity_path_766" fill="white" stroke="gray"
+                d="M492.5,603.5A6,6,0,1,1,480.5,603.5A6,6,0,1,1,492.5,603.5"></path>
+          <path id="kity_path_767" fill="none" stroke="gray" d="M482,603.5L491,603.5"></path>
+        </g>
+        <path id="node_outline70" fill="none" stroke="none"
+              d="M427.5,592.5h48a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-48a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text70" fill="black">
+          <text id="kity_text_367" text-rendering="inherit" font-size="12" dy=".8em" y="597.5" x="432.5">Image</text>
+        </g>
+      </g>
+      <g id="minder_node70">
+        <g id="node_expander66" display="none" style="cursor: pointer;">
+          <path id="kity_path_757" fill="white" stroke="gray"
+                d="M394.5,551.5A6,6,0,1,1,382.5,551.5A6,6,0,1,1,394.5,551.5"></path>
+          <path id="kity_path_758" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline67" fill="none" stroke="none"
+              d="M329.5,540.5h48a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-48a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text67" fill="black">
+          <text id="kity_text_361" text-rendering="inherit" font-size="12" dy=".8em" y="545.5" x="334.5">Image</text>
+        </g>
+      </g>
+      <g id="minder_node71">
+        <g id="node_expander67" display="none" style="cursor: pointer;">
+          <path id="kity_path_760" fill="white" stroke="gray"
+                d="M394.5,603.5A6,6,0,1,1,382.5,603.5A6,6,0,1,1,394.5,603.5"></path>
+          <path id="kity_path_761" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline68" fill="none" stroke="none"
+              d="M315.5,592.5h62a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-62a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text68" fill="black">
+          <text id="kity_text_363" text-rendering="inherit" font-size="12" dy=".8em" y="597.5" x="320.5">PDF Map</text>
+        </g>
+      </g>
+      <g id="minder_node72">
+        <g id="node_expander68" display="none" style="cursor: pointer;">
+          <path id="kity_path_763" fill="white" stroke="gray"
+                d="M394.5,655.5A6,6,0,1,1,382.5,655.5A6,6,0,1,1,394.5,655.5"></path>
+          <path id="kity_path_764" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline69" fill="none" stroke="none"
+              d="M342.5,644.5h35a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-35a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text69" fill="black">
+          <text id="kity_text_365" text-rendering="inherit" font-size="12" dy=".8em" y="649.5" x="347.5">SVG</text>
+        </g>
+      </g>
+      <g id="minder_node73">
+        <g id="node_expander70" display="none" style="cursor: pointer;">
+          <path id="kity_path_769" fill="white" stroke="gray"
+                d="M492.5,707.5A6,6,0,1,1,480.5,707.5A6,6,0,1,1,492.5,707.5"></path>
+          <path id="kity_path_770" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline71" fill="none" stroke="none"
+              d="M441.5,696.5h34a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-34a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text71" fill="black">
+          <text id="kity_text_369" text-rendering="inherit" font-size="12" dy=".8em" y="701.5" x="446.5">CSV</text>
+        </g>
+      </g>
+      <g id="minder_node74">
+        <g id="node_expander74" style="cursor: pointer;">
+          <path id="kity_path_781" fill="white" stroke="gray"
+                d="M492.5,811.5A6,6,0,1,1,480.5,811.5A6,6,0,1,1,492.5,811.5"></path>
+          <path id="kity_path_782" fill="none" stroke="gray" d="M482,811.5L491,811.5"></path>
+        </g>
+        <path id="node_outline75" fill="none" stroke="none"
+              d="M326.5,800.5h149a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-149a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text75" fill="black">
+          <text id="kity_text_377" text-rendering="inherit" font-size="12" dy=".8em" y="805.5" x="331.5">Other Mind Map
+            Fromat
+          </text>
+        </g>
+      </g>
+      <g id="minder_node75">
+        <g id="node_expander71" display="none" style="cursor: pointer;">
+          <path id="kity_path_772" fill="white" stroke="gray"
+                d="M293.5,759.5A6,6,0,1,1,281.5,759.5A6,6,0,1,1,293.5,759.5"></path>
+          <path id="kity_path_773" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline72" fill="none" stroke="none"
+              d="M212.5,748.5h64a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-64a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text72" fill="black">
+          <text id="kity_text_371" text-rendering="inherit" font-size="12" dy=".8em" y="753.5" x="217.5">Freemind</text>
+        </g>
+      </g>
+      <g id="minder_node76">
+        <g id="node_expander72" display="none" style="cursor: pointer;">
+          <path id="kity_path_775" fill="white" stroke="gray"
+                d="M293.5,811.5A6,6,0,1,1,281.5,811.5A6,6,0,1,1,293.5,811.5"></path>
+          <path id="kity_path_776" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline73" fill="none" stroke="none"
+              d="M137.5,800.5h139a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-139a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text73" fill="black">
+          <text id="kity_text_373" text-rendering="inherit" font-size="12" dy=".8em" y="805.5" x="142.5">Mindjet
+            MindManager
+          </text>
+        </g>
+      </g>
+      <g id="minder_node77">
+        <g id="node_expander73" display="none" style="cursor: pointer;">
+          <path id="kity_path_778" fill="white" stroke="gray"
+                d="M293.5,863.5A6,6,0,1,1,281.5,863.5A6,6,0,1,1,293.5,863.5"></path>
+          <path id="kity_path_779" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline74" fill="none" stroke="none"
+              d="M138.5,852.5h138a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-138a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text74" fill="black">
+          <text id="kity_text_375" text-rendering="inherit" font-size="12" dy=".8em" y="857.5" x="143.5">XMind 2008
+            Workbook
+          </text>
+        </g>
+      </g>
+      <g id="minder_node78">
+        <g id="node_expander79" style="cursor: pointer;">
+          <path id="kity_path_796" fill="white" stroke="gray"
+                d="M588.5,967.5A6,6,0,1,1,576.5,967.5A6,6,0,1,1,588.5,967.5"></path>
+          <path id="kity_path_797" fill="none" stroke="gray" d="M578,967.5L587,967.5"></path>
+        </g>
+        <path id="node_outline80" fill="none" stroke="none"
+              d="M523.5,956.5h48a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-48a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text80" fill="black">
+          <text id="kity_text_387" text-rendering="inherit" font-size="12" dy=".8em" y="961.5" x="528.5">Import</text>
+        </g>
+      </g>
+      <g id="minder_node79">
+        <g id="node_expander76" display="none" style="cursor: pointer;">
+          <path id="kity_path_787" fill="white" stroke="gray"
+                d="M490.5,915.5A6,6,0,1,1,478.5,915.5A6,6,0,1,1,490.5,915.5"></path>
+          <path id="kity_path_788" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline77" fill="none" stroke="none"
+              d="M409.5,904.5h64a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-64a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text77" fill="black">
+          <text id="kity_text_381" text-rendering="inherit" font-size="12" dy=".8em" y="909.5" x="414.5">Freemind</text>
+        </g>
+      </g>
+      <g id="minder_node80">
+        <g id="node_expander77" display="none" style="cursor: pointer;">
+          <path id="kity_path_790" fill="white" stroke="gray"
+                d="M490.5,967.5A6,6,0,1,1,478.5,967.5A6,6,0,1,1,490.5,967.5"></path>
+          <path id="kity_path_791" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline78" fill="none" stroke="none"
+              d="M334.5,956.5h139a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-139a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text78" fill="black">
+          <text id="kity_text_383" text-rendering="inherit" font-size="12" dy=".8em" y="961.5" x="339.5">Mindjet
+            MindManager
+          </text>
+        </g>
+      </g>
+      <g id="minder_node81">
+        <g id="node_expander78" display="none" style="cursor: pointer;">
+          <path id="kity_path_793" fill="white" stroke="gray"
+                d="M490.5,1019.5A6,6,0,1,1,478.5,1019.5A6,6,0,1,1,490.5,1019.5"></path>
+          <path id="kity_path_794" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline79" fill="none" stroke="none"
+              d="M295.5,1008.5h178a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-178a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text79" fill="black">
+          <text id="kity_text_385" text-rendering="inherit" font-size="12" dy=".8em" y="1013.5" x="300.5">Word files
+            exported by XMind
+          </text>
+        </g>
+      </g>
+      <g id="minder_node82">
+        <g id="node_expander90" style="cursor: pointer;">
+          <path id="kity_path_829" fill="white" stroke="gray"
+                d="M761.5,1223.5A6,6,0,1,1,749.5,1223.5A6,6,0,1,1,761.5,1223.5"></path>
+          <path id="kity_path_830" fill="none" stroke="gray" d="M751,1223.5L760,1223.5"></path>
+        </g>
+        <path id="node_outline91" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)"
+              d="M536.5,1210.5h209a3,3,0,0,1,3,3v20a3,3,0,0,1,-3,3h-209a3,3,0,0,1,-3,-3v-20a3,3,0,0,1,3,-3z"
+              stroke-width="1"></path>
+        <g id="node_text91" fill="black">
+          <text id="kity_text_409" text-rendering="inherit" font-size="14" dy=".8em" y="1216.5" x="553.5">Little but
+            powerful Feature
+          </text>
+        </g>
+      </g>
+      <g id="minder_node83">
+        <g id="node_expander83" style="cursor: pointer;">
+          <path id="kity_path_808" fill="white" stroke="gray"
+                d="M505.5,1106.5A6,6,0,1,1,493.5,1106.5A6,6,0,1,1,505.5,1106.5"></path>
+          <path id="kity_path_809" fill="none" stroke="gray" d="M495,1106.5L504,1106.5"></path>
+        </g>
+        <path id="node_outline84" fill="none" stroke="none"
+              d="M368.5,1095.5h120a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-120a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text84" fill="black">
+          <text id="kity_text_395" text-rendering="inherit" font-size="12" dy=".8em" y="1100.5" x="373.5">Multi Branch
+            Colors
+          </text>
+        </g>
+      </g>
+      <g id="minder_node84">
+        <g id="node_expander81" display="none" style="cursor: pointer;">
+          <path id="kity_path_802" fill="white" stroke="gray"
+                d="M335.5,1080.5A6,6,0,1,1,323.5,1080.5A6,6,0,1,1,335.5,1080.5"></path>
+          <path id="kity_path_803" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline82" fill="none" stroke="none"
+              d="M136.5,1069.5h182a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-182a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text82" fill="black">
+          <text id="kity_text_391" text-rendering="inherit" font-size="12" dy=".8em" y="1074.5" x="141.5">Click blank
+            place on the map
+          </text>
+        </g>
+      </g>
+      <g id="minder_node85">
+        <g id="node_expander82" display="none" style="cursor: pointer;">
+          <path id="kity_path_805" fill="white" stroke="gray"
+                d="M335.5,1132.5A6,6,0,1,1,323.5,1132.5A6,6,0,1,1,335.5,1132.5"></path>
+          <path id="kity_path_806" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline83" fill="none" stroke="none"
+              d="M25.5,1121.5h293a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-293a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text83" fill="black">
+          <text id="kity_text_393" text-rendering="inherit" font-size="12" dy=".8em" y="1126.5" x="30.5">Select "Multi
+            Branch Colors" in the properties view
+          </text>
+        </g>
+      </g>
+      <g id="minder_node86">
+        <g id="node_expander84" display="none" style="cursor: pointer;">
+          <path id="kity_path_811" fill="white" stroke="gray"
+                d="M505.5,1184.5A6,6,0,1,1,493.5,1184.5A6,6,0,1,1,505.5,1184.5"></path>
+          <path id="kity_path_812" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline85" fill="none" stroke="none"
+              d="M391.5,1173.5h97a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-97a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text85" fill="black">
+          <text id="kity_text_397" text-rendering="inherit" font-size="12" dy=".8em" y="1178.5" x="396.5">Gradient
+            Color
+          </text>
+        </g>
+      </g>
+      <g id="minder_node87">
+        <g id="node_expander87" style="cursor: pointer;">
+          <path id="kity_path_820" fill="white" stroke="gray"
+                d="M505.5,1262.5A6,6,0,1,1,493.5,1262.5A6,6,0,1,1,505.5,1262.5"></path>
+          <path id="kity_path_821" fill="none" stroke="gray" d="M495,1262.5L504,1262.5"></path>
+        </g>
+        <path id="node_outline88" fill="none" stroke="none"
+              d="M418.5,1251.5h70a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-70a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text88" fill="black">
+          <text id="kity_text_403" text-rendering="inherit" font-size="12" dy=".8em" y="1256.5" x="423.5">Alignment
+          </text>
+        </g>
+      </g>
+      <g id="minder_node88">
+        <g id="node_expander85" display="none" style="cursor: pointer;">
+          <path id="kity_path_814" fill="white" stroke="gray"
+                d="M385.5,1236.5A6,6,0,1,1,373.5,1236.5A6,6,0,1,1,385.5,1236.5"></path>
+          <path id="kity_path_815" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline86" fill="none" stroke="none"
+              d="M159.5,1225.5h209a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-209a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text86" fill="black">
+          <text id="kity_text_399" text-rendering="inherit" font-size="12" dy=".8em" y="1230.5" x="164.5">Select the
+            topics you want to align
+          </text>
+        </g>
+      </g>
+      <g id="minder_node89">
+        <g id="node_expander86" display="none" style="cursor: pointer;">
+          <path id="kity_path_817" fill="white" stroke="gray"
+                d="M385.5,1288.5A6,6,0,1,1,373.5,1288.5A6,6,0,1,1,385.5,1288.5"></path>
+          <path id="kity_path_818" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline87" fill="none" stroke="none"
+              d="M92.5,1277.5h276a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-276a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text87" fill="black">
+          <text id="kity_text_401" text-rendering="inherit" font-size="12" dy=".8em" y="1282.5" x="97.5">Choose from
+            menu "Modify → Alignment/Sort"
+          </text>
+        </g>
+      </g>
+      <g id="minder_node90">
+        <g id="node_expander89" style="cursor: pointer;">
+          <path id="kity_path_826" fill="white" stroke="gray"
+                d="M505.5,1340.5A6,6,0,1,1,493.5,1340.5A6,6,0,1,1,505.5,1340.5"></path>
+          <path id="kity_path_827" fill="none" stroke="gray" d="M495,1340.5L504,1340.5"></path>
+        </g>
+        <path id="node_outline90" fill="none" stroke="none"
+              d="M422.5,1329.5h66a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-66a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text90" fill="black">
+          <text id="kity_text_407" text-rendering="inherit" font-size="12" dy=".8em" y="1334.5" x="427.5">Map Shot
+          </text>
+        </g>
+      </g>
+      <g id="minder_node91">
+        <g id="node_expander88" display="none" style="cursor: pointer;">
+          <path id="kity_path_823" fill="white" stroke="gray"
+                d="M389.5,1340.5A6,6,0,1,1,377.5,1340.5A6,6,0,1,1,389.5,1340.5"></path>
+          <path id="kity_path_824" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline89" fill="none" stroke="none"
+              d="M269.5,1329.5h103a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-103a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text89" fill="black">
+          <text id="kity_text_405" text-rendering="inherit" font-size="12" dy=".8em" y="1334.5" x="274.5">Press "F7" to
+            start
+          </text>
+        </g>
+      </g>
+      <g id="minder_node92">
+        <g id="node_expander100" style="cursor: pointer;">
+          <path id="kity_path_859" fill="white" stroke="gray"
+                d="M761.5,1611A6,6,0,1,1,749.5,1611A6,6,0,1,1,761.5,1611"></path>
+          <path id="kity_path_860" fill="none" stroke="gray" d="M751,1611L760,1611"></path>
+        </g>
+        <path id="node_outline101" fill="rgb(238, 243, 246)" stroke="rgb(115, 161, 191)"
+              d="M604.5,1566.5h141a3,3,0,0,1,3,3v83a3,3,0,0,1,-3,3h-141a3,3,0,0,1,-3,-3v-83a3,3,0,0,1,3,-3z"
+              stroke-width="1"></path>
+        <g id="node_text101" fill="black">
+          <text id="kity_text_429" text-rendering="inherit" font-size="14" dy=".8em" y="1572" x="621.5">Upgrade to
+          </text>
+          <text id="kity_text_430" text-rendering="inherit" font-size="14" dy=".8em" y="1593" x="621.5">XMind Pro</text>
+          <text id="kity_text_431" text-rendering="inherit" font-size="14" dy=".8em" y="1614" x="621.5">to enjoy</text>
+          <text id="kity_text_432" text-rendering="inherit" font-size="14" dy=".8em" y="1635" x="621.5">all features
+          </text>
+        </g>
+        <a id="kity_a_455" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.xmind.net/pricing"
+           target="_blank" xlink:title="http://www.xmind.net/pricing" style="cursor: pointer;">
+          <path id="kity_path_457" fill="rgba(255, 255, 255, 0)" stroke="none"
+                d="M708.5,1599.5h16a4,4,0,0,1,4,4v14a4,4,0,0,1,-4,4h-16a4,4,0,0,1,-4,-4v-14a4,4,0,0,1,4,-4z"></path>
+          <path id="kity_path_456" fill="#666" stroke="none"
+                d="M723.114,1615.724h-1.278c-1.668,0,-3.07,-1.07,-3.599,-2.556h4.877c0.707,0,1.278,-0.571,1.278,-1.278V1609.334c0,-0.707,-0.571,-1.278,-1.278,-1.278h-4.877C718.766,1606.571,720.168,1605.5,721.836,1605.5h1.278c2.116,0,3.834,1.716,3.834,3.834V1611.89C726.948,1614.008,725.23,1615.724,723.114,1615.724zM711.612,1610.612c0,-0.707,0.573,-1.278,1.278,-1.278h7.668c0.707,0,1.278,0.571,1.278,1.278S721.265,1611.89,720.558,1611.89H712.89C712.185,1611.89,711.612,1611.319,711.612,1610.612zM709.056,1609.334V1611.89c0,0.707,0.573,1.278,1.278,1.278h4.877c-0.528,1.486,-1.932,2.556,-3.599,2.556H710.334C708.216,1615.724,706.5,1614.008,706.5,1611.89V1609.334C706.5,1607.216,708.216,1605.5,710.334,1605.5h1.278c1.667,0,3.071,1.071,3.599,2.556H710.334C709.629,1608.056,709.056,1608.627,709.056,1609.334z"></path>
+        </a>
+      </g>
+      <g id="minder_node93">
+        <g id="node_expander91" display="none" style="cursor: pointer;">
+          <path id="kity_path_832" fill="white" stroke="gray"
+                d="M573.5,1403.5A6,6,0,1,1,561.5,1403.5A6,6,0,1,1,573.5,1403.5"></path>
+          <path id="kity_path_833" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline92" fill="none" stroke="none"
+              d="M468.5,1392.5h88a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-88a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text92" fill="black">
+          <text id="kity_text_411" text-rendering="inherit" font-size="12" dy=".8em" y="1397.5" x="473.5">
+            Brainstorming
+          </text>
+        </g>
+      </g>
+      <g id="minder_node94">
+        <g id="node_expander92" display="none" style="cursor: pointer;">
+          <path id="kity_path_835" fill="white" stroke="gray"
+                d="M573.5,1455.5A6,6,0,1,1,561.5,1455.5A6,6,0,1,1,573.5,1455.5"></path>
+          <path id="kity_path_836" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline93" fill="none" stroke="none"
+              d="M474.5,1444.5h82a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-82a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text93" fill="black">
+          <text id="kity_text_413" text-rendering="inherit" font-size="12" dy=".8em" y="1449.5" x="479.5">Presentation
+          </text>
+        </g>
+      </g>
+      <g id="minder_node95">
+        <g id="node_expander93" display="none" style="cursor: pointer;">
+          <path id="kity_path_838" fill="white" stroke="gray"
+                d="M573.5,1507.5A6,6,0,1,1,561.5,1507.5A6,6,0,1,1,573.5,1507.5"></path>
+          <path id="kity_path_839" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline94" fill="none" stroke="none"
+              d="M476.5,1496.5h80a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-80a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text94" fill="black">
+          <text id="kity_text_415" text-rendering="inherit" font-size="12" dy=".8em" y="1501.5" x="481.5">Gantt Chart
+          </text>
+        </g>
+      </g>
+      <g id="minder_node96">
+        <g id="node_expander94" display="none" style="cursor: pointer;">
+          <path id="kity_path_841" fill="white" stroke="gray"
+                d="M573.5,1559.5A6,6,0,1,1,561.5,1559.5A6,6,0,1,1,573.5,1559.5"></path>
+          <path id="kity_path_842" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline95" fill="none" stroke="none"
+              d="M498.5,1548.5h58a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-58a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text95" fill="black">
+          <text id="kity_text_417" text-rendering="inherit" font-size="12" dy=".8em" y="1553.5" x="503.5">Task info
+          </text>
+        </g>
+      </g>
+      <g id="minder_node97">
+        <g id="node_expander95" display="none" style="cursor: pointer;">
+          <path id="kity_path_844" fill="white" stroke="gray"
+                d="M573.5,1611.5A6,6,0,1,1,561.5,1611.5A6,6,0,1,1,573.5,1611.5"></path>
+          <path id="kity_path_845" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline96" fill="none" stroke="none"
+              d="M483.5,1600.5h73a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-73a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text96" fill="black">
+          <text id="kity_text_419" text-rendering="inherit" font-size="12" dy=".8em" y="1605.5" x="488.5">Index View
+          </text>
+        </g>
+      </g>
+      <g id="minder_node98">
+        <g id="node_expander96" display="none" style="cursor: pointer;">
+          <path id="kity_path_847" fill="white" stroke="gray"
+                d="M573.5,1663.5A6,6,0,1,1,561.5,1663.5A6,6,0,1,1,573.5,1663.5"></path>
+          <path id="kity_path_848" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline97" fill="none" stroke="none"
+              d="M454.5,1652.5h102a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-102a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text97" fill="black">
+          <text id="kity_text_421" text-rendering="inherit" font-size="12" dy=".8em" y="1657.5" x="459.5">Advanced
+            Filter
+          </text>
+        </g>
+      </g>
+      <g id="minder_node99">
+        <g id="node_expander97" display="none" style="cursor: pointer;">
+          <path id="kity_path_850" fill="white" stroke="gray"
+                d="M573.5,1715.5A6,6,0,1,1,561.5,1715.5A6,6,0,1,1,573.5,1715.5"></path>
+          <path id="kity_path_851" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline98" fill="none" stroke="none"
+              d="M468.5,1704.5h88a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-88a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text98" fill="black">
+          <text id="kity_text_423" text-rendering="inherit" font-size="12" dy=".8em" y="1709.5" x="473.5">Custom
+            styles
+          </text>
+        </g>
+      </g>
+      <g id="minder_node100">
+        <g id="node_expander98" display="none" style="cursor: pointer;">
+          <path id="kity_path_853" fill="white" stroke="gray"
+                d="M573.5,1767.5A6,6,0,1,1,561.5,1767.5A6,6,0,1,1,573.5,1767.5"></path>
+          <path id="kity_path_854" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline99" fill="none" stroke="none"
+              d="M455.5,1756.5h101a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-101a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text99" fill="black">
+          <text id="kity_text_425" text-rendering="inherit" font-size="12" dy=".8em" y="1761.5" x="460.5">Custom
+            themes
+          </text>
+        </g>
+      </g>
+      <g id="minder_node101">
+        <g id="node_expander99" display="none" style="cursor: pointer;">
+          <path id="kity_path_856" fill="white" stroke="gray"
+                d="M573.5,1819.5A6,6,0,1,1,561.5,1819.5A6,6,0,1,1,573.5,1819.5"></path>
+          <path id="kity_path_857" fill="none" stroke="gray"></path>
+        </g>
+        <path id="node_outline100" fill="none" stroke="none"
+              d="M417.5,1808.5h139a5,5,0,0,1,5,5v12a5,5,0,0,1,-5,5h-139a5,5,0,0,1,-5,-5v-12a5,5,0,0,1,5,-5z"></path>
+        <g id="node_text100" fill="black">
+          <text id="kity_text_427" text-rendering="inherit" font-size="12" dy=".8em" y="1813.5" x="422.5">Local Network
+            Sharing
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,653 @@
+{
+  "root": {
+    "data": {
+      "text": "Welcome to XMind",
+      "hyperlink": "http://www.xmind.net"
+    },
+    "children": [
+      {
+        "data": {
+          "text": "How to Map？"
+        },
+        "children": [
+          {
+            "data": {
+              "text": "Press"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "To create Topic at the same level"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "To create Subtopic"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Input"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Double click / Press \"Space\" key"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Enrich"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Drag your document/pic directly to this topic"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Structure"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "12 different kinds of structures to choose"
+                },
+                "children": [
+                  {
+                    "data": {
+                      "text": "@ Properties View"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Beautify"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "@ Properties View"
+                },
+                "children": [
+                  {
+                    "data": {
+                      "text": "Wallpaper"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "Font"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "Shape"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "Color"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "Line"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "data": {
+          "text": "Useful Shortcut"
+        },
+        "children": [
+          {
+            "data": {
+              "text": "Shift"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Keep it as a floating topic"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Command"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Move Main Topic to the place you want"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "valid while the structure is \"Map\""
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Option"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Duplicate"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Try \"/\" & \"*\""
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Extend all / Collapse all"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "data": {
+          "text": "Basic Toolbox"
+        },
+        "children": [
+          {
+            "data": {
+              "text": "Summary"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "a brief description and is used to highlight the major points"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "help quickly grasp the purpose of the map topics"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Relationship"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "customized line between two topics or boundaries"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "to show they have relationships to each other"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Boundary"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "to emphasize some content"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "double click the boundary to add direct word description"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Label"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "used for simple annotation and categorization"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Drill Down"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Press this little green icon"
+                },
+                "children": [
+                  {
+                    "data": {
+                      "text": "Make you can Focus on only one topic"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "Enable viewers to see the topic's details without being distracted by the rest of the map"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "When you drill down, the focused branch will be displayed as the central branch on the map."
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Marker"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Spice up your maps",
+                  "priority": 1,
+                  "progress": 1
+                },
+                "children": [
+                  {
+                    "data": {
+                      "text": "Priority",
+                      "priority": 4
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "Smiley"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "Task Complete",
+                      "progress": 1
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "Stars"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "…………"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "data": {
+          "text": "Import/Export"
+        },
+        "children": [
+          {
+            "data": {
+              "text": "Export"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Microsoft Office"
+                },
+                "children": [
+                  {
+                    "data": {
+                      "text": "MS Word"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "MS Excel"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "MS PPT"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "MS Project"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "data": {
+                  "text": "Open Office"
+                },
+                "children": [
+                  {
+                    "data": {
+                      "text": "OpenDocument Text"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "OpenDocument Presentation"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "OpenDocument Spreadsheet"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "data": {
+                  "text": "Document"
+                },
+                "children": [
+                  {
+                    "data": {
+                      "text": "PDF"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "RTF"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "TEXT"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "data": {
+                  "text": "Image"
+                },
+                "children": [
+                  {
+                    "data": {
+                      "text": "Image"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "PDF Map"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "SVG"
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "data": {
+                  "text": "CSV"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "Other Mind Map Fromat"
+                },
+                "children": [
+                  {
+                    "data": {
+                      "text": "Freemind"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "Mindjet MindManager"
+                    },
+                    "children": []
+                  },
+                  {
+                    "data": {
+                      "text": "XMind 2008 Workbook"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Import"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Freemind"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "Mindjet MindManager"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "Word files exported by XMind"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "data": {
+          "text": "Little but powerful Feature"
+        },
+        "children": [
+          {
+            "data": {
+              "text": "Multi Branch Colors"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Click blank place on the map"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "Select \"Multi Branch Colors\" in the properties view"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Gradient Color"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "text": "Alignment"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Select the topics you want to align"
+                },
+                "children": []
+              },
+              {
+                "data": {
+                  "text": "Choose from menu \"Modify → Alignment/Sort\""
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "data": {
+              "text": "Map Shot"
+            },
+            "children": [
+              {
+                "data": {
+                  "text": "Press \"F7\" to start"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "data": {
+          "text": "Upgrade to \nXMind Pro\nto enjoy \nall features",
+          "hyperlink": "http://www.xmind.net/pricing"
+        },
+        "children": [
+          {
+            "data": {
+              "text": "Brainstorming"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "text": "Presentation"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "text": "Gantt Chart"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "text": "Task info"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "text": "Index View"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "text": "Advanced Filter"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "text": "Custom styles"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "text": "Custom themes"
+            },
+            "children": []
+          },
+          {
+            "data": {
+              "text": "Local Network Sharing"
+            },
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "template": "default",
+  "theme": "fresh-blue",
+  "version": "1.4.33"
+}
