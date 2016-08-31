@@ -7,8 +7,9 @@ module.exports = lang.extend({}, webpackConf, {
     'dist/xmind-without-deps': path.resolve(__dirname, './lib/index-browser.js'),
   },
   externals: {
-    'jquery': 'jQuery',
     'filesaver.js': 'window',
+    'jquery': 'jQuery',
     'jszip': 'JSZip',
+    'xml-lite/lib/index-browser': 'XMLLite',
   },
 });
