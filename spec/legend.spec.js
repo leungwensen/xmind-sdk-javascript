@@ -23,11 +23,10 @@ describe('Legend', () => {
   it('legend.addMarkerDescription(markerId, description)', () => {
     assert.doesNotThrow(() => {
       legend.addMarkerDescription(markerId, description);
-      markerDescriptionNode = utils.findChildNode(
-        legend.markerDescriptionsNode,
-        CONST.TAG_MARKER_DESCRIPTION,
-        attrs
-      );
+      markerDescriptionNode = utils.findChildNode(legend.markerDescriptionsNode, {
+        tagName: CONST.TAG_MARKER_DESCRIPTION,
+        attributes: attrs,
+      });
     }, 'failed to execute legend.addMarkerDescription(markerId, description)');
     assert.ok(
       markerDescriptionNode,

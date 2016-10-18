@@ -260,14 +260,17 @@ describe('Topic', () => {
       );
 
       function checkXmlStructure(parentTopic, childTopic) {
-        const childrenNode = utils.findOrCreateChildNode(
-          parentTopic.doc, CONST.TAG_CHILDREN
-        );
-        const childrenTopicsNode = utils.findOrCreateChildNode(
-          childrenNode, CONST.TAG_TOPICS
-        );
-        assert.ok(!!utils.findChildNode(childrenTopicsNode, CONST.TAG_TOPIC, {
-          id: childTopic.id
+        const childrenNode = utils.findOrCreateChildNode(parentTopic.doc, {
+          tagName: CONST.TAG_CHILDREN,
+        });
+        const childrenTopicsNode = utils.findOrCreateChildNode(childrenNode, {
+          tagName: CONST.TAG_TOPICS
+        });
+        assert.ok(!!utils.findChildNode(childrenTopicsNode, {
+          tagName: CONST.TAG_TOPIC,
+          attributes: {
+            id: childTopic.id
+          }
         }), 'topic.moveTo(targetTopic) not working: xml structure is not correctly changed');
       }
 

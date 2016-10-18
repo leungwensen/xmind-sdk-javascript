@@ -3,7 +3,7 @@
   "title": "xmind-sdk-javascript",
   "description": "XMind SDK for javascript(works in both Node.js and Browsers).",
   "homepage": "https://github.com/leungwensen/xmind-sdk-javascript",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "lib/index.js",
   "author": {
     "description": "team of xmind-sdk-javascript",
@@ -15,8 +15,8 @@
   "dependencies": {
     "filesaver.js": "~0.2.0",
     "jszip": "~2.6.0",
-    "xml-lite": "~0.5.2",
-    "zero-lang": "~0.1.3"
+    "xml-lite": "~0.6.6",
+    "zero-lang": "~0.2.0"
   },
   "devDependencies": {
     "babel-cli": "~6.11.4",
