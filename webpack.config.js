@@ -11,7 +11,7 @@ module.exports = {
   output: {
     filename: '[name].js',
     library: 'xmind',
-    libraryTarget: 'var',
+    libraryTarget: 'umd',
     path: path.resolve(__dirname),
     publicPath: '/',
   },
